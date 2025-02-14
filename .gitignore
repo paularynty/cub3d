@@ -2,3 +2,8 @@ objs
 cub3D
 cub3d
 *.vscode
+libft.a
+MLX42
+*.o
+*.swp
+DS_Store

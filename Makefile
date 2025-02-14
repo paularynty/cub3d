@@ -35,17 +35,24 @@ NAME			= cub3D
 
 SRCDIR			= srcs
 OBJDIR			= objs
-INCLUDE			= include
-HEADER			= $(INCLUDE)/cub3d.h
 
-CFLAGS			= -Wall -Wextra -Werror -I $(INCLUDE)
+CUB3D_HEADER	= ./include
+LIBFT_DIR		= ./include/libft
+LIBFT			= ./$(LIBFT_DIR)/libft.a
+MLX_DIR			= ./include/MLX42
+MLX				= $(MLX_DIR)/build/libmlx42.a
+MLX_HEADER 		= $(MLX_DIR)/include
+HEADERS 		= -I $(MLX_HEADER) -I $(LIBFT_DIR) -I $(CUB3D_HEADER)
+
+CFLAGS			= -Wall -Wextra -Werror $(HEADERS)
 OSFLAGS			= -ldl -lglfw -pthread -lm
 
-
-SRCS			= $(SRCDIR)/main.c \
+SRCS			= $(SRCDIR)/main.c
 OBJS			= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 .DEFAULT_GOAL = all
+
+all: $(NAME) $(LIBFT) $(MLX)
 
 $(LIBFT):
 	@if [ ! -f $(LIBFT) ]; then \
@@ -54,7 +61,7 @@ $(LIBFT):
 		$(LIBFT_READY); \
 	fi
 
-$(LIBMLX):
+$(MLX):
 	@if [ ! -d "$(MLX_DIR)" ]; then \
 		git clone https://github.com/codam-coding-college/MLX42.git $(MLX_DIR); \
 	fi
@@ -63,13 +70,12 @@ $(LIBMLX):
 	fi
 	@make -s -C $(MLX_DIR)/build -j4 > /dev/null
 
-all: $(NAME) $(LIBFT) $(LIBMLX)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
-	@cc -c $(CFLAGS) $< -o $@
+	@cc $(CFLAGS) $< -o $@
 
-$(NAME): $(OBJS) $(HEADER)
+$(NAME): $(OBJS) $(LIBFT) $(MLX)
 	@cp $(LIBFT) .
 	@cc $(CFLAGS) $(SRCS) -o $(NAME)
 	@$(OBJ_READY)
@@ -81,14 +87,14 @@ clean:
 	@rm -rf $(OBJS)
 	@rm -rf objs/
 	@rm -rf $(MLX_DIR)/build
-	@make clean -s -C libft
+	@make clean -s -C $(LIBFT_DIR)
 	@$(CLEANED)
 
 fclean: clean
 	@$(FCLEANING)
 	@rm -rf $(NAME)
-	@make fclean -s -C libft
-	@rm -rf libft.a
+	@make fclean -s -C $(LIBFT_DIR)
+	@rm -rf $(LIBFT)
 	@rm -rf $(MLX_DIR)
 	@$(FCLEANED)
 
