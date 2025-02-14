@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/08 14:38:26 by prynty            #+#    #+#              #
-#    Updated: 2025/02/12 16:37:06 by prynty           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 RESET 			= \033[0;39m
 BLACK			= \033[1;30m
 DARK_RED		= \033[1;31m
@@ -33,30 +21,24 @@ MAGENTA 		= \033[1;95m
 PINK			= \e[1m\e[38;5;212m
 WHITE 			= \033[1;97m
 
-OBJ_READY		= echo "📥 $(ORANGE)Compiled Philosophers files!$(RESET)"
-PHILO_READY		= echo "🧮 $(GREEN)Philosophers ready! Run the program with ./philo [args]$(RESET)"
+OBJ_READY		= echo "📥 $(ORANGE)Compiled cub3D files!$(RESET)"
+CUB3D_READY		= echo "🕹️  $(GREEN)cub3D ready! Run the program with ./cub3D [path_to_map]$(RESET)"
 CLEANING		= echo "💧 $(CYAN)Cleaning...$(RESET)"
 CLEANED			= echo "💧 $(CYAN_BOLD)Successfully cleaned all object files!$(RESET)"
 FCLEANING		= echo "🧼 $(BLUE)Deep cleaning...$(RESET)"
 FCLEANED		= echo "🧼 $(BLUE_BOLD)Successfully cleaned all executable files!$(RESET)"
 REMAKE			= echo "✅ $(GREEN)Successfully cleaned and rebuilt everything!$(RESET)"
 
-NAME			= philo
+NAME			= cub3D
 
 SRCDIR			= srcs
 OBJDIR			= objs
 INCLUDE			= include
-HEADER			= $(INCLUDE)/philo.h
+HEADER			= $(INCLUDE)/cub3d.h
 
 CFLAGS			= -Wall -Wextra -Werror -I $(INCLUDE)
 
 SRCS			= $(SRCDIR)/main.c \
-				$(SRCDIR)/forks.c \
-				$(SRCDIR)/cleanup.c \
-				$(SRCDIR)/init.c \
-				$(SRCDIR)/routine.c \
-				$(SRCDIR)/threads.c \
-				$(SRCDIR)/utils.c
 
 OBJS			= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
@@ -67,10 +49,10 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@cc -c $(CFLAGS) $< -o $@
 
 $(NAME): $(OBJS) $(HEADER)
-	@cc -pthread $(CFLAGS) $(SRCS) -o $(NAME)
+	@cc $(CFLAGS) $(SRCS) -o $(NAME)
 	@$(OBJ_READY)
 	@chmod 777 $(NAME)
-	@$(PHILO_READY)
+	@$(CUB3D_READY)
 
 clean:
 	@$(CLEANING)
