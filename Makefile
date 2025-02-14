@@ -47,7 +47,9 @@ HEADERS 		= -I $(MLX_HEADER) -I $(LIBFT_DIR) -I $(CUB3D_HEADER)
 CFLAGS			= -Wall -Wextra -Werror $(HEADERS)
 OSFLAGS			= -ldl -lglfw -pthread -lm
 
-SRCS			= $(SRCDIR)/main.c
+SRCS			= $(SRCDIR)/main.c \
+				$(SRCDIR)/utils/utils.c \
+
 OBJS			= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 .DEFAULT_GOAL = all
@@ -73,19 +75,18 @@ $(MLX):
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
-	@cc $(CFLAGS) $< -o $@
+	@cc -c $(CFLAGS) $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
 	@cp $(LIBFT) .
-	@cc $(CFLAGS) $(SRCS) -o $(NAME)
+	@cc $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
 	@$(OBJ_READY)
 	@chmod 777 $(NAME)
 	@$(CUB3D_READY)
 
 clean:
 	@$(CLEANING)
-	@rm -rf $(OBJS)
-	@rm -rf objs/
+	@rm -rf $(OBJDIR)
 	@rm -rf $(MLX_DIR)/build
 	@make clean -s -C $(LIBFT_DIR)
 	@$(CLEANED)
@@ -95,7 +96,7 @@ fclean: clean
 	@rm -rf $(NAME)
 	@make fclean -s -C $(LIBFT_DIR)
 	@rm -rf $(LIBFT)
-	@rm -rf $(MLX_DIR)
+	# @rm -rf $(MLX_DIR)
 	@$(FCLEANED)
 
 re:	fclean all

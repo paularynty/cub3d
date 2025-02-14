@@ -9,6 +9,6 @@ int	main(int argc, char **argv)
 	i = 1;
 	(void)argc;
 	while (argv[i])
-		printf("hello %s\n", argv[i++]);
+		print_error(argv[i++]);
 	return (0);
 }
