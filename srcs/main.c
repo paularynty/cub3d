@@ -10,11 +10,15 @@ static int	validate_args(int argc)
 int	main(int argc, char **argv)
 {
 	t_game	*game;
-	int		map_file;
+	t_map	map;
+	int32_t	map_file;
 
 	if (!validate_args(argc))
 		return (1);
 	map_file = validate_file(argv[1]);
+	ft_bzero(&map, sizeof(game->map));
+	if (!read_map(&map, map_file))
+		return (1);
 	game = (t_game *){0};
 	game = init_game_data(game);
 	if (!game)

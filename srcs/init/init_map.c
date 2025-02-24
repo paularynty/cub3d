@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-int	validate_file(char *file)
+int32_t	validate_file(char *file)
 {
 	int	map_fd;
 	int	path_len;

@@ -1,9 +1,9 @@
 #include "cub3d.h"
 
-static int32_t	render_image(t_game *game, size_t width, size_t height)
+static int	render_image(t_game *game, mlx_image_t *image, size_t x, size_t y)
 {
-	if (mlx_image_to_window(game->mlx, game->images.test,
-		width * TILESIZE, height * TILESIZE) == -1)
+	if (mlx_image_to_window(game->mlx, image,
+		x * TILESIZE, y * TILESIZE) == -1)
 	{
 		print_error("Failed to put wall image to window");
 		return (FALSE);
@@ -11,13 +11,13 @@ static int32_t	render_image(t_game *game, size_t width, size_t height)
 	return (TRUE);
 }
 
-static mlx_image_t	*load_image(mlx_t *mlx, const char *file)
+static mlx_image_t	*load_image(mlx_t *mlx, const char *image_path)
 {
 	mlx_texture_t	*texture;
 	mlx_image_t		*image;
 
 	image = NULL;
-	texture = mlx_load_png(file);
+	texture = mlx_load_png(image_path);
 	if (!texture)
 	{
 		print_error("Failed to load texture");
@@ -33,10 +33,10 @@ static mlx_image_t	*load_image(mlx_t *mlx, const char *file)
 	return (image);
 }
 
-static int	init_game_images(t_game *game)
+static int	init_game_images(t_game *game, const char *image_path)
 {
-	game->images.test = load_image(game->mlx, IMG_TEST);
-	if (!game->images.test)
+	game->images.wall = load_image(game->mlx, image_path);
+	if (!game->images.wall)
 		return (FALSE);
 	return (TRUE);
 }
@@ -64,7 +64,9 @@ int	init_game(t_game *game)
 	if (init_mlx(game, 500, 500) == -1)
 		return (print_error("Failed to initialize MLX"));
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
-	if (!init_game_images(game) || !render_image(game, width, height))
+	if (!init_game_images(game, IMG_WALL) || !init_game_images(game, IMG_FLOOR) 
+		|| !render_image(game, game->images.wall, width, height)
+		|| !render_image(game, game->images.floor, width, height))
 	{
 		mlx_terminate(game->mlx);
 		return (FALSE);

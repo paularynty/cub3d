@@ -17,32 +17,50 @@
 # define SCREEN_WIDTH 3840
 # define SCREEN_HEIGHT 2160
 
-# define IMG_TEST "textures/wall.png"
+#ifdef BUFFER_SIZE
+# undef BUFFER_SIZE
+# define BUFFER_SIZE 2014
+#endif
+
+# define IMG_WALL "textures/wall/wall.png"
+# define IMG_FLOOR "textures/wall/wall_vertical.png"
 
 typedef struct s_image
 {
-	mlx_image_t	*test;
+	mlx_image_t	*wall;
+	mlx_image_t	*floor;
 }	t_image;
 
+typedef struct s_map
+{
+	char	**map;
+	int32_t	columns;
+	int32_t	rows;
+}	t_map;
 
 typedef struct s_game
 {
 	mlx_t		*mlx;
 	t_image		images;
-	size_t		map_width;
-	size_t		map_height;
+	t_map		*map;
 }	t_game;
 
 
 //init/init_map.c
-int		validate_file(char *file);
+int32_t	validate_file(char *file);
 
 //init/init_game.c
 t_game	*init_game_data(t_game *game);
 int		init_game(t_game *game);
 
 //minimap/minimap.c
+int		render_minimap(t_game *game, t_map *map);
+
+//minimap/minimap_utils.c
 void	key_hooks(mlx_key_data_t data, void *param);
+
+//minimap/read_map.c
+int		read_map(t_map *map, int32_t fd);
 
 //utils/utils.c
 int		print_error(char *msg);

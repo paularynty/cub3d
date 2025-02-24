@@ -9,7 +9,5 @@ t_game	*init_game_data(t_game *game)
 		return (NULL);
 	}
 	game->mlx = NULL;
-	game->map_height = 0;
-	game->map_width = 0;
 	return (game);
 }
