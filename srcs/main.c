@@ -1,14 +1,27 @@
 #include "cub3d.h"
 
-#include <stdio.h>
+static int	validate_args(int argc)
+{
+	if (argc != 2)
+		return (print_error("Usage: ./cub3D [path_to_map].cub"));
+	return (TRUE);
+}
 
 int	main(int argc, char **argv)
 {
-	int	i;
+	t_game	*game;
+	int		map_file;
 
-	i = 1;
-	(void)argc;
-	while (argv[i])
-		print_error(argv[i++]);
+	if (!validate_args(argc))
+		return (1);
+	map_file = validate_file(argv[1]);
+	game = (t_game *){0};
+	game = init_game_data(game);
+	if (!game)
+		return (1);
+	if (!init_game(game))
+		return (1);
+	mlx_key_hook(game->mlx, &key_hooks, game);
+	mlx_loop(game->mlx);
 	return (0);
 }

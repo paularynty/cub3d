@@ -48,6 +48,10 @@ CFLAGS			= -Wall -Wextra -Werror $(HEADERS)
 OSFLAGS			= -ldl -lglfw -pthread -lm
 
 SRCS			= $(SRCDIR)/main.c \
+				$(SRCDIR)/init/init_game_data.c \
+				$(SRCDIR)/init/init_game.c \
+				$(SRCDIR)/init/init_map.c \
+				$(SRCDIR)/minimap/minimap.c \
 				$(SRCDIR)/utils/utils.c \
 
 OBJS			= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
@@ -77,9 +81,9 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
 	@cc -c $(CFLAGS) $< -o $@
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
+$(NAME): $(OBJS) $(LIBFT) $(MLX) $(CUB3D_HEADER)
 	@cp $(LIBFT) .
-	@cc $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	@cc $(CFLAGS) $(OBJS) $(MLX) $(LIBFT) $(OSFLAGS) -o $(NAME)
 	@$(OBJ_READY)
 	@chmod 777 $(NAME)
 	@$(CUB3D_READY)
@@ -96,7 +100,6 @@ fclean: clean
 	@rm -rf $(NAME)
 	@make fclean -s -C $(LIBFT_DIR)
 	@rm -rf $(LIBFT)
-	# @rm -rf $(MLX_DIR)
 	@$(FCLEANED)
 
 re:	fclean all

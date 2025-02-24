@@ -7,3 +7,4 @@ MLX42
 *.o
 *.swp
 DS_Store
+*.cub
