@@ -41,7 +41,7 @@ LIBFT_DIR		= ./include/libft
 LIBFT			= ./$(LIBFT_DIR)/libft.a
 MLX_DIR			= ./include/MLX42
 MLX				= $(MLX_DIR)/build/libmlx42.a
-MLX_HEADER 		= $(MLX_DIR)/include
+MLX_HEADER 		= $(MLX_DIR)/include/MLX42
 HEADERS 		= -I $(MLX_HEADER) -I $(LIBFT_DIR) -I $(CUB3D_HEADER)
 
 CFLAGS			= -Wall -Wextra -Werror $(HEADERS)
