@@ -3,11 +3,8 @@
 static int	render_image(t_game *game, mlx_image_t *image, size_t x, size_t y)
 {
 	if (mlx_image_to_window(game->mlx, image,
-		x * TILESIZE, y * TILESIZE) == -1)
-	{
-		print_error("Failed to put wall image to window");
-		return (FALSE);
-	}
+		x * TILESIZE, y * TILESIZE) == FALSE)
+		return (print_error("Failed to put wall image to window"));
 	return (TRUE);
 }
 
@@ -33,21 +30,13 @@ static mlx_image_t	*load_image(mlx_t *mlx, const char *image_path)
 	return (image);
 }
 
-static int	init_game_images(t_game *game, const char *image_path)
-{
-	game->images.wall = load_image(game->mlx, image_path);
-	if (!game->images.wall)
-		return (FALSE);
-	return (TRUE);
-}
-
 static int	init_mlx(t_game *game, int width, int height)
 {
 	mlx_t	*mlx;
 
 	mlx = mlx_init(width, height, "CUB3D YEEEEEEEEESSSSSSSSSSSSSsS", true);
 	if (!mlx)
-		return (-1);
+		return (FALSE);
 	game->mlx = mlx;
 	return (TRUE);
 }
@@ -61,11 +50,16 @@ int	init_game(t_game *game)
 	height = 5;
 	if (width > SCREEN_WIDTH || height > SCREEN_HEIGHT)
 		return (print_error("Map is too large. Try with smaller map"));
-	if (init_mlx(game, 500, 500) == -1)
+	if (init_mlx(game, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) == FALSE)
 		return (print_error("Failed to initialize MLX"));
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
-	if (!init_game_images(game, IMG_WALL) || !init_game_images(game, IMG_FLOOR) 
-		|| !render_image(game, game->images.wall, width, height)
+	game->images.floor = load_image(game->mlx, IMG_FLOOR);
+	if (!game->images.floor)
+		return (FALSE);
+	game->images.wall = load_image(game->mlx, IMG_WALL);
+	if (!game->images.wall)
+		return (FALSE);
+	if (!render_image(game, game->images.wall, width, height) 
 		|| !render_image(game, game->images.floor, width, height))
 	{
 		mlx_terminate(game->mlx);

@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	game = init_game_data(game);
 	if (!game)
 		return (1);
-	if (!init_game(game))
+	if (init_game(game) == FALSE)
 		return (1);
 	mlx_key_hook(game->mlx, &key_hooks, game);
 	mlx_loop(game->mlx);

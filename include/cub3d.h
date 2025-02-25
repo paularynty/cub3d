@@ -8,7 +8,7 @@
 # include "./MLX42/include/MLX42/MLX42.h"
 
 # define TRUE 1
-# define FALSE 0
+# define FALSE -1
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
@@ -22,8 +22,8 @@
 # define BUFFER_SIZE 2014
 #endif
 
-# define IMG_WALL "textures/wall/wall.png"
-# define IMG_FLOOR "textures/wall/wall_vertical.png"
+# define IMG_WALL "textures/minimap/wall/wall.png"
+# define IMG_FLOOR "textures/minimap/wall/wall_vertical.png"
 
 typedef struct s_image
 {
