@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 10:12:19 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/24 16:44:41 by prynty           ###   ########.fr       */
+/*   Updated: 2025/02/25 15:13:43 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,17 @@ size_t	ft_strlen(const char *str);
  * between the first two differinng bytes.
  */
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+
+/**
+ * Compares the string s1 against the string s2.
+ * 
+ * @param[in] s1 The string to compare against.
+ * @param[in] s2 The string to compare.
+ * 
+ * @returns 0 if the two strings are identical, otherwise returns the difference
+ * between the first two differing bytes.
+ */
+int		ft_strcmp(const char *s1, const char *s2);
 
 /**
  * Locates the last occurance of `c` in the string `s`.
