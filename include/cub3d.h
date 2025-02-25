@@ -157,6 +157,22 @@ int		read_map(t_map *map, int32_t fd);
 
 /******************************************************************************/
 /*                                                                            */
+/*                                   PARSING                                  */
+/*                                                                            */
+/******************************************************************************/
+
+/**
+ * Checks if the character given as a parameter is a whitespace character.
+ * 
+ * @param[in] c The character to check.
+ * 
+ * @returns 1 if the character is a whitespace character, -1 if the character
+ * is not.
+ */
+int		is_whitespace(int c);
+
+/******************************************************************************/
+/*                                                                            */
 /*                                   UTILS.C                                  */
 /*                                                                            */
 /******************************************************************************/
