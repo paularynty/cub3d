@@ -41,26 +41,36 @@ static int	init_mlx(t_game *game, int width, int height)
 	return (TRUE);
 }
 
+static void	set_cursor(t_game *game)
+{
+	void			*cursor;
+	mlx_texture_t	*cursor_texture;
+
+	cursor_texture = mlx_load_png(IMG_CURSOR);
+	cursor = mlx_create_cursor(cursor_texture);
+	mlx_delete_texture(cursor_texture);
+	mlx_set_cursor(game->mlx, cursor);
+}
+
 int	init_game(t_game *game)
 {
-	size_t	width;
-	size_t	height;
+	size_t	window_width;
+	size_t	window_height;
 
-	width = 5;
-	height = 5;
-	if (width > SCREEN_WIDTH || height > SCREEN_HEIGHT)
-		return (print_error("Map is too large. Try with smaller map"));
-	if (init_mlx(game, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2) == FALSE)
+	window_width = SCREEN_WIDTH / 2;
+	window_height = SCREEN_HEIGHT / 2;
+	if (init_mlx(game, window_width, window_height) == FALSE)
 		return (print_error("Failed to initialize MLX"));
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
-	game->images.floor = load_image(game->mlx, IMG_FLOOR);
-	if (!game->images.floor)
+	set_cursor(game);
+	game->minimap.floor = load_image(game->mlx, IMG_FLOOR);
+	if (!game->minimap.floor)
 		return (FALSE);
-	game->images.wall = load_image(game->mlx, IMG_WALL);
-	if (!game->images.wall)
+	game->minimap.wall = load_image(game->mlx, IMG_WALL);
+	if (!game->minimap.wall)
 		return (FALSE);
-	if (!render_image(game, game->images.wall, width, height) 
-		|| !render_image(game, game->images.floor, width, height))
+	if (!render_image(game, game->minimap.wall, 5, 5) 
+		|| !render_image(game, game->minimap.floor, 5, 5))
 	{
 		mlx_terminate(game->mlx);
 		return (FALSE);

@@ -41,3 +41,36 @@
 // 	}
 // 	return (TRUE);
 // }
+
+// static void	draw_minimap(t_game *game, t_minimap *minimap, float scale)
+// {
+// 	int			y;
+// 	int			x;
+// 	int			tile_x;
+// 	int			tile_y;
+
+// 	y = -1;
+// 	while (++y < minimap->minimap_size)
+// 	{
+// 		x = -1;
+// 		while (++x < minimap->minimap_size)
+// 		{
+// 			tile_x = minimap.x0 + (x / scale);
+// 			tile_y = minimap.y0 + (y / scale);
+// 			if (tile_x >= 0 && tile_x < (int)(TILESIZE * game->map.width) &&
+// 				tile_y >= 0 && tile_y < (int)(TILESIZE * game->map.height))
+// 			{
+// 				if (game->map.map[tile_y / TILESIZE][tile_x / TILESIZE] == '1')
+// 					mlx_put_pixel(minimap->minimap, x, y, 0xFFFFFFFF);
+// 				else
+// 					mlx_put_pixel(minimap->minimap, x, y, 0x000000FF);
+// 			}
+// 		}
+// 	}
+// }
+
+// void	minimap(t_game *game, t_minimap *minimap, int width, int height)
+// {
+// 	minimap->minimap_size = fmin(width / 4, height / 4);
+// 	draw_minimap(game, minimap, scale);
+// }

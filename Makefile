@@ -53,7 +53,6 @@ SRCS			= $(SRCDIR)/main.c \
 				$(SRCDIR)/init/init_map.c \
 				$(SRCDIR)/minimap/minimap_utils.c \
 				$(SRCDIR)/minimap/minimap.c \
-				$(SRCDIR)/minimap/read_map.c \
 				$(SRCDIR)/utils/utils.c \
 
 OBJS			= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)

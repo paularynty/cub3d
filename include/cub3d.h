@@ -5,6 +5,7 @@
 # include <fcntl.h>
 # include "libft.h"
 # include <stdio.h> //delete this later
+# include <math.h>
 # include "MLX42.h"
 
 # define TRUE 1
@@ -24,6 +25,7 @@
 
 # define IMG_WALL "textures/minimap/wall/wall.png"
 # define IMG_FLOOR "textures/minimap/wall/wall_vertical.png"
+# define IMG_CURSOR "textures/cursor.png"
 
 /**
  * A struct to store RGB color values.
@@ -64,6 +66,8 @@ typedef struct s_minimap
 {
 	mlx_image_t	*wall;
 	mlx_image_t	*floor;
+	mlx_image_t	*minimap;
+	int			minimap_size;
 }	t_minimap;
 
 /**
@@ -104,7 +108,6 @@ typedef struct s_map
 	mlx_image_t		*west;
 	int32_t			width;
 	int32_t			height;
-
 }	t_map;
 
 /**
@@ -129,6 +132,14 @@ typedef struct s_game
 /*                                 INIT_MAP.C                                 */
 /*                                                                            */
 /******************************************************************************/
+
+/**
+ * Checks that the file given to the program as an argument is a valid and 
+ * existing file with the .cub file extension.
+ * 
+ * @param[in] *file The path to the file.
+ * @returns file descriptor of the file.
+*/
 int32_t	validate_file(char *file);
 
 /******************************************************************************/
@@ -144,14 +155,21 @@ int		init_game(t_game *game);
 /*                                  MINIMAP.C                                 */
 /*                                                                            */
 /******************************************************************************/
-int		render_minimap(t_game *game, t_map *map);
+// int		render_minimap(t_game *game, t_map *map);
+
+/**
+ * Initializes minimap data and draws the minimap on the game screen.
+ * Params to be added.
+*/
+void	minimap(t_minimap *minimap, int width, int height);
 
 /******************************************************************************/
 /*                                                                            */
 /*                                MINIMAP_UTILS.C                             */
 /*                                                                            */
 /******************************************************************************/
-void	key_hooks(mlx_key_data_t data, void *param);
+
+
 
 /******************************************************************************/
 /*                                                                            */
@@ -182,5 +200,12 @@ int		is_whitespace(int c);
 /*                                                                            */
 /******************************************************************************/
 int		print_error(char *msg);
+void	key_hooks(mlx_key_data_t data, void *param);
+
+/**
+ * Cleans up resources.
+ * @param[in] *game Game data struct.
+*/
+void	cleanup(t_game *game);
 
 #endif
