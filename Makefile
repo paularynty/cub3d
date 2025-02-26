@@ -49,8 +49,7 @@ OSFLAGS			= -ldl -lglfw -pthread -lm
 
 SRCS			= $(SRCDIR)/main.c \
 				$(SRCDIR)/init/init_game_data.c \
-				$(SRCDIR)/init/init_game.c \
-				$(SRCDIR)/init/init_map.c \
+				$(SRCDIR)/init/init.c \
 				$(SRCDIR)/minimap/minimap_utils.c \
 				$(SRCDIR)/minimap/minimap.c \
 				$(SRCDIR)/utils/utils.c \

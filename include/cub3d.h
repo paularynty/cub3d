@@ -15,16 +15,13 @@
 # define RESET "\033[0;39m"
 # define TILESIZE 50
 
-# define SCREEN_WIDTH 3840
-# define SCREEN_HEIGHT 2160
-
 #ifdef BUFFER_SIZE
 # undef BUFFER_SIZE
 # define BUFFER_SIZE 2014
 #endif
 
-# define IMG_WALL "textures/minimap/wall/wall.png"
-# define IMG_FLOOR "textures/minimap/wall/wall_vertical.png"
+# define IMG_WALL "textures/minimap/wall.png"
+# define IMG_FLOOR "textures/minimap/floor.png"
 # define IMG_CURSOR "textures/cursor.png"
 
 /**
@@ -68,6 +65,10 @@ typedef struct s_minimap
 	mlx_image_t	*floor;
 	mlx_image_t	*minimap;
 	int			minimap_size;
+	int			view_width;
+	int			view_height;
+	int			x0;
+	int			y0;
 }	t_minimap;
 
 /**
@@ -124,12 +125,13 @@ typedef struct s_game
 	t_minimap	minimap;
 	t_map		map;
 	t_player	player;
+	uint32_t	window_w;
+	uint32_t	window_h;
 }	t_game;
-
 
 /******************************************************************************/
 /*                                                                            */
-/*                                 INIT_MAP.C                                 */
+/*                                 INIT.C                                */
 /*                                                                            */
 /******************************************************************************/
 
@@ -137,31 +139,25 @@ typedef struct s_game
  * Checks that the file given to the program as an argument is a valid and 
  * existing file with the .cub file extension.
  * 
- * @param[in] *file The path to the file.
+ * @param[in] file A pointer to the file path.
  * @returns file descriptor of the file.
 */
-int32_t	validate_file(char *file);
+int32_t	validate_file(int argc, char *file);
 
-/******************************************************************************/
-/*                                                                            */
-/*                                 INIT_GAME.C                                */
-/*                                                                            */
-/******************************************************************************/
 t_game	*init_game_data(t_game *game);
-int		init_game(t_game *game);
+int		init(t_game *game, t_map *map);
 
 /******************************************************************************/
 /*                                                                            */
 /*                                  MINIMAP.C                                 */
 /*                                                                            */
 /******************************************************************************/
-// int		render_minimap(t_game *game, t_map *map);
 
 /**
  * Initializes minimap data and draws the minimap on the game screen.
  * Params to be added.
 */
-void	minimap(t_minimap *minimap, int width, int height);
+void	minimap(t_game *game);
 
 /******************************************************************************/
 /*                                                                            */
@@ -200,6 +196,7 @@ int		is_whitespace(int c);
 /*                                                                            */
 /******************************************************************************/
 int		print_error(char *msg);
+void	game_hook(void *param);
 void	key_hooks(mlx_key_data_t data, void *param);
 
 /**

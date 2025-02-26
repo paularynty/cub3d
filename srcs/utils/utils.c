@@ -9,6 +9,14 @@ int	print_error(char *msg)
 	return (FALSE);
 }
 
+// void	game_hook(void *param)
+// {
+// 	t_game	*game;
+
+// 	game = (t_game *)param;
+// 	minimap(game);
+// }
+
 void	key_hooks(mlx_key_data_t data, void *param)
 {
 	t_game	*game;
