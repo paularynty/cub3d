@@ -18,13 +18,13 @@ int	render_minimap(t_game *game, t_map *map)
 	int32_t	y;
 
 	y = 0;
-	while (y < map->rows)
+	while (y < map->height)
 	{
 		x = 0;
-		while (x < map->columns)
+		while (x < map->width)
 		{
 			if (map->map[y][x] == '1')
-				if (!draw_image(game, game->images.wall, x, y))
+				if (!draw_image(game, game->minimap.wall, x, y))
 					return (FALSE);
 			// else if (game->map[y][x] == 'P')
 			// 	if (!draw_image(game, game->images.test, x, y))

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
+/*   Updated: 2025/02/27 12:59:38 by mrahmat-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -39,6 +51,22 @@ typedef struct s_color
 }	t_color;
 
 /**
+ * A struct to store the texture images.
+ * 
+ * @param north Holds the north texture.
+ * @param south Holds the south texture.
+ * @param east Holds the east texture.
+ * @param west Holds the west textrure.
+*/
+typedef struct s_textures
+{
+	mlx_texture_t	*north;
+	mlx_texture_t	*south;
+	mlx_texture_t	*east;
+	mlx_texture_t	*west;
+}	t_textures;
+
+/**
  * An enum for the directions.
  * 
  * @param NORTH has a value of `0`.
@@ -53,7 +81,6 @@ enum	e_direction
 	SOUTH,
 	WEST,
 };
-
 
 typedef struct s_minimap
 {
@@ -81,6 +108,7 @@ typedef struct s_player
  * @param map An array that holds the map.
  * @param floor Holds the color of the floor.
  * @param ceiling Holds the color of the ceiling.
+ * @param textures Holds the textures that will be converted to images.
  * @param north Holds the image used for the north part of the map.
  * @param south Holds the image used for the south part of the map.
  * @param east Holds the image used for the east part of the map.
@@ -93,6 +121,7 @@ typedef struct s_map
 	char			**map;
 	t_color			floor;
 	t_color			ceiling;
+	t_textures		textures;
 	mlx_image_t		*north;
 	mlx_image_t		*south;
 	mlx_image_t		*east;
@@ -117,7 +146,6 @@ typedef struct s_game
 	t_map		map;
 	t_player	player;
 }	t_game;
-
 
 /******************************************************************************/
 /*                                                                            */
@@ -153,13 +181,80 @@ void	key_hooks(mlx_key_data_t data, void *param);
 /*                                 READ_MAP.C                                 */
 /*                                                                            */
 /******************************************************************************/
-int		read_map(t_map *map, int32_t fd);
+int		read_map(t_map *map, char *line, int32_t fd, char *filename);
 
 /******************************************************************************/
 /*                                                                            */
 /*                                   PARSING                                  */
 /*                                                                            */
 /******************************************************************************/
+
+/**
+ * Validates that the middle part of the map is surrounded by walls
+ * 
+ * @param[in] line The line from the map file.
+ * 
+ * @returns 1 if the line is correct, -1 in case of an error.
+ */
+int		validate_space(char *line);
+
+/**
+ * Checks that the line has only walls.
+ * 
+ * @param[in] line The line from the map file.
+ * 
+ * @returns 1 if the line has only walls, -1 in case of an error.
+ */
+int		check_walls(char *line);
+
+/**
+ * Validates the characters in the map.
+ * 
+ * @param[in] line The line from the map file.
+ * 
+ * @returns The length of the line.
+ */
+size_t	validate_map_line(char *line);
+
+/**
+ * Parses the map file and stores the map values needed for the game.
+ * 
+ * @param[out] map The `t_map` structure pointer to store the values in.
+ * @param[in] map_file The map file descriptor.
+ * @param[in] filename The path to the map file.
+ * 
+ * @returns -1 in case of an error, 1 in case of success. 
+ */
+int		create_map(t_map *map, int32_t map_file, char *filename);
+
+/**
+ * Frees the static buffer in `get_next_line()`.
+ * 
+ * @param[out] line The allocated line.
+ * @param[in] fd The file descriptor to read from.
+ * 
+ * @returns -1 To indicate that there has been an error in the program. 
+*/
+int		free_gnl(char **line, int fd);
+
+/**
+ * Frees a NULL terminated array of character strings.
+ * 
+ * @param[out] arr The array to free.
+*/
+void	split_free(char **arr);
+
+/**
+ * Converts RGBA to int value.
+ * 
+ * @param[in] r The value od red color.
+ * @param[in] g The value of green color.
+ * @param[in] b The value of blue color.
+ * @param[in] a The value of transparency.
+ * 
+ * @returns The int value of the RGBA color.
+*/
+int32_t	rgba(int32_t r, int32_t g, int32_t b, int32_t a);
 
 /**
  * Checks if the character given as a parameter is a whitespace character.
@@ -176,6 +271,13 @@ int		is_whitespace(int c);
 /*                                   UTILS.C                                  */
 /*                                                                            */
 /******************************************************************************/
+
+/**
+ * Frees the allocated memory in the map structure.
+ * 
+ * @param[out] map the map structure.
+ */
+void	free_map(t_map *map);
 int		print_error(char *msg);
 
 #endif
