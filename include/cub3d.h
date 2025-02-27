@@ -22,6 +22,7 @@
 
 # define IMG_WALL "textures/minimap/wall.png"
 # define IMG_FLOOR "textures/minimap/floor.png"
+# define IMG_PLAYER "textures/minimap/player.png"
 # define IMG_CURSOR "textures/cursor.png"
 
 /**
@@ -63,6 +64,7 @@ typedef struct s_minimap
 {
 	mlx_image_t	*wall;
 	mlx_image_t	*floor;
+	mlx_image_t	*player;
 	mlx_image_t	*minimap;
 	int			minimap_size;
 	int			view_width;
@@ -196,7 +198,7 @@ int		is_whitespace(int c);
 /*                                                                            */
 /******************************************************************************/
 int		print_error(char *msg);
-void	game_hook(void *param);
+// void	game_hook(void *param);
 void	key_hooks(mlx_key_data_t data, void *param);
 
 /**

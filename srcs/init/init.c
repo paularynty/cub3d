@@ -101,6 +101,14 @@ static int	render_minimap(t_game *game, t_map *map)
 				if (!draw_image(game, game->minimap.floor, x, y))
 					return (FALSE);
 			}
+			else if (map->map[y][x] == 'N' || map->map[y][x] == 'E'
+				|| map->map[y][x] == 'S' || map->map[y][x] == 'W')
+			{
+				if (!draw_image(game, game->minimap.floor, x, y))
+					return (FALSE);
+				if (!draw_image(game, game->minimap.player, x, y))
+					return (FALSE);
+			}
 			x++;
 		}
 		y++;
@@ -136,6 +144,9 @@ int	init(t_game *game, t_map *map)
 	if (!game->minimap.floor)
 		return (FALSE);
 	game->minimap.wall = load_image(game->mlx, IMG_WALL);
+	if (!game->minimap.wall)
+		return (FALSE);
+	game->minimap.player = load_image(game->mlx, IMG_PLAYER);
 	if (!game->minimap.wall)
 		return (FALSE);
 	if (render_minimap(game, map) == FALSE)
