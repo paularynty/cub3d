@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:02:45 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/28 12:58:28 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:58:41 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	add_texture(mlx_texture_t *texture, char *path)
 	while (is_whitespace(path[start]) == 1)
 		start++;
 	end = start;
-	while (ft_isalnum(path[end]) != 0)
+	while (ft_isprint(path[end]) != 0)
 		end++;
 	parsed_path = ft_substr(path, start, end - start);
 	if (parsed_path == NULL)
