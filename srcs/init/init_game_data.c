@@ -15,7 +15,7 @@ t_game	*init_game_data(t_game *game)
 int	init_player(t_player *player, size_t x, size_t y, char dir)
 {
 	if (player->pos_x != 0 || player->pos_y != 0)
-		return (-1);
+		return (print_error("Too many players in the map! (Needed 1)"));
 	player->pos_x = x;
 	player->pos_y = y;
 	if (dir == 'N')

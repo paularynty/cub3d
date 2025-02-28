@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:52:59 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/28 13:07:28 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:47:01 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,7 @@ int	final_validation(t_game *game)
 		}
 		y++;
 	}
+	if (game->player.pos_x == 0 || game->player.pos_y == 0)
+		return (print_error("No player in map! (Needed 1)"));
 	return (1);
 }
