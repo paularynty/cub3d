@@ -14,8 +14,8 @@ static int	draw_image(t_game *game, mlx_image_t *image, int32_t x, int32_t y)
 
 int	render_minimap(t_game *game, t_map *map)
 {
-	int32_t	x;
-	int32_t	y;
+	size_t	x;
+	size_t	y;
 
 	y = 0;
 	while (y < map->height)

@@ -35,8 +35,8 @@ static mlx_image_t	*load_image(mlx_t *mlx, const char *image_path)
 
 static int	init_game_images(t_game *game, const char *image_path)
 {
-	game->images.wall = load_image(game->mlx, image_path);
-	if (!game->images.wall)
+	game->minimap.wall = load_image(game->mlx, image_path);
+	if (!game->minimap.wall)
 		return (FALSE);
 	return (TRUE);
 }
@@ -65,8 +65,8 @@ int	init_game(t_game *game)
 		return (print_error("Failed to initialize MLX"));
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	if (!init_game_images(game, IMG_WALL) || !init_game_images(game, IMG_FLOOR) 
-		|| !render_image(game, game->images.wall, width, height)
-		|| !render_image(game, game->images.floor, width, height))
+		|| !render_image(game, game->minimap.wall, width, height)
+		|| !render_image(game, game->minimap.floor, width, height))
 	{
 		mlx_terminate(game->mlx);
 		return (FALSE);

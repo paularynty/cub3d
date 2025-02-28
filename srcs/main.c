@@ -9,23 +9,27 @@ static int	validate_args(int argc)
 
 int	main(int argc, char **argv)
 {
-	//t_game	*game;
-	t_map	map;
+	t_game	*game;
 	int32_t	map_file;
 
 	if (!validate_args(argc))
 		return (1);
 	map_file = validate_file(argv[1]);
-	ft_bzero(&map, sizeof(t_map));
-	if (!create_map(&map, map_file, argv[1]))
+	game = malloc(sizeof(t_game));
+	if (game == NULL)
+		return (1);
+	ft_bzero(&game->map, sizeof(t_map));
+	if (create_map(game, map_file, argv[1]) == -1)
 	{
-		free_map(&map);
+		free_map(&game->map);
 		return (1);
 	}
-	for (int i = 0; i < map.height; i++)
-		printf("%s\n", map.map[i]);
-	printf("Floor: %d,%d,%d,%d\n", map.floor.r, map.floor.g, map.floor.b, map.floor.a);
-	printf("Ceiling: %d,%d,%d,%d\n", map.ceiling.r, map.ceiling.g, map.ceiling.b, map.ceiling.a);
+	for (size_t i = 0; i < game->map.height; i++)
+		printf("%s\n", game->map.map[i]);
+	printf("Floor: %d,%d,%d,%d\n", game->map.floor.r, game->map.floor.g, \
+		game->map.floor.b, game->map.floor.a);
+	printf("Ceiling: %d,%d,%d,%d\n", game->map.ceiling.r, game->map.ceiling.g, \
+		game->map.ceiling.b, game->map.ceiling.a);
 	/* game = (t_game *){0};
 	game = init_game_data(game);
 	if (!game)
@@ -34,6 +38,6 @@ int	main(int argc, char **argv)
 		return (1);
 	mlx_key_hook(game->mlx, &key_hooks, game);
 	mlx_loop(game->mlx); */
-	free_map(&map);
+	free_map(&game->map);
 	return (0);
 }
