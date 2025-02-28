@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:02:45 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/27 12:53:37 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:58:41 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	add_texture(mlx_texture_t *texture, char *path)
 	while (is_whitespace(path[start]) == 1)
 		start++;
 	end = start;
-	while (ft_isalnum(path[end]) != 0)
+	while (ft_isprint(path[end]) != 0)
 		end++;
 	parsed_path = ft_substr(path, start, end - start);
 	if (parsed_path == NULL)
@@ -75,10 +75,21 @@ static int	check_key(t_map *map, char *line)
 	return (print_error("Invalid file content"));
 }
 
-int	create_map(t_map *map, int32_t map_file, char *filename)
+static int	check_line(t_map *map, char *line)
+{
+	size_t	line_i;
+
+	line_i = 0;
+	if (ft_strcmp(line, "\n") == 0)
+		return (1);
+	while (is_whitespace(line[line_i]) == 1)
+		line_i++;
+	return (check_key(map, &line[line_i]));
+}
+
+int	create_map(t_game *game, int32_t map_file, char *filename)
 {
 	char	*line;
-	size_t	line_i;
 	int		check;
 
 	line = get_next_line(map_file);
@@ -86,18 +97,15 @@ int	create_map(t_map *map, int32_t map_file, char *filename)
 		return (-1);
 	while (line != NULL)
 	{
-		line_i = 0;
-		if (ft_strcmp(line, "\n") == 0)
-		{
-			free(line);
-			line = get_next_line(map_file);
-			continue ;
-		}
-		while (is_whitespace(line[line_i]) == 1)
-			line_i++;
-		check = check_key(map, &line[line_i]);
+		check = check_line(&game->map, line);
 		if (check == -2)
-			return (read_map(map, line, map_file, filename));
+		{
+			if (read_map(&game->map, line, map_file, filename) < 0)
+				return (-1);
+			if (get_map_width(&game->map) < 0)
+				return (-1);
+			return (final_validation(game));
+		}
 		if (check == -1)
 			return (free_gnl(&line, map_file));
 		free(line);

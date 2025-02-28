@@ -6,11 +6,68 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:14:19 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/27 13:49:38 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/02/28 13:45:05 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	fill_map(t_map *map)
+{
+	char	**new_map;
+	size_t	x;
+	size_t	y;
+
+	y = 0;
+	new_map = malloc((map->height + 1) * sizeof(char *));
+	if (new_map == NULL)
+		return (print_error("Failed to allocate memory"));
+	while (map->map[y] != NULL)
+	{
+		new_map[y] = malloc((map->width + 1) * sizeof(char));
+		if (new_map[y] == NULL)
+		{
+			split_free(new_map);
+			return (print_error("Failed to allocate memory"));
+		}
+		x = ft_strlcpy(new_map[y], map->map[y], (ft_strlen(map->map[y]) + 1));
+		if (x == 0)
+		{
+			split_free(new_map);
+			return (print_error("Failed to create map"));
+		}
+		while (x < map->width)
+		{
+			new_map[y][x] = ' ';
+			x++;
+		}
+		new_map[y][x] = '\0';
+		y++;
+	}
+	new_map[y] = NULL;
+	split_free(map->map);
+	map->map = new_map;
+	return (1);
+}
+
+int	get_map_width(t_map *map)
+{
+	size_t	y;
+	size_t	width;
+	size_t	max_width;
+
+	y = 0;
+	max_width = 0;
+	while (map->map[y] != NULL)
+	{
+		width = ft_strlen(map->map[y]);
+		if (width > max_width)
+			max_width = width;
+		y++;
+	}
+	map->width = max_width;
+	return (fill_map(map));
+}
 
 static size_t	get_map_size(char **line, int32_t *map_file, char *filename)
 {

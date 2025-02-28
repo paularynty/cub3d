@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/27 14:57:31 by prynty           ###   ########.fr       */
+/*   Updated: 2025/02/28 14:01:29 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,9 @@ typedef struct s_map
 	mlx_image_t		*south;
 	mlx_image_t		*east;
 	mlx_image_t		*west;
-	int32_t			width;
-	int32_t			height;
+	size_t			width;
+	size_t			height;
+
 }	t_map;
 
 /**
@@ -174,6 +175,23 @@ typedef struct s_game
  * @returns file descriptor of the file.
 */
 int32_t	validate_file(int argc, char *file);
+/******************************************************************************/
+/*                                                                            */
+/*                                 INIT_GAME.C                                */
+/*                                                                            */
+/******************************************************************************/
+
+/**
+ * Initializes the player structure with the starting position of the player.
+ * 
+ * @param[out] player A pointer to the player structure.
+ * @param[in] x The horizontal coordinate of the player.
+ * @param[in] y The vertical coordinate of the player.
+ * @param[in] dir The direction where the player is looking at.
+ * 
+ * @returns 1 if the initialization was successful, -1 in case of an error.
+ */
+int		init_player(t_player *player, size_t x, size_t y, char dir);
 
 t_game	*init_game_data(t_game *game);
 int		init(t_game *game, t_map *map);
@@ -212,6 +230,35 @@ int		read_map(t_map *map, char *line, int32_t fd, char *filename);
 /******************************************************************************/
 
 /**
+ * Validates the map to ensure that everything was correctly formatted.
+ * 
+ * @param[out] game The game structure containing the map and 
+ * the player structures.
+ * 
+ * @returns 1 if everything was correct, -1 in case of an error.
+ */
+int		final_validation(t_game *game);
+
+/**
+ * Iterates through the map and assigns the width of the map to `map->width`.
+ * 
+ * @param[out] map A pointer to the map structure.
+ * 
+ * @returns 1 if the function `fill_map` succeeds, -1 in case of an error.
+ */
+int		get_map_width(t_map *map);
+
+/**
+ * Converts the map to a rectangle by adding spaces around the outer part
+ * of the map.
+ * 
+ * @param[out] map A pointer to the map structure that holds the map.
+ * 
+ * @returns 1 if the conversion was successful, -1 in case of an error.
+ */
+int		fill_map(t_map *map);
+
+/**
  * Validates that the middle part of the map is surrounded by walls
  * 
  * @param[in] line The line from the map file.
@@ -247,7 +294,7 @@ size_t	validate_map_line(char *line);
  * 
  * @returns -1 in case of an error, 1 in case of success. 
  */
-int		create_map(t_map *map, int32_t map_file, char *filename);
+int		create_map(t_game *game, int32_t map_file, char *filename);
 
 /**
  * Frees the static buffer in `get_next_line()`.
