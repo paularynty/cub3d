@@ -12,7 +12,7 @@ static size_t	count_rows(char **map)
 	return (y);
 }
 
-int	read_map(t_map *map, int32_t map_file)
+int	read_minimap(t_map *map, int32_t map_file)
 {
 	int32_t	byte;
 	char	line[BUFFER_SIZE];

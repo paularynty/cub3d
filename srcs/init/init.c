@@ -8,18 +8,21 @@
 // 	return (TRUE);
 // }
 
-static mlx_image_t	*load_image(mlx_t *mlx, const char *image_path)
+static mlx_image_t	*load_image(mlx_t *mlx, mlx_texture_t *texture)
 {
-	mlx_texture_t	*texture;
+	// mlx_texture_t	*texture;
 	mlx_image_t		*image;
 
 	image = NULL;
-	texture = mlx_load_png(image_path);
-	if (!texture)
-	{
-		print_error("Failed to load texture");
+	// texture = mlx_load_png(image_path);
+	// if (!texture)
+	// {
+	// 	print_error("Failed to load texture");
+	// 	return (NULL);
+	// }
+	// printf("%p\n", texture);
+	if (texture == NULL)
 		return (NULL);
-	}
 	image = mlx_texture_to_image(mlx, texture);
 	if (!image)
 	{
@@ -80,12 +83,12 @@ static int	draw_image(t_game *game, mlx_image_t *image, size_t x, size_t y)
 
 static int	render_minimap(t_game *game, t_map *map)
 {
-	int32_t	x;
-	int32_t	y;
+	size_t	x;
+	size_t	y;
 
 	y = 0;
-	printf("map width is %d\n", map->width);
-	printf("map height is %d\n", map->height);
+	// printf("map width is %zu\n", map->width);
+	// printf("map height is %zu\n", map->height);
 	while (y < map->height)
 	{
 		x = 0;
@@ -140,15 +143,16 @@ int	init(t_game *game, t_map *map)
 		mlx_terminate(game->mlx);
 		return (FALSE);
 	}
-	game->minimap.floor = load_image(game->mlx, IMG_FLOOR);
+	game->minimap.floor = load_image(game->mlx, game->map.textures.north);
 	if (!game->minimap.floor)
 		return (FALSE);
-	game->minimap.wall = load_image(game->mlx, IMG_WALL);
+	game->minimap.wall = load_image(game->mlx, game->map.textures.east);
 	if (!game->minimap.wall)
 		return (FALSE);
-	game->minimap.player = load_image(game->mlx, IMG_PLAYER);
+	game->minimap.player = load_image(game->mlx, game->map.textures.south);
 	if (!game->minimap.wall)
 		return (FALSE);
+	// printf("HERE map width is %zu\n", game->map.width);
 	if (render_minimap(game, map) == FALSE)
 	{
 		mlx_terminate(game->mlx);

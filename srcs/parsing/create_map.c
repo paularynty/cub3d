@@ -6,20 +6,20 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:02:45 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/28 13:58:41 by prynty           ###   ########.fr       */
+/*   Updated: 2025/02/28 14:31:55 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	add_texture(mlx_texture_t *texture, char *path)
+static int	add_texture(mlx_texture_t **texture, char *path)
 {
 	size_t	start;
 	size_t	end;
 	char	*parsed_path;
 
 	start = 0;
-	if (texture != NULL)
+	if (*texture != NULL)
 		return (-1);
 	while (is_whitespace(path[start]) == 1)
 		start++;
@@ -29,9 +29,9 @@ static int	add_texture(mlx_texture_t *texture, char *path)
 	parsed_path = ft_substr(path, start, end - start);
 	if (parsed_path == NULL)
 		return (print_error("Failed to allocate memory"));
-	texture = mlx_load_png(parsed_path);
+	*texture = mlx_load_png(parsed_path);
 	free(parsed_path);
-	if (texture == NULL)
+	if (*texture == NULL)
 		return (print_error("Texture loading failed"));
 	return (1);
 }
@@ -59,13 +59,13 @@ static int	add_color(t_color *color, char *line)
 static int	check_key(t_map *map, char *line)
 {
 	if (ft_strncmp(line, "NO", 2) == 0)
-		return (add_texture(map->textures.north, line + 2));
+		return (add_texture(&map->textures.north, line + 2));
 	else if (ft_strncmp(line, "SO", 2) == 0)
-		return (add_texture(map->textures.south, line + 2));
+		return (add_texture(&map->textures.south, line + 2));
 	else if (ft_strncmp(line, "WE", 2) == 0)
-		return (add_texture(map->textures.west, line + 2));
+		return (add_texture(&map->textures.west, line + 2));
 	else if (ft_strncmp(line, "EA", 2) == 0)
-		return (add_texture(map->textures.east, line + 2));
+		return (add_texture(&map->textures.east, line + 2));
 	else if (ft_strncmp(line, "F", 1) == 0)
 		return (add_color(&map->floor, line + 1));
 	else if (ft_strncmp(line, "C", 1) == 0)
@@ -106,6 +106,7 @@ int	create_map(t_game *game, int32_t map_file, char *filename)
 				return (-1);
 			return (final_validation(game));
 		}
+		// printf("%p\n", game->map.textures.north);
 		if (check == -1)
 			return (free_gnl(&line, map_file));
 		free(line);
