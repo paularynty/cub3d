@@ -86,7 +86,6 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@cc -c $(CFLAGS) $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX) $(CUB3D_HEADER)
-	@cp $(LIBFT) .
 	@cc $(CFLAGS) $(OBJS) $(MLX) $(LIBFT) $(OSFLAGS) -o $(NAME)
 	@$(OBJ_READY)
 	@chmod 777 $(NAME)
