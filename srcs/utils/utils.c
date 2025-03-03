@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/27 12:42:24 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:04:21 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,26 @@ int	print_error(char *msg)
 void	key_hooks(mlx_key_data_t data, void *param)
 {
 	t_game	*game;
+	size_t	x;
+	size_t	y;
 
 	game = (t_game *)param;
+	x = game->player.pos_x;
+	y = game->player.pos_y;
 	if (data.key == MLX_KEY_ESCAPE && data.action == MLX_RELEASE)
 		mlx_close_window(game->mlx);
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_UP) 
+		|| mlx_is_key_down(game->mlx, MLX_KEY_W))
+		move_player_minimap(game, x, y - 1);
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN)
+		|| mlx_is_key_down(game->mlx, MLX_KEY_S))
+		move_player_minimap(game, x, y + 1);
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT)
+		|| mlx_is_key_down(game->mlx, MLX_KEY_A))
+		move_player_minimap(game, x - 1, y);
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT)
+		|| mlx_is_key_down(game->mlx, MLX_KEY_D))
+		move_player_minimap(game, x + 1, y);
 }
 
 void	cleanup(t_game *game)

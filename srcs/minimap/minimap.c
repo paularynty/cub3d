@@ -120,3 +120,22 @@
 // 	set_z_index(game->minimap.wall, -200);
 // 	set_z_index(game->minimap.floor, -200);
 // }
+
+static void	update_movement_minimap(t_game *game, int x, int y)
+{
+	game->map.map[game->player.pos_y][game->player.pos_x] = '0';
+	printf("%d %d\n", game->player.pos_x, game->player.pos_y);
+	game->map.map[y][x] = 'N';
+	game->minimap.player->instances[0].x = x * TILESIZE;
+	game->minimap.player->instances[0].y = y * TILESIZE;
+}
+
+void	move_player_minimap(t_game *game, size_t x, size_t y)
+{
+	if (game->map.map[y][x] == '1')
+		return ;
+	else if (game->map.map[y][x] == '0')
+		update_movement_minimap(game, x, y);
+	game->player.pos_x = x;
+	game->player.pos_y = y;
+}

@@ -18,8 +18,8 @@ int	main(int argc, char **argv)
 		free_map(&game->map);
 		return (1);
 	}
-	for (size_t i = 0; i < game->map.height; i++)
-		printf("%s\n", game->map.map[i]);
+	// for (size_t i = 0; i < game->map.height; i++)
+	// 	printf("%s\n", game->map.map[i]);
 	// printf("Floor: %d,%d,%d,%d\n", game->map.floor.r, game->map.floor.g, \
 	// 	game->map.floor.b, game->map.floor.a);
 	// printf("Ceiling: %d,%d,%d,%d\n", game->map.ceiling.r, game->map.ceiling.g, \

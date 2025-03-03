@@ -17,20 +17,6 @@ static int	get_window_size(uint32_t *window_width, uint32_t *window_height)
 	return (TRUE);
 }
 
-t_game	*init_game_data(t_game *game)
-{
-	game = (t_game *)malloc(sizeof(t_game));
-	if (!game)
-	{
-		print_error("Memory allocation failed");
-		return (NULL);
-	}
-	game->mlx = NULL;
-	if (get_window_size(&game->window_w, &game->window_h) == FALSE)
-		return (NULL);
-	return (game);
-}
-
 int	init_player(t_player *player, size_t x, size_t y, char dir)
 {
 	if (player->pos_x != 0 || player->pos_y != 0)
@@ -46,4 +32,18 @@ int	init_player(t_player *player, size_t x, size_t y, char dir)
 	else if (dir == 'W')
 		player->dir = WEST;
 	return (1);
+}
+
+t_game	*init_game_data(t_game *game)
+{
+	game = (t_game *)malloc(sizeof(t_game));
+	if (!game)
+	{
+		print_error("Memory allocation failed");
+		return (NULL);
+	}
+	game->mlx = NULL;
+	if (get_window_size(&game->window_w, &game->window_h) == FALSE)
+		return (NULL);
+	return (game);
 }

@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/28 14:01:29 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/03 16:58:05 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
-# define TILESIZE 50
+# define TILESIZE 32
 
 #ifdef BUFFER_SIZE
 # undef BUFFER_SIZE
@@ -206,7 +206,14 @@ int		init(t_game *game, t_map *map);
  * Initializes minimap data and draws the minimap on the game screen.
  * Params to be added.
 */
-void	minimap(t_game *game);
+int		init_minimap(t_game *game, t_map *map);
+
+/**
+ * Handles player movement in the minimap.
+ * Params to be added.
+*/
+void	move_player_minimap(t_game *game, size_t x, size_t y);
+
 
 /******************************************************************************/
 /*                                                                            */

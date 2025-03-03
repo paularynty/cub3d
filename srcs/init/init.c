@@ -8,31 +8,6 @@
 // 	return (TRUE);
 // }
 
-static mlx_image_t	*load_image(mlx_t *mlx, mlx_texture_t *texture)
-{
-	// mlx_texture_t	*texture;
-	mlx_image_t		*image;
-
-	image = NULL;
-	// texture = mlx_load_png(image_path);
-	// if (!texture)
-	// {
-	// 	print_error("Failed to load texture");
-	// 	return (NULL);
-	// }
-	// printf("%p\n", texture);
-	if (texture == NULL)
-		return (NULL);
-	image = mlx_texture_to_image(mlx, texture);
-	if (!image)
-	{
-		print_error("Failed to transform texture to image");
-		return (NULL);
-	}
-	mlx_delete_texture(texture);
-	return (image);
-}
-
 int32_t	validate_file(int argc, char *file)
 {
 	int32_t	map_file;
@@ -73,92 +48,13 @@ static void	set_cursor(t_game *game)
 	mlx_set_cursor(game->mlx, cursor);
 }
 
-static int	draw_image(t_game *game, mlx_image_t *image, size_t x, size_t y)
-{
-	if (mlx_image_to_window(game->mlx, image,
-		x * 32, y * 32) == FALSE)
-		return (print_error("Failed to put wall image to window"));
-	return (TRUE);
-}
-
-static int	render_minimap(t_game *game, t_map *map)
-{
-	size_t	x;
-	size_t	y;
-
-	y = 0;
-	// printf("map width is %zu\n", map->width);
-	// printf("map height is %zu\n", map->height);
-	while (y < map->height)
-	{
-		x = 0;
-		while (x < map->width)
-		{
-			if (map->map[y][x] == '1')
-			{
-				if (!draw_image(game, game->minimap.wall, x, y))
-					return (FALSE);
-			}
-			else if (map->map[y][x] == '0')
-			{
-				if (!draw_image(game, game->minimap.floor, x, y))
-					return (FALSE);
-			}
-			else if (map->map[y][x] == 'N' || map->map[y][x] == 'E'
-				|| map->map[y][x] == 'S' || map->map[y][x] == 'W')
-			{
-				if (!draw_image(game, game->minimap.floor, x, y))
-					return (FALSE);
-				if (!draw_image(game, game->minimap.player, x, y))
-					return (FALSE);
-			}
-			x++;
-		}
-		y++;
-	}
-	return (TRUE);
-}
-
-// static void	set_z_index(mlx_image_t *img, int z)
-// {
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (i < img->count)
-// 	{
-// 		img->instances[i].z = z;
-// 		i++;
-// 	}
-// }
-
 int	init(t_game *game, t_map *map)
 {
 	if (init_mlx(game, game->window_w, game->window_h) == FALSE)
 		return (print_error("Failed to initialize MLX"));
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	set_cursor(game);
-	game->minimap.minimap = mlx_new_image(game->mlx, game->window_w, game->window_h);
-	if (mlx_image_to_window(game->mlx, game->minimap.minimap, 0, 0) == -1)
-	{
-		mlx_terminate(game->mlx);
+	if (init_minimap(game, map) == FALSE)
 		return (FALSE);
-	}
-	game->minimap.floor = load_image(game->mlx, game->map.textures.north);
-	if (!game->minimap.floor)
-		return (FALSE);
-	game->minimap.wall = load_image(game->mlx, game->map.textures.east);
-	if (!game->minimap.wall)
-		return (FALSE);
-	game->minimap.player = load_image(game->mlx, game->map.textures.south);
-	if (!game->minimap.wall)
-		return (FALSE);
-	// printf("HERE map width is %zu\n", game->map.width);
-	if (render_minimap(game, map) == FALSE)
-	{
-		mlx_terminate(game->mlx);
-		return (FALSE);
-	}
-	// set_z_index(game->minimap.wall, -200);
-	// set_z_index(game->minimap.floor, -200);
 	return (TRUE);
 }
