@@ -52,6 +52,7 @@ SRCS			= $(SRCDIR)/main.c \
 				$(SRCDIR)/init/init.c \
 				$(SRCDIR)/minimap/init_minimap.c \
 				$(SRCDIR)/minimap/minimap.c \
+				$(SRCDIR)/render/render.c \
 				$(SRCDIR)/parsing/create_map.c \
 				$(SRCDIR)/parsing/map_validation.c \
 				$(SRCDIR)/parsing/parsing_utils.c \

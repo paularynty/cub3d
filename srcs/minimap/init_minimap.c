@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:34:46 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/03 17:20:37 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/06 14:13:38 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,17 @@ static int	render_minimap_floor(t_game *game, t_map *map)
 	return (TRUE);
 }
 
-// static void	set_z_index(mlx_image_t *img, int z)
-// {
-// 	size_t	i;
+static void	set_z_index(mlx_image_t *img, int z)
+{
+	size_t	i;
 
-// 	i = 0;
-// 	while (i < img->count)
-// 	{
-// 		img->instances[i].z = z;
-// 		i++;
-// 	}
-// }
+	i = 0;
+	while (i < img->count)
+	{
+		img->instances[i].z = z;
+		i++;
+	}
+}
 
 static mlx_image_t	*load_image(mlx_t *mlx, const char *image_path)
 {
@@ -96,7 +96,6 @@ static mlx_image_t	*load_image(mlx_t *mlx, const char *image_path)
 		print_error("Failed to load texture");
 		return (NULL);
 	}
-	// printf("%p\n", texture);
 	if (texture == NULL)
 		return (NULL);
 	image = mlx_texture_to_image(mlx, texture);
@@ -109,10 +108,21 @@ static mlx_image_t	*load_image(mlx_t *mlx, const char *image_path)
 	return (image);
 }
 
+// static void	init_img(
+// 	t_game *game,
+// 	mlx_image_t **img,
+// 	uint32_t width,
+// 	uint32_t height)
+// {
+// 	*img = mlx_new_image(c->mlx, width, height);
+// 	if (!*img)
+// 		cub3d_error_exit(c, "am_init: mlx_new_image");
+// }
+
 int	init_minimap(t_game *game, t_map *map)
 {
-	game->minimap.minimap = mlx_new_image(game->mlx, game->window_w, game->window_h);
-	if (mlx_image_to_window(game->mlx, game->minimap.minimap, 0, 0) == -1)
+	game->minimap.minimap = mlx_new_image(game->mlx, 200, 200);
+	if (mlx_image_to_window(game->mlx, game->minimap.minimap, 200, 200) == -1)
 	{
 		mlx_terminate(game->mlx);
 		return (FALSE);
@@ -127,13 +137,13 @@ int	init_minimap(t_game *game, t_map *map)
 	if (!game->minimap.wall)
 		return (FALSE);
 	// printf("HERE map width is %zu\n", game->map.width);
+	set_z_index(game->minimap.wall, -200);
+	set_z_index(game->minimap.floor, -200);
 	if (render_minimap_floor(game, map) == FALSE 
 		|| render_minimap_elements(game, map) == FALSE)
 	{
 		mlx_terminate(game->mlx);
 		return (FALSE);
 	}
-	// set_z_index(game->minimap.wall, -200);
-	// set_z_index(game->minimap.floor, -200);
 	return (TRUE);
 }

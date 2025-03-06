@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/03 16:58:05 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/06 14:17:52 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@
 # define IMG_FLOOR "textures/minimap/floor.png"
 # define IMG_PLAYER "textures/minimap/player.png"
 # define IMG_CURSOR "textures/cursor.png"
+
+typedef struct s_assets
+{
+	mlx_image_t	*ceiling;
+	mlx_image_t	*floor;
+}	t_assets;
 
 /**
  * A struct to store RGB color values.
@@ -157,6 +163,7 @@ typedef struct s_game
 	t_minimap	minimap;
 	t_map		map;
 	t_player	player;
+	t_assets	assets;
 	uint32_t	window_w;
 	uint32_t	window_h;
 }	t_game;
@@ -221,14 +228,24 @@ void	move_player_minimap(t_game *game, size_t x, size_t y);
 /*                                                                            */
 /******************************************************************************/
 
-
-
 /******************************************************************************/
 /*                                                                            */
 /*                                 READ_MAP.C                                 */
 /*                                                                            */
 /******************************************************************************/
 int		read_map(t_map *map, char *line, int32_t fd, char *filename);
+
+/******************************************************************************/
+/*                                                                            */
+/*                                 RENDER.C                                 */
+/*                                                                            */
+/******************************************************************************/
+
+//initializes floor and ceiling images in 3D
+//fills images with indicated color (saved from map parsing) with mlx_put_pixel
+//puts images to window, first half will be ceiling, second half floor
+int		render_game(t_game *game);
+
 
 /******************************************************************************/
 /*                                                                            */
