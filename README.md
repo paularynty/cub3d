@@ -4,6 +4,9 @@
 
 ## Development timeline
 
+### 6.3.2025
+- Ceiling and floor images now drawn on the screen and filled with correct color from map file.
+
 ### 3.3.2025
 
 - Player now moves around the minimap, need to make movement smoother with float/double coordinates.
