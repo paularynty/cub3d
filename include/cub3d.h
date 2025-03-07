@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/28 14:01:29 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/07 14:25:23 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 
 # define TRUE 1
 # define FALSE -1
+
+# define MOVESPEED 0.01
+# define ROTSPEED 0.01
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
@@ -111,7 +114,10 @@ typedef struct s_player
 {
 	int32_t		pos_x;
 	int32_t		pos_y;
-	double		dir;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
 }	t_player;
 
 /**
@@ -143,6 +149,27 @@ typedef struct s_map
 
 }	t_map;
 
+typedef struct s_ray
+{
+	double	dir_x;
+	double	dir_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	camera_x;
+	double	camera_y;
+	double	plane_x;
+	double	plane_y;
+	double	pos_x;
+	double	pos_y;
+	int		step_x;
+	int		step_y;
+	int		map_x;
+	int		map_y;
+}	t_ray;
+
+
 /**
  * The main structure that holds everything needed for the game.
  * 
@@ -157,6 +184,7 @@ typedef struct s_game
 	t_minimap	minimap;
 	t_map		map;
 	t_player	player;
+	t_ray		ray;
 	uint32_t	window_w;
 	uint32_t	window_h;
 }	t_game;
@@ -175,9 +203,10 @@ typedef struct s_game
  * @returns file descriptor of the file.
 */
 int32_t	validate_file(int argc, char *file);
+
 /******************************************************************************/
 /*                                                                            */
-/*                                 INIT_GAME.C                                */
+/*                             INIT_PLAYER_DATA.C                             */
 /*                                                                            */
 /******************************************************************************/
 
@@ -192,6 +221,12 @@ int32_t	validate_file(int argc, char *file);
  * @returns 1 if the initialization was successful, -1 in case of an error.
  */
 int		init_player(t_player *player, size_t x, size_t y, char dir);
+
+/******************************************************************************/
+/*                                                                            */
+/*                                 INIT_GAME.C                                */
+/*                                                                            */
+/******************************************************************************/
 
 t_game	*init_game_data(t_game *game);
 int		init(t_game *game, t_map *map);
@@ -334,6 +369,24 @@ int32_t	rgba(int32_t r, int32_t g, int32_t b, int32_t a);
  * is not.
  */
 int		is_whitespace(int c);
+
+/******************************************************************************/
+/*                                                                            */
+/*                                 RAYCASTER                                  */
+/*                                                                            */
+/******************************************************************************/
+
+/**
+ * Initializes the variables found in the `t_ray` structure.
+ * 
+ * @param[in] x The horizontal coordinate on the window.
+ * @param[out] ray A pointer to the `t_ray` structure.
+ * @param[in] player A pointer to the `t_player` structure containing the player
+ * location and direction info.
+ * @param[in] mlx A pointer to the `mlx_t` structure containing the info about
+ * the window.
+ */
+void	init_ray_info(int x, t_ray *ray, t_player *player, mlx_t *mlx);
 
 /******************************************************************************/
 /*                                                                            */
