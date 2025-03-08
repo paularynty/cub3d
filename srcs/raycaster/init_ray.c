@@ -6,7 +6,7 @@
 /*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:20:56 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:17:20 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:26:47 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	init_ray(t_ray *ray)
 {
 	ray->camera_x = 0;
-	ray->camera_y = 0;
 	ray->delta_dist_x = 0;
 	ray->delta_dist_y = 0;
 	ray->dir_x = 0;
@@ -26,8 +25,6 @@ static void	init_ray(t_ray *ray)
 	ray->plane_y = 0;
 	ray->step_x = 0;
 	ray->step_y = 0;
-	ray->pos_x = 0;
-	ray->pos_y = 0;
 }
 
 void	init_ray_info(int x, t_ray *ray, t_player *player, mlx_t *mlx)
