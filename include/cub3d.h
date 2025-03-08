@@ -6,7 +6,7 @@
 /*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:25:56 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/08 18:47:28 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,11 @@ typedef struct s_map
  * in the map.
  * @param map_x The horizontal index for the map.
  * @param map_y The vertical index for the map.
+ * @param side A flag to see if the ray hit a horizontal or a vertical
+ * side of a wall.
+ * @param line_height The height of the line to be drawn.
+ * @param draw_start The pixel coordinate from where to start drawing.
+ * @param draw_end The pixel coordinate where to stop drawing.
  */
 typedef struct s_ray
 {
@@ -191,6 +196,10 @@ typedef struct s_ray
 	int		step_y;
 	int		map_x;
 	int		map_y;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
 }	t_ray;
 
 
@@ -215,7 +224,7 @@ typedef struct s_game
 
 /******************************************************************************/
 /*                                                                            */
-/*                                 INIT.C                                */
+/*                                   INIT.C                                   */
 /*                                                                            */
 /******************************************************************************/
 
@@ -411,6 +420,30 @@ int		is_whitespace(int c);
  * the window.
  */
 void	init_ray_info(int x, t_ray *ray, t_player *player, mlx_t *mlx);
+
+/**
+ * Initializes the `side_dist_x` and `side_dist_y` 
+ * and also the `step_x` and `step_y` variables found in structure `t_ray`.
+ * 
+ * @param[out] ray A pointer to the `t_ray` structure.
+ * @param[in] player A pointer to the `t_player` structure.
+ */
+void	init_side_step(t_ray *ray, t_player *player);
+
+/**
+ * Casts a ray using the DDA algorithm until it hits a wall.
+ * 
+ * @param[out] game A pointer to the `t_game` structure that holds the `t_ray`
+ * variable and the map.
+ */
+void	cast_ray(t_game *game);
+
+/**
+ * Initializes the variables needed for the wall drawing.
+ * 
+ * @param[out] game A pointer to the `t_game` structure.
+ */
+void	init_draw(t_game *game);
 
 /******************************************************************************/
 /*                                                                            */

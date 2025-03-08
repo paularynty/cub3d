@@ -6,7 +6,7 @@
 /*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:20:56 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:26:47 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:57:11 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	init_ray(t_ray *ray)
 	ray->plane_y = 0;
 	ray->step_x = 0;
 	ray->step_y = 0;
+	ray->side = 0;
 }
 
 void	init_ray_info(int x, t_ray *ray, t_player *player, mlx_t *mlx)
