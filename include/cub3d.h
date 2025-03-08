@@ -6,7 +6,7 @@
 /*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:00:44 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:24:30 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,8 +170,6 @@ typedef struct s_map
  * @param camera_y Not gonna need this?
  * @param plane_x The horizontal plane in camera space.
  * @param plane_y The vertical plane in camera space.
- * @param pos_x The horizontal starting position of the ray.
- * @param pos_y The vertical starting position of the ray.
  * @param step_x Holds the value to horizontally increment the ray length
  * in the map.
  * @param step_y Holds the value to vertically increment the ray length
@@ -191,8 +189,6 @@ typedef struct s_ray
 	double	camera_y;
 	double	plane_x;
 	double	plane_y;
-	double	pos_x;
-	double	pos_y;
 	int		step_x;
 	int		step_y;
 	int		map_x;
