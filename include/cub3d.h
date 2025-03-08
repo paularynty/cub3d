@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/07 14:25:23 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/08 17:00:44 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,10 @@ typedef struct s_minimap
  * 
  * @param pos_x The horizontal position of the player in the map.
  * @param pos_y The vertical position of the player in the map.
- * @param dir The direction where the player is looking in the map.
+ * @param dir_x The horizontal direction where the player is looking in the map.
+ * @param dir_y The vertical direction where the player is looking in the map.
+ * @param plane_x The horizontal plane to determine the FOV.
+ * @param plane_y The vertical plane to determine the FOV.
  */
 typedef struct s_player
 {
@@ -149,6 +152,33 @@ typedef struct s_map
 
 }	t_map;
 
+
+/**
+ * A structure for ray calculations and to hold the length of the ray.
+ * 
+ * @param dir_x The horizontal direction of the ray.
+ * @param dir_y The vertical direction of the ray.
+ * @param delta_dist_x The horizontal distance the ray travels from one
+ * horizontal coordinate to the next.
+ * @param delta_dist_y The vertical distance the ray travels from one
+ * vertical coordinate to the next.
+ * @param side_dist_x The horizontal distance from the players position
+ * to the next horizontal coordinate.
+ * @param side_dist_y The vertical distance from the players position
+ * to the next vertical coordinate.
+ * @param camera_x The horizontal coordinate in camera space.
+ * @param camera_y Not gonna need this?
+ * @param plane_x The horizontal plane in camera space.
+ * @param plane_y The vertical plane in camera space.
+ * @param pos_x The horizontal starting position of the ray.
+ * @param pos_y The vertical starting position of the ray.
+ * @param step_x Holds the value to horizontally increment the ray length
+ * in the map.
+ * @param step_y Holds the value to vertically increment the ray length
+ * in the map.
+ * @param map_x The horizontal index for the map.
+ * @param map_y The vertical index for the map.
+ */
 typedef struct s_ray
 {
 	double	dir_x;
