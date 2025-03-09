@@ -6,7 +6,7 @@
 /*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/08 18:47:28 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/09 18:30:18 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -433,17 +433,19 @@ void	init_side_step(t_ray *ray, t_player *player);
 /**
  * Casts a ray using the DDA algorithm until it hits a wall.
  * 
- * @param[out] game A pointer to the `t_game` structure that holds the `t_ray`
- * variable and the map.
+ * @param[out] ray A pointer to the `t_ray` structure.that holds the
+ * information about the ray to be casted.
+ * @param[in] game A pointer to the `t_game` the map.
  */
-void	cast_ray(t_game *game);
+void	cast_ray(t_ray *ray, t_game *game);
 
 /**
  * Initializes the variables needed for the wall drawing.
  * 
- * @param[out] game A pointer to the `t_game` structure.
+ * @param[out] ray A pointer to the `t_ray` structure.
+ * @param[in] game A pointer to the `t_game` structure.
  */
-void	init_draw(t_game *game);
+void	init_draw(t_ray *ray, t_game *game);
 
 /******************************************************************************/
 /*                                                                            */

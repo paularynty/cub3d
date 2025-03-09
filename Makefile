@@ -57,6 +57,8 @@ SRCS			= $(SRCDIR)/main.c \
 				$(SRCDIR)/parsing/map_validation.c \
 				$(SRCDIR)/parsing/parsing_utils.c \
 				$(SRCDIR)/parsing/read_map.c \
+				$(SRCDIR)/raycaster/init_ray.c \
+				$(SRCDIR)/raycaster/raycaster.c \
 				$(SRCDIR)/utils/utils.c \
 
 OBJS			= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
