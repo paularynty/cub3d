@@ -3,21 +3,19 @@
 static void	test_draw(int x, t_game *game, mlx_image_t *image)
 {
 	int			y;
-	uint32_t	color;
 
-	color = rgba(1, 0, 0, 255);
 	y = game->ray.draw_start;
 	while (y < game->ray.draw_end)
 	{
 		if (game->ray.side == 0)
-			mlx_put_pixel(image, x, y, color);
+			mlx_put_pixel(image, x, y, rgba(255, 1, 1, 255));
 		else
-			mlx_put_pixel(image, x, y, color / 2);
+			mlx_put_pixel(image, x, y, rgba(127, 1, 1, 255));
 		y++;
 	}
 }
 
-static void	init_image(mlx_image_t *image)
+static void	init_image(t_map *map, mlx_image_t *image)
 {
 	uint32_t	x;
 	uint32_t	y;
@@ -28,7 +26,10 @@ static void	init_image(mlx_image_t *image)
 		x = 0;
 		while (x < image->width)
 		{
-			mlx_put_pixel(image, x, y, rgba(0, 0, 0, 255));
+			if (y > image->height / 2)
+				mlx_put_pixel(image, x, y, map->floor.color);
+			else
+				mlx_put_pixel(image, x, y, map->ceiling.color);
 			x++;
 		}
 		y++;
@@ -66,7 +67,7 @@ int	main(int argc, char **argv)
 	image = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
 	if (!image)
 		return (1);
-	init_image(image);
+	init_image(&game->map, image);
 	for (int x = 0; x < game->mlx->width; x++)
 	{
 		init_ray_info(x, &game->ray, &game->player, game->mlx);
