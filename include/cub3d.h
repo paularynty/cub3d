@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 12:21:42 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:02:45 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -444,7 +444,7 @@ int		is_whitespace(int c);
  * @param[in] mlx A pointer to the `mlx_t` structure containing the info about
  * the window.
  */
-void	init_ray_info(int x, t_ray *ray, t_player *player, mlx_t *mlx);
+void	init_ray_info(int x, t_ray *ray, t_player *player, t_game *game);
 
 /**
  * Initializes the `side_dist_x` and `side_dist_y` 
@@ -501,6 +501,16 @@ void	free_map(t_map *map);
 int		print_error(char *msg);
 // void	game_hook(void *param);
 void	key_hooks(mlx_key_data_t data, void *param);
+
+/**
+ * A function to handle window resizing.
+ * 
+ * @param[in] width The new width of the window.
+ * @param[in] height The new height of the window.
+ * @param[in] param An extra parameter to the function. Will contain the
+ * a pointer to the `t_game` structure.
+ */
+void	resize_window(int32_t width, int32_t height, void *param);
 
 /**
  * Cleans up resources.

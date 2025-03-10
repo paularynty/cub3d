@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 12:19:57 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:16:38 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,16 @@ int	print_error(char *msg)
 // 	game = (t_game *)param;
 // 	minimap(game);
 // }
+
+void	resize_window(int32_t width, int32_t height, void *param)
+{
+	t_game	*game;
+
+	game = param;
+	game->window_h = height;
+	game->window_w = width;
+	render_world(game);
+}
 
 void	key_hooks(mlx_key_data_t data, void *param)
 {

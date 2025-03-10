@@ -52,7 +52,7 @@ int	init(t_game *game, t_map *map)
 {
 	if (init_mlx(game, game->window_w, game->window_h) == FALSE)
 		return (print_error("Failed to initialize MLX"));
-	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
+	//mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	set_cursor(game);
 	render_game(game);
 	if (init_minimap(game, map) == FALSE)
