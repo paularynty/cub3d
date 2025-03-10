@@ -4,7 +4,17 @@
 
 ## Development timeline
 
+### 10.3.2025
+
+- Implemented player movement with double/float data type for smoother transitions.
+- Started building camera rotation logic.
+
+### 8.3.2025
+
+- Completed ray caster to successfully render 3D world.
+
 ### 6.3.2025
+
 - Ceiling and floor images now drawn on the screen and filled with correct color from map file.
 
 ### 3.3.2025

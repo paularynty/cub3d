@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:46:11 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 12:35:55 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:37:05 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	cast_ray(t_ray *ray, t_game *game)
 {
-	int	hit;
+	// int	hit;
 
-	hit = FALSE;
-	while (hit == FALSE)
+	// ray->hit = FALSE;
+	while (ray->hit == FALSE)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
@@ -32,7 +32,7 @@ void	cast_ray(t_ray *ray, t_game *game)
 			game->ray.side = 1;
 		}
 		if (game->map.map[game->ray.map_y][game->ray.map_x] > '0')
-			hit = TRUE;
+			ray->hit = TRUE;
 	}
 }
 
@@ -70,7 +70,7 @@ void	render_world(t_game *game)
 		init_side_step(&game->ray, &game->player);
 		cast_ray(&game->ray, game);
 		init_draw(&game->ray, game);
-		test_draw(x, game, game->assets.world);
+		test_draw(x, game, game->assets.world, game->map.textures.north);
 		x++;
 	}
 	mlx_image_to_window(game->mlx, game->assets.world, 0, 0);

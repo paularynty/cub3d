@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:20:56 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/08 17:57:11 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:26:48 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	init_ray(t_ray *ray)
 	ray->step_x = 0;
 	ray->step_y = 0;
 	ray->side = 0;
+	ray->hit = FALSE;
 }
 
 void	init_ray_info(int x, t_ray *ray, t_player *player, mlx_t *mlx)

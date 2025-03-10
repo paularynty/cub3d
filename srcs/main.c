@@ -1,19 +1,79 @@
 #include "cub3d.h"
 
-void	test_draw(int x, t_game *game, mlx_image_t *image)
+static void	get_pixel_data(mlx_texture_t *texture, t_color *color, \
+	size_t pixel_coords)
 {
+	if (pixel_coords + 3 >= (texture->width * texture->height * 4))
+		return ;
+	color->r = texture->pixels[pixel_coords];
+	color->g = texture->pixels[pixel_coords + 1];
+	color->b = texture->pixels[pixel_coords + 2];
+	color->a = texture->pixels[pixel_coords + 3];
+	color->color = rgba(color->r, color->g, color->b, color->a);
+}
+
+uint32_t	get_x_coord(t_game *game, mlx_texture_t *texture)
+{
+	int	texture_x;
+
+	if (game->ray.hit == true)
+	{
+		// if (game->ray.direction_up == false)
+		// 	x = (1 - fmod(game->ray.dir_x, TILESIZE) / TILESIZE) \
+		// 		* texture->width;
+		// else
+		texture_x = fmod(game->ray.dir_x, TILESIZE) / TILESIZE \
+				* texture->width;
+	}
+	else
+	{
+		// if (game->ray.direction_left == true)
+		// 	x = (1 - fmod(game->ray.dir_x, TILESIZE) / TILESIZE) \
+		// 		* texture->width;
+		// else
+		texture_x = fmod(game->ray.dir_y, TILESIZE) / TILESIZE \
+				* texture->width;
+	}
+	return (texture_x);
+}
+
+void	test_draw(int x, t_game *game, mlx_image_t *image, mlx_texture_t *texture)
+{
+	t_color		color;
+	int			step;
+	uint32_t	texture_x;
+	uint32_t	texture_y;
 	int			y;
 
 	y = game->ray.draw_start;
+	step = texture->height / game->ray.line_height;
+	texture_x = get_x_coord(game, texture);
+	texture_y = (y - (game->window_h / 2) + (game->ray.line_height / 2) * step);
 	while (y < game->ray.draw_end)
 	{
-		if (game->ray.side == 0)
-			mlx_put_pixel(image, x, y, rgba(255, 1, 1, 255));
-		else
-			mlx_put_pixel(image, x, y, rgba(127, 1, 1, 255));
+		get_pixel_data(texture, &color, ((texture->width * (int)texture_y + texture_x) * 4));
+		mlx_put_pixel(image, x, y, color.color);
 		y++;
+		texture_y += step;
+		if (texture_y >= texture->height)
+			texture_y -= texture->height;
 	}
 }
+
+// void	test_draw(int x, t_game *game, mlx_image_t *image, mlx_texture_t *texture)
+// {
+// 	int			y;
+
+// 	y = game->ray.draw_start;
+// 	while (y < game->ray.draw_end)
+// 	{
+// 		if (game->ray.side == 0)
+// 			mlx_put_pixel(image, x, y, rgba(255, 1, 1, 255));
+// 		else
+// 			mlx_put_pixel(image, x, y, rgba(127, 1, 1, 255));
+// 		y++;
+// 	}
+// }
 
 /* static void	init_image(t_map *map, mlx_image_t *image)
 {
