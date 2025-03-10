@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 13:55:58 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:36:23 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # define TRUE 1
 # define FALSE -1
 
-# define MOVE_SPEED 0.01
-# define ROTATION_SPEED 0.01
+# define MOVE_SPEED 0.2f
+# define ROTATION_SPEED 0.03f
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
@@ -123,8 +123,8 @@ typedef struct s_minimap
  */
 typedef struct s_player
 {
-	int32_t		pos_x;
-	int32_t		pos_y;
+	double		pos_x;
+	double		pos_y;
 	double		dir_x;
 	double		dir_y;
 	double		plane_x;
@@ -227,7 +227,6 @@ typedef struct s_game
 	t_map		map;
 	t_player	player;
 	t_ray		ray;
-	t_assets	assets;
 	uint32_t	window_w;
 	uint32_t	window_h;
 }	t_game;
@@ -290,8 +289,9 @@ int		init_minimap(t_game *game, t_map *map);
  * Handles player movement in the minimap.
  * Params to be added.
 */
-void	move_player_minimap(t_game *game, size_t x, size_t y);
+void	move_player_minimap(t_game *game, double x, double y);
 void 	move_player(t_game *game, bool forward);
+// void 	move_player(t_game *game, bool forward, double new_x, double new_y);
 void 	rotate_player(t_game *game, bool right);
 
 
@@ -503,8 +503,8 @@ void	render_world(t_game *game);
  */
 void	free_map(t_map *map);
 int		print_error(char *msg);
-// void	key_hooks(mlx_key_data_t data, void *param);
-void	key_hooks(t_game *game);
+void	key_hooks(mlx_key_data_t data, void *param);
+// void	key_hooks(t_game *game);
 void	game_hook(void *param);
 
 /**

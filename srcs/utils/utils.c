@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 13:57:04 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:33:11 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ int	print_error(char *msg)
 // 	minimap(game);
 // }
 
-void	key_hooks(t_game *game)
+void	key_hooks(mlx_key_data_t data, void *param)
 {
-	// t_game	*game;
-	mlx_key_data_t	data;
-	size_t	x;
-	size_t	y;
+	t_game	*game;
+	// mlx_key_data_t	data;
+	double	x;
+	double	y;
 
-	// game = (t_game *)param;
+	game = (t_game *)param;
 	x = game->player.pos_x;
 	y = game->player.pos_y;
 	if (data.key == MLX_KEY_ESCAPE && data.action == MLX_RELEASE)
@@ -53,32 +53,34 @@ void	key_hooks(t_game *game)
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_UP) 
 		|| mlx_is_key_down(game->mlx, MLX_KEY_W))
 	{
-		move_player_minimap(game, x, y - 1);
-		move_player(game, true);
+		move_player_minimap(game, x + MOVE_SPEED, y);
+		// move_player_minimap(game, x, y - MOVE_SPEED);
 	}
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN)
 		|| mlx_is_key_down(game->mlx, MLX_KEY_S))
 	{
-		move_player_minimap(game, x, y + 1);
-		move_player(game, false);
+		move_player_minimap(game, x - MOVE_SPEED, y);
+		// move_player_minimap(game, x, y + MOVE_SPEED);
 	}
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT)
 		|| mlx_is_key_down(game->mlx, MLX_KEY_A))
-		move_player_minimap(game, x - 1, y);
+		move_player_minimap(game, x, y - MOVE_SPEED);
+		// move_player_minimap(game, x - MOVE_SPEED, y);
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT)
 		|| mlx_is_key_down(game->mlx, MLX_KEY_D))
-		move_player_minimap(game, x + 1, y);
+		move_player_minimap(game, x, y + MOVE_SPEED);
+		// move_player_minimap(game, x + MOVE_SPEED, y);
 	render_world(game);
 }
 
-void	game_hook(void *param)
-{
-	t_game	*game;
+// void	game_hook(void *param)
+// {
+// 	t_game	*game;
 	
-	game = (t_game *)param;
-	key_hooks(game);
-	// rotate_player(game, right);
-}
+// 	game = (t_game *)param;
+// 	key_hooks(game);
+// 	// rotate_player(game, right);
+// }
 
 void	cleanup(t_game *game)
 {

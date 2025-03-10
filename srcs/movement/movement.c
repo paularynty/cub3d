@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:55:20 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/10 12:13:26 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:14:13 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void move_player(t_game *game, bool forward) 
 {
-    float	step;
+    double	step;
 	float	new_x;
 	float 	new_y;
 
