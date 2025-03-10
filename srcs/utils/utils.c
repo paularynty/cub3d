@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 12:18:56 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/10 13:57:04 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	key_hooks(t_game *game)
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT)
 		|| mlx_is_key_down(game->mlx, MLX_KEY_D))
 		move_player_minimap(game, x + 1, y);
+	render_world(game);
 }
 
 void	game_hook(void *param)

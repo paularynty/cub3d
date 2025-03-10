@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-static void	test_draw(int x, t_game *game, mlx_image_t *image)
+void	test_draw(int x, t_game *game, mlx_image_t *image)
 {
 	int			y;
 
@@ -15,7 +15,7 @@ static void	test_draw(int x, t_game *game, mlx_image_t *image)
 	}
 }
 
-static void	init_image(t_map *map, mlx_image_t *image)
+/* static void	init_image(t_map *map, mlx_image_t *image)
 {
 	uint32_t	x;
 	uint32_t	y;
@@ -34,13 +34,12 @@ static void	init_image(t_map *map, mlx_image_t *image)
 		}
 		y++;
 	}
-}
+} */
 
 int	main(int argc, char **argv)
 {
 	t_game		*game;
 	int32_t		map_file;
-	mlx_image_t	*image;
 
 	map_file = validate_file(argc, argv[1]);
 	if (map_file == FALSE)
@@ -64,21 +63,10 @@ int	main(int argc, char **argv)
 	printf("HERE map width is %zu\n", game->map.width); */
 	if (init(game, &game->map) == FALSE)
 		return (1);
-	image = mlx_new_image(game->mlx, game->mlx->width, game->mlx->height);
-	if (!image)
-		return (1);
-	init_image(&game->map, image);
-	for (int x = 0; x < game->mlx->width; x++)
-	{
-		init_ray_info(x, &game->ray, &game->player, game->mlx);
-		init_side_step(&game->ray, &game->player);
-		cast_ray(&game->ray, game);
-		init_draw(&game->ray, game);
-		test_draw(x, game, image);
-	}
-	mlx_image_to_window(game->mlx, image, 0, 0);
-	// mlx_key_hook(game->mlx, &key_hooks, game);
-	mlx_loop_hook(game->mlx, &game_hook, game);
+	game->assets.world = NULL;
+	render_world(game);
+	mlx_image_to_window(game->mlx, game->assets.world, 0, 0);
+	mlx_key_hook(game->mlx, &key_hooks, game);
 	mlx_loop(game->mlx);
 	free_map(&game->map);
 	return (0);
