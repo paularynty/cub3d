@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:40:25 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/07 13:40:47 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:46:53 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	init_player(t_player *player, size_t x, size_t y, char dir)
 {
 	if (player->pos_x != 0 || player->pos_y != 0)
 		return (print_error("Too many players in the map! (Needed 1)"));
-	player->pos_x = x;
-	player->pos_y = y;
+	player->pos_x = x + 0.2;
+	player->pos_y = y + 0.2;
 	init_player_direction_ns(player, dir);
 	init_player_direction_we(player, dir);
 	return (1);
