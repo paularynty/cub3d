@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 14:33:11 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/10 14:42:19 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,18 @@ void	key_hooks(mlx_key_data_t data, void *param)
 	y = game->player.pos_y;
 	if (data.key == MLX_KEY_ESCAPE && data.action == MLX_RELEASE)
 		mlx_close_window(game->mlx);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_UP) 
-		|| mlx_is_key_down(game->mlx, MLX_KEY_W))
-	{
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		move_player_minimap(game, x + MOVE_SPEED, y);
-		// move_player_minimap(game, x, y - MOVE_SPEED);
-	}
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_DOWN)
-		|| mlx_is_key_down(game->mlx, MLX_KEY_S))
-	{
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 		move_player_minimap(game, x - MOVE_SPEED, y);
-		// move_player_minimap(game, x, y + MOVE_SPEED);
-	}
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT)
-		|| mlx_is_key_down(game->mlx, MLX_KEY_A))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 		move_player_minimap(game, x, y - MOVE_SPEED);
-		// move_player_minimap(game, x - MOVE_SPEED, y);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT)
-		|| mlx_is_key_down(game->mlx, MLX_KEY_D))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		move_player_minimap(game, x, y + MOVE_SPEED);
-		// move_player_minimap(game, x + MOVE_SPEED, y);
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		rotate_player(game, false);
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		rotate_player(game, true);
 	render_world(game);
 }
 
