@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/06 14:17:52 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/10 09:50:27 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 
 # define TRUE 1
 # define FALSE -1
+
+# define MOVESPEED 0.01
+# define ROTSPEED 0.01
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
@@ -111,13 +114,19 @@ typedef struct s_minimap
  * 
  * @param pos_x The horizontal position of the player in the map.
  * @param pos_y The vertical position of the player in the map.
- * @param dir The direction where the player is looking in the map.
+ * @param dir_x The horizontal direction where the player is looking in the map.
+ * @param dir_y The vertical direction where the player is looking in the map.
+ * @param plane_x The horizontal plane to determine the FOV.
+ * @param plane_y The vertical plane to determine the FOV.
  */
 typedef struct s_player
 {
 	int32_t		pos_x;
 	int32_t		pos_y;
-	double		dir;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
 }	t_player;
 
 /**
@@ -149,6 +158,57 @@ typedef struct s_map
 
 }	t_map;
 
+
+/**
+ * A structure for ray calculations and to hold the length of the ray.
+ * 
+ * @param dir_x The horizontal direction of the ray.
+ * @param dir_y The vertical direction of the ray.
+ * @param delta_dist_x The horizontal distance the ray travels from one
+ * horizontal coordinate to the next.
+ * @param delta_dist_y The vertical distance the ray travels from one
+ * vertical coordinate to the next.
+ * @param side_dist_x The horizontal distance from the players position
+ * to the next horizontal coordinate.
+ * @param side_dist_y The vertical distance from the players position
+ * to the next vertical coordinate.
+ * @param camera_x The horizontal coordinate in camera space.
+ * @param plane_x The horizontal plane in camera space.
+ * @param plane_y The vertical plane in camera space.
+ * @param step_x Holds the value to horizontally increment the ray length
+ * in the map.
+ * @param step_y Holds the value to vertically increment the ray length
+ * in the map.
+ * @param map_x The horizontal index for the map.
+ * @param map_y The vertical index for the map.
+ * @param side A flag to see if the ray hit a horizontal or a vertical
+ * side of a wall.
+ * @param line_height The height of the line to be drawn.
+ * @param draw_start The pixel coordinate from where to start drawing.
+ * @param draw_end The pixel coordinate where to stop drawing.
+ */
+typedef struct s_ray
+{
+	double	dir_x;
+	double	dir_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	camera_x;
+	double	plane_x;
+	double	plane_y;
+	int		step_x;
+	int		step_y;
+	int		map_x;
+	int		map_y;
+	int		side;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}	t_ray;
+
+
 /**
  * The main structure that holds everything needed for the game.
  * 
@@ -163,14 +223,14 @@ typedef struct s_game
 	t_minimap	minimap;
 	t_map		map;
 	t_player	player;
-	t_assets	assets;
+	t_ray		ray;
 	uint32_t	window_w;
 	uint32_t	window_h;
 }	t_game;
 
 /******************************************************************************/
 /*                                                                            */
-/*                                 INIT.C                                */
+/*                                   INIT.C                                   */
 /*                                                                            */
 /******************************************************************************/
 
@@ -182,9 +242,10 @@ typedef struct s_game
  * @returns file descriptor of the file.
 */
 int32_t	validate_file(int argc, char *file);
+
 /******************************************************************************/
 /*                                                                            */
-/*                                 INIT_GAME.C                                */
+/*                             INIT_PLAYER_DATA.C                             */
 /*                                                                            */
 /******************************************************************************/
 
@@ -199,6 +260,12 @@ int32_t	validate_file(int argc, char *file);
  * @returns 1 if the initialization was successful, -1 in case of an error.
  */
 int		init_player(t_player *player, size_t x, size_t y, char dir);
+
+/******************************************************************************/
+/*                                                                            */
+/*                                 INIT_GAME.C                                */
+/*                                                                            */
+/******************************************************************************/
 
 t_game	*init_game_data(t_game *game);
 int		init(t_game *game, t_map *map);
@@ -358,6 +425,50 @@ int32_t	rgba(int32_t r, int32_t g, int32_t b, int32_t a);
  * is not.
  */
 int		is_whitespace(int c);
+
+/******************************************************************************/
+/*                                                                            */
+/*                                 RAYCASTER                                  */
+/*                                                                            */
+/******************************************************************************/
+
+/**
+ * Initializes the variables found in the `t_ray` structure.
+ * 
+ * @param[in] x The horizontal coordinate on the window.
+ * @param[out] ray A pointer to the `t_ray` structure.
+ * @param[in] player A pointer to the `t_player` structure containing the player
+ * location and direction info.
+ * @param[in] mlx A pointer to the `mlx_t` structure containing the info about
+ * the window.
+ */
+void	init_ray_info(int x, t_ray *ray, t_player *player, mlx_t *mlx);
+
+/**
+ * Initializes the `side_dist_x` and `side_dist_y` 
+ * and also the `step_x` and `step_y` variables found in structure `t_ray`.
+ * 
+ * @param[out] ray A pointer to the `t_ray` structure.
+ * @param[in] player A pointer to the `t_player` structure.
+ */
+void	init_side_step(t_ray *ray, t_player *player);
+
+/**
+ * Casts a ray using the DDA algorithm until it hits a wall.
+ * 
+ * @param[out] ray A pointer to the `t_ray` structure.that holds the
+ * information about the ray to be casted.
+ * @param[in] game A pointer to the `t_game` the map.
+ */
+void	cast_ray(t_ray *ray, t_game *game);
+
+/**
+ * Initializes the variables needed for the wall drawing.
+ * 
+ * @param[out] ray A pointer to the `t_ray` structure.
+ * @param[in] game A pointer to the `t_game` structure.
+ */
+void	init_draw(t_ray *ray, t_game *game);
 
 /******************************************************************************/
 /*                                                                            */

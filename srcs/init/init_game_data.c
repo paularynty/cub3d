@@ -17,23 +17,6 @@ static int	get_window_size(uint32_t *window_width, uint32_t *window_height)
 	return (TRUE);
 }
 
-int	init_player(t_player *player, size_t x, size_t y, char dir)
-{
-	if (player->pos_x != 0 || player->pos_y != 0)
-		return (print_error("Too many players in the map! (Needed 1)"));
-	player->pos_x = x;
-	player->pos_y = y;
-	if (dir == 'N')
-		player->dir = NORTH;
-	else if (dir == 'S')
-		player->dir = SOUTH;
-	else if (dir == 'E')
-		player->dir = EAST;
-	else if (dir == 'W')
-		player->dir = WEST;
-	return (1);
-}
-
 t_game	*init_game_data(t_game *game)
 {
 	game = (t_game *)malloc(sizeof(t_game));

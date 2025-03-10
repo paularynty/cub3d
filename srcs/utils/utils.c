@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/03 17:04:21 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/10 09:50:48 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,6 @@ void	free_map(t_map *map)
 		split_free(map->map);
 		map->map = NULL;
 	}
-	if (map->textures.north)
-		mlx_delete_texture(map->textures.north);
-	if (map->textures.south)
-		mlx_delete_texture(map->textures.south);
-	if (map->textures.east)
-		mlx_delete_texture(map->textures.east);
-	if (map->textures.west)
-		mlx_delete_texture(map->textures.west);
 }
 
 int	print_error(char *msg)

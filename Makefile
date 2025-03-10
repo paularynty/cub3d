@@ -50,13 +50,16 @@ OSFLAGS			= -ldl -lglfw -pthread -lm
 SRCS			= $(SRCDIR)/main.c \
 				$(SRCDIR)/init/init_game_data.c \
 				$(SRCDIR)/init/init.c \
-				$(SRCDIR)/minimap/init_minimap.c \
+				$(SRCDIR)/init/init_player_data.c \
+				$(SRCDIR)/minimap/minimap_utils.c \
 				$(SRCDIR)/minimap/minimap.c \
 				$(SRCDIR)/render/render.c \
 				$(SRCDIR)/parsing/create_map.c \
 				$(SRCDIR)/parsing/map_validation.c \
 				$(SRCDIR)/parsing/parsing_utils.c \
 				$(SRCDIR)/parsing/read_map.c \
+				$(SRCDIR)/raycaster/init_ray.c \
+				$(SRCDIR)/raycaster/raycaster.c \
 				$(SRCDIR)/utils/utils.c \
 
 OBJS			= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
@@ -87,7 +90,6 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@cc -c $(CFLAGS) $< -o $@
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX) $(CUB3D_HEADER)
-	@cp $(LIBFT) .
 	@cc $(CFLAGS) $(OBJS) $(MLX) $(LIBFT) $(OSFLAGS) -o $(NAME)
 	@$(OBJ_READY)
 	@chmod 777 $(NAME)
