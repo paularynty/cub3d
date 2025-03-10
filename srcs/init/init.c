@@ -56,6 +56,6 @@ int	init(t_game *game, t_map *map)
 	set_cursor(game);
 	render_game(game);
 	if (init_minimap(game, map) == FALSE)
-		return (FALSE);
+	return (FALSE);
 	return (TRUE);
 }

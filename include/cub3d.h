@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 14:02:45 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:58:24 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@
 # include <fcntl.h>
 # include "libft.h"
 # include <stdio.h> //delete this later
+# include <stdbool.h>
 # include <math.h>
 # include "MLX42.h"
 
 # define TRUE 1
 # define FALSE -1
 
-# define MOVESPEED 0.01
-# define ROTSPEED 0.01
+# define MOVE_SPEED 0.2f
+# define ROTATION_SPEED 0.03f
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
@@ -122,8 +123,8 @@ typedef struct s_minimap
  */
 typedef struct s_player
 {
-	int32_t		pos_x;
-	int32_t		pos_y;
+	double		pos_x;
+	double		pos_y;
 	double		dir_x;
 	double		dir_y;
 	double		plane_x;
@@ -288,7 +289,10 @@ int		init_minimap(t_game *game, t_map *map);
  * Handles player movement in the minimap.
  * Params to be added.
 */
-void	move_player_minimap(t_game *game, size_t x, size_t y);
+void	move_player_minimap(t_game *game, double x, double y);
+void 	move_player(t_game *game, bool forward);
+// void 	move_player(t_game *game, bool forward, double new_x, double new_y);
+void 	rotate_player(t_game *game, bool right);
 
 
 /******************************************************************************/
@@ -499,8 +503,9 @@ void	render_world(t_game *game);
  */
 void	free_map(t_map *map);
 int		print_error(char *msg);
-// void	game_hook(void *param);
 void	key_hooks(mlx_key_data_t data, void *param);
+// void	key_hooks(t_game *game);
+void	game_hook(void *param);
 
 /**
  * A function to handle window resizing.
