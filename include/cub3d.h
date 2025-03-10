@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 12:01:09 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:21:42 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_assets
 {
 	mlx_image_t	*ceiling;
 	mlx_image_t	*floor;
+	mlx_image_t	*world;
 }	t_assets;
 
 /**
@@ -305,7 +306,7 @@ int		read_map(t_map *map, char *line, int32_t fd, char *filename);
 
 /******************************************************************************/
 /*                                                                            */
-/*                                 RENDER.C                                 */
+/*                                 RENDER.C                                   */
 /*                                                                            */
 /******************************************************************************/
 
@@ -470,6 +471,20 @@ void	cast_ray(t_ray *ray, t_game *game);
  * @param[in] game A pointer to the `t_game` structure.
  */
 void	init_draw(t_ray *ray, t_game *game);
+
+/**
+ * Draws the 3D world of the map to the window.
+ * DELETE LATER WHEN TEXTURES ARE WORKING!!
+ */
+void	test_draw(int x, t_game *game, mlx_image_t *image);
+
+/**
+ * Calls all the necessary functions to cast rays through the map and draw the FOV.
+ * 
+ * @param[out] game A pointer to the game structure, that holds the `t_ray`
+ * variable.
+ */
+void	render_world(t_game *game);
 
 /******************************************************************************/
 /*                                                                            */
