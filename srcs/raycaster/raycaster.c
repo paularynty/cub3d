@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:46:11 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 12:32:46 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:35:55 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	render_world(t_game *game)
 
 	if (game->assets.world != NULL)
 		mlx_delete_image(game->mlx, game->assets.world);
-	game->assets.world = mlx_new_image(game->mlx, game->window_w, game->window_h);
+	game->assets.world = mlx_new_image(game->mlx, game->window_w, \
+		game->window_h);
 	if (!game->assets.world)
 		return ;
 	x = 0;
