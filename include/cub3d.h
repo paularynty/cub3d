@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 14:58:24 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/10 17:21:12 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define FALSE -1
 
 # define MOVE_SPEED 0.2f
-# define ROTATION_SPEED 0.03f
+# define ROTATION_SPEED 0.1f
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
