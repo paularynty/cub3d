@@ -77,7 +77,8 @@ int	main(int argc, char **argv)
 		test_draw(x, game, image);
 	}
 	mlx_image_to_window(game->mlx, image, 0, 0);
-	mlx_key_hook(game->mlx, &key_hooks, game);
+	// mlx_key_hook(game->mlx, &key_hooks, game);
+	mlx_loop_hook(game->mlx, &game_hook, game);
 	mlx_loop(game->mlx);
 	free_map(&game->map);
 	return (0);
