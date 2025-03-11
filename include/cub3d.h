@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 20:02:24 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/11 13:06:03 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,7 +286,7 @@ void	init_draw(t_ray *ray, t_game *game);
  * Draws the 3D world of the map to the window.
  * DELETE LATER WHEN TEXTURES ARE WORKING!!
  */
-void	test_draw(int x, t_game *game, mlx_image_t *image, mlx_texture_t *texture);
+void	draw_walls(int x, t_game *game, mlx_image_t *image, mlx_texture_t *texture);
 
 /**
  * Calls all the necessary functions to cast rays through the map and draw the FOV.

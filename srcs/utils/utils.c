@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 17:16:07 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/11 14:27:59 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,17 @@ int	print_error(char *msg)
 static void	key_move(t_game *game, double x, double y)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-		move_player_minimap(game, x + game->player.dir_x * MOVE_SPEED, y);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-		move_player_minimap(game, x - game->player.dir_x * MOVE_SPEED, y);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		move_player_minimap(game, x, y - game->player.dir_y * MOVE_SPEED);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-		move_player_minimap(game, x, y + game->player.dir_y * MOVE_SPEED);
+		move_player_minimap(game, x + game->player.dir_x * MOVE_SPEED, \
+			y + game->player.dir_y * MOVE_SPEED);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+		move_player_minimap(game, x - game->player.dir_x * MOVE_SPEED, \
+			y - game->player.dir_y * MOVE_SPEED);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		move_player_minimap(game, x - game->player.dir_y * MOVE_SPEED, \
+			y + game->player.dir_x * MOVE_SPEED);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+		move_player_minimap(game, x + game->player.dir_y * MOVE_SPEED, \
+			y - game->player.dir_x * MOVE_SPEED);
 }
 
 static void	key_rotate(t_game *game)

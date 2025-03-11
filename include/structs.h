@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/10 19:47:55 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/11 12:44:49 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,9 @@ typedef struct s_ray
 	int		draw_start;
 	int		draw_end;
 	int		hit;
+	double  wall_dist;  // NEW Distance from player to wall
+    double  wall_hit_x; // NEW Exact x-coordinate where the ray hit the wall
+    double  wall_hit_y; // NEW Exact y-coordinate where the ray hit the wall
 }	t_ray;
 
 

@@ -12,55 +12,48 @@ static void	get_pixel_data(mlx_texture_t *texture, t_color *color, \
 	color->color = rgba(color->r, color->g, color->b, color->a);
 }
 
-uint32_t	get_x_coord(t_game *game, mlx_texture_t *texture)
+uint32_t get_x_coord(t_game *game, mlx_texture_t *texture)
 {
-	int	texture_x;
+    uint32_t	texture_x;
 
-	if (game->ray.hit == true)
-	{
-		// if (game->ray.direction_up == false)
-		// 	x = (1 - fmod(game->ray.dir_x, TILESIZE) / TILESIZE) \
-		// 		* texture->width;
-		// else
-		texture_x = fmod(game->ray.dir_x, TILESIZE) / TILESIZE \
-				* texture->width;
-	}
-	else
-	{
-		// if (game->ray.direction_left == true)
-		// 	x = (1 - fmod(game->ray.dir_x, TILESIZE) / TILESIZE) \
-		// 		* texture->width;
-		// else
-		texture_x = fmod(game->ray.dir_y, TILESIZE) / TILESIZE \
-				* texture->width;
-	}
-	return (texture_x);
+    texture_x = (int)(game->ray.wall_hit_x * texture->width);
+    if (texture_x < 0)
+        texture_x = 0;
+    else if (texture_x >= texture->width)
+        texture_x = texture->width - 1;
+    return (texture_x);
 }
 
-void	test_draw(int x, t_game *game, mlx_image_t *image, mlx_texture_t *texture)
+void draw_walls(int x, t_game *game, mlx_image_t *image, mlx_texture_t *texture)
 {
-	t_color		color;
-	int			step;
-	uint32_t	texture_x;
-	uint32_t	texture_y;
-	int			y;
+    t_color     color;
+    uint32_t    texture_x;
+    uint32_t    texture_y;
+    double      texture_pos;
+    double      step;
+    int         y;
 
-	y = game->ray.draw_start;
-	step = texture->height / game->ray.line_height;
-	texture_x = get_x_coord(game, texture);
-	texture_y = (y - (game->window_h / 2) + (game->ray.line_height / 2) * step);
-	while (y < game->ray.draw_end)
-	{
-		get_pixel_data(texture, &color, ((texture->width * (int)texture_y + texture_x) * 4));
-		mlx_put_pixel(image, x, y, color.color);
-		y++;
-		texture_y += step;
-		if (texture_y >= texture->height)
-			texture_y -= texture->height;
-	}
+    texture_x = get_x_coord(game, texture);
+    step = (double)texture->height / game->ray.line_height;
+    texture_pos = (game->ray.draw_start - game->window_h / 2
+		+ game->ray.line_height / 2) * step;
+    if (texture_pos < 0)
+        texture_pos = 0;
+    y = game->ray.draw_start;
+    while (y < game->ray.draw_end)
+    {
+        texture_y = (uint32_t)texture_pos;
+        if (texture_y >= texture->height)
+            texture_y = texture->height - 1;
+        get_pixel_data(texture, &color,
+			((texture->width * texture_y + texture_x) * 4));
+        mlx_put_pixel(image, x, y, color.color);
+        texture_pos += step;
+        y++;
+    }
 }
 
-// void	test_draw(int x, t_game *game, mlx_image_t *image, mlx_texture_t *texture)
+// void	test_draw(int x, t_game *game, mlx_image_t *image)
 // {
 // 	int			y;
 
