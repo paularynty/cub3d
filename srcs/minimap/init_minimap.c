@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:34:46 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/06 14:13:38 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/11 12:36:53 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,17 +107,6 @@ static mlx_image_t	*load_image(mlx_t *mlx, const char *image_path)
 	mlx_delete_texture(texture);
 	return (image);
 }
-
-// static void	init_img(
-// 	t_game *game,
-// 	mlx_image_t **img,
-// 	uint32_t width,
-// 	uint32_t height)
-// {
-// 	*img = mlx_new_image(c->mlx, width, height);
-// 	if (!*img)
-// 		cub3d_error_exit(c, "am_init: mlx_new_image");
-// }
 
 int	init_minimap(t_game *game, t_map *map)
 {

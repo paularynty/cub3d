@@ -1,19 +1,19 @@
 #include "cub3d.h"
 
-void	test_draw(int x, t_game *game, mlx_image_t *image)
-{
-	int			y;
+// void	test_draw(int x, t_game *game, mlx_image_t *image)
+// {
+// 	int			y;
 
-	y = game->ray.draw_start;
-	while (y < game->ray.draw_end)
-	{
-		if (game->ray.side == 0)
-			mlx_put_pixel(image, x, y, rgba(255, 1, 1, 255));
-		else
-			mlx_put_pixel(image, x, y, rgba(127, 1, 1, 255));
-		y++;
-	}
-}
+// 	y = game->ray.draw_start;
+// 	while (y < game->ray.draw_end)
+// 	{
+// 		if (game->ray.side == 0)
+// 			mlx_put_pixel(image, x, y, rgba(255, 1, 1, 255));
+// 		else
+// 			mlx_put_pixel(image, x, y, rgba(127, 1, 1, 255));
+// 		y++;
+// 	}
+// }
 
 int	main(int argc, char **argv)
 {

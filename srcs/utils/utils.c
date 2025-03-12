@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 13:08:45 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:06:05 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,29 @@ int	print_error(char *msg)
 	return (FALSE);
 }
 
-// void	game_hook(void *param)
-// {
-// 	t_game	*game;
+static void	key_move(t_game *game, double x, double y)
+{
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+		move_player_minimap(game, x + game->player.dir_x * MOVE_SPEED, \
+			y + game->player.dir_y * MOVE_SPEED);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+		move_player_minimap(game, x - game->player.dir_x * MOVE_SPEED, \
+			y - game->player.dir_y * MOVE_SPEED);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		move_player_minimap(game, x - game->player.dir_y * MOVE_SPEED, \
+			y + game->player.dir_x * MOVE_SPEED);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+		move_player_minimap(game, x + game->player.dir_y * MOVE_SPEED, \
+			y - game->player.dir_x * MOVE_SPEED);
+}
 
-// 	game = (t_game *)param;
-// 	minimap(game);
-// }
+static void	key_rotate(t_game *game)
+{
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		rotate_player(game, false);
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		rotate_player(game, true);
+}
 
 void	resize_window(int32_t width, int32_t height, void *param)
 {
@@ -59,22 +75,8 @@ void	key_hooks(mlx_key_data_t data, void *param)
 	y = game->player.pos_y;
 	if (data.key == MLX_KEY_ESCAPE && data.action == MLX_RELEASE)
 		mlx_close_window(game->mlx);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-		move_player_minimap(game, x + game->player.dir_x * MOVE_SPEED, \
-			y + game->player.dir_y * MOVE_SPEED);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-		move_player_minimap(game, x - game->player.dir_x * MOVE_SPEED, \
-			y - game->player.dir_y * MOVE_SPEED);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		move_player_minimap(game, x - game->player.dir_y * MOVE_SPEED, \
-			y + game->player.dir_x * MOVE_SPEED);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-		move_player_minimap(game, x + game->player.dir_y * MOVE_SPEED, \
-			y - game->player.dir_x * MOVE_SPEED);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
-		rotate_player(game, true);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		rotate_player(game, false);
+	key_move(game, x, y);
+	key_rotate(game);
 	render_world(game);
 }
 
@@ -91,15 +93,6 @@ void	mouse_hook(double xpos, double ypos, void *param)
 	mlx_set_mouse_pos(game->mlx, game->window_w / 2, game->window_h / 2);
 	render_world(game);
 }
-
-// void	game_hook(void *param)
-// {
-// 	t_game	*game;
-	
-// 	game = (t_game *)param;
-// 	key_hooks(game);
-// 	// rotate_player(game, right);
-// }
 
 void	cleanup(t_game *game)
 {

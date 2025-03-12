@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:20:56 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 14:01:58 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:02:40 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ static void	init_ray(t_ray *ray)
 	ray->step_x = 0;
 	ray->step_y = 0;
 	ray->side = 0;
+	ray->hit = FALSE;
+	ray->wall_dist = 0;
+    ray->wall_hit_x = 0;
+    ray->wall_hit_y = 0;
 }
 
 void	init_ray_info(int x, t_ray *ray, t_player *player, t_game *game)

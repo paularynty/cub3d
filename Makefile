@@ -36,13 +36,13 @@ NAME			= cub3D
 SRCDIR			= srcs
 OBJDIR			= objs
 
-CUB3D_HEADER	= ./include
+CUB3D_HEADERS	= ./include
 LIBFT_DIR		= ./include/libft
 LIBFT			= ./$(LIBFT_DIR)/libft.a
 MLX_DIR			= ./include/MLX42
 MLX				= $(MLX_DIR)/build/libmlx42.a
 MLX_HEADER 		= $(MLX_DIR)/include/MLX42
-HEADERS 		= -I $(MLX_HEADER) -I $(LIBFT_DIR) -I $(CUB3D_HEADER)
+HEADERS 		= -I $(MLX_HEADER) -I $(LIBFT_DIR) -I $(CUB3D_HEADERS)
 
 CFLAGS			= -Wall -Wextra -Werror $(HEADERS)
 OSFLAGS			= -ldl -lglfw -pthread -lm
@@ -91,7 +91,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
 	@cc -c $(CFLAGS) $< -o $@
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX) $(CUB3D_HEADER)
+$(NAME): $(OBJS) $(LIBFT) $(MLX) $(CUB3D_HEADERS)
 	@cc $(CFLAGS) $(OBJS) $(MLX) $(LIBFT) $(OSFLAGS) -o $(NAME)
 	@$(OBJ_READY)
 	@chmod 777 $(NAME)

@@ -1,13 +1,5 @@
 #include "cub3d.h"
 
-// static int	render_image(t_game *game, mlx_image_t *image, size_t x, size_t y)
-// {
-// 	if (mlx_image_to_window(game->mlx, image,
-// 		x * TILESIZE, y * TILESIZE) == FALSE)
-// 		return (print_error("Failed to put wall image to window"));
-// 	return (TRUE);
-// }
-
 int32_t	validate_file(int argc, char *file)
 {
 	int32_t	map_file;
@@ -55,8 +47,8 @@ int	init(t_game *game, t_map *map)
 		return (print_error("Failed to initialize MLX"));
 	//mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	set_cursor(game);
-	render_game(game);
+	render_floor_ceiling(game);
 	if (init_minimap(game, map) == FALSE)
-	return (FALSE);
+		return (FALSE);
 	return (TRUE);
 }
