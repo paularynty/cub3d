@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:46:11 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 15:17:22 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:21:07 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	init_draw(t_ray *ray, t_game *game)
 		ray->draw_end = game->mlx->height - 1;
 }
 
-void render_world(t_game *game)
+void	render_world(t_game *game)
 {
 	uint32_t		x;
 	mlx_texture_t	*texture;

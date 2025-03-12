@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 15:06:05 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:50:21 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	resize_window(int32_t width, int32_t height, void *param)
 	render_world(game);
 }
 
-void	key_hooks(mlx_key_data_t data, void *param)
+void	key_hooks(void *param)
 {
 	t_game	*game;
 	double	x;
@@ -73,23 +73,17 @@ void	key_hooks(mlx_key_data_t data, void *param)
 	game = (t_game *)param;
 	x = game->player.pos_x;
 	y = game->player.pos_y;
-	if (data.key == MLX_KEY_ESCAPE && data.action == MLX_RELEASE)
+	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
 	key_move(game, x, y);
 	key_rotate(game);
 	render_world(game);
 }
 
-void	mouse_hook(double xpos, double ypos, void *param)
+void	mouse_hook(t_game *game)
 {
-	t_game	*game;
+	int32_t	xpos;
 
-	(void)ypos;
-	game = param;
-	if (xpos < game->mouse_x)
-		rotate_player(game, true);
-	else if (xpos > game->mouse_x)
-		rotate_player(game, false);
 	mlx_set_mouse_pos(game->mlx, game->window_w / 2, game->window_h / 2);
 	render_world(game);
 }

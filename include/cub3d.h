@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 15:00:23 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:35:33 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -314,7 +314,7 @@ void	render_world(t_game *game);
  */
 void	free_map(t_map *map);
 int		print_error(char *msg);
-void	key_hooks(mlx_key_data_t data, void *param);
+void	key_hooks(void *param);
 // void	key_hooks(t_game *game);
 // void	game_hook(void *param);
 
