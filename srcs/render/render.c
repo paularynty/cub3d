@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:59:05 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/12 14:57:16 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/12 15:14:32 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ mlx_texture_t	*determine_texture(t_game *game, mlx_texture_t *texture)
 {
 	if (game->ray.side == 0)
 	{
-		if (game->player.dir_x < 0)
+		if (game->player.dir_x < 0 && game->player.dir_y < 0)
 			texture = game->map.textures.west;
 		else
 			texture = game->map.textures.east;

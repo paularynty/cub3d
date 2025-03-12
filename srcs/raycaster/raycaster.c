@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:46:11 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 14:35:44 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/12 15:14:33 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,15 @@ void render_world(t_game *game)
         mlx_delete_image(game->mlx, game->assets.world);
     game->assets.world = mlx_new_image(game->mlx, game->window_w, game->window_h);
     if (!game->assets.world)
-        return;
-
+        return ;
     x = 0;
+    texture = determine_texture(game, texture);
     while (x < game->assets.world->width)
     {
         init_ray_info(x, &game->ray, &game->player, game->mlx);
         init_side_step(&game->ray, &game->player);
         cast_ray(&game->ray, game);
         init_draw(&game->ray, game);
-        texture = determine_texture(game, texture);
         render_walls(x, game, game->assets.world, texture);
         x++;
     }
