@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_player_data.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:40:25 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/07 13:40:47 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/12 12:42:15 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	init_player_direction_ns(t_player	*player, char dir)
+static void	init_player_direction_ns(t_player *player, char dir)
 {
 	if (dir == 'N')
 	{

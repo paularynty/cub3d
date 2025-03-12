@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:46:11 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/11 13:13:05 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/12 14:35:44 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,17 @@ void cast_ray(t_ray *ray, t_game *game)
         {
             ray->hit = TRUE;
             if (ray->side == 0)
-                ray->wall_dist = (ray->map_x - game->player.pos_x + (1 - ray->step_x) / 2) / ray->dir_x;
+                ray->wall_dist = (ray->map_x - game->player.pos_x \
+                    + (1 - ray->step_x) / 2) / ray->dir_x;
             else
-                ray->wall_dist = (ray->map_y - game->player.pos_y + (1 - ray->step_y) / 2) / ray->dir_y;
+                ray->wall_dist = (ray->map_y - game->player.pos_y \
+                    + (1 - ray->step_y) / 2) / ray->dir_y;
             if (ray->side == 0)
-                ray->wall_hit_x = game->player.pos_y + ray->wall_dist * ray->dir_y;
+                ray->wall_hit_x = game->player.pos_y \
+                    + ray->wall_dist * ray->dir_y;
             else
-                ray->wall_hit_x = game->player.pos_x + ray->wall_dist * ray->dir_x;
+                ray->wall_hit_x = game->player.pos_x \
+                    + ray->wall_dist * ray->dir_x;
             ray->wall_hit_x -= floor(ray->wall_hit_x);
         }
     }
@@ -46,9 +50,7 @@ void cast_ray(t_ray *ray, t_game *game)
 
 void init_draw(t_ray *ray, t_game *game)
 {
-    double wall_dist = ray->wall_dist; // Already computed in cast_ray()
-
-    ray->line_height = (int)(game->mlx->height / wall_dist);
+    ray->line_height = (int)(game->mlx->height / ray->wall_dist);
     ray->draw_start = (-ray->line_height) / 2 + game->mlx->height / 2;
     if (ray->draw_start < 0)
         ray->draw_start = 0;
@@ -59,8 +61,10 @@ void init_draw(t_ray *ray, t_game *game)
 
 void render_world(t_game *game)
 {
-    uint32_t x;
+    uint32_t        x;
+    mlx_texture_t   *texture;
 
+    texture = NULL;
     if (game->assets.world != NULL)
         mlx_delete_image(game->mlx, game->assets.world);
     game->assets.world = mlx_new_image(game->mlx, game->window_w, game->window_h);
@@ -74,7 +78,8 @@ void render_world(t_game *game)
         init_side_step(&game->ray, &game->player);
         cast_ray(&game->ray, game);
         init_draw(&game->ray, game);
-        draw_walls(x, game, game->assets.world, game->map.textures.north);
+        texture = determine_texture(game, texture);
+        render_walls(x, game, game->assets.world, texture);
         x++;
     }
     mlx_image_to_window(game->mlx, game->assets.world, 0, 0);

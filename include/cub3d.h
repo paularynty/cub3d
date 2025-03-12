@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/11 13:06:03 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/12 12:52:17 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		init_minimap(t_game *game, t_map *map);
  * Params to be added.
 */
 void	move_player_minimap(t_game *game, double x, double y);
-void 	move_player(t_game *game, bool forward);
+// void 	move_player(t_game *game, bool forward);
 // void 	move_player(t_game *game, bool forward, double new_x, double new_y);
 void 	rotate_player(t_game *game, bool right);
 
@@ -283,10 +283,15 @@ void	cast_ray(t_ray *ray, t_game *game);
 void	init_draw(t_ray *ray, t_game *game);
 
 /**
- * Draws the 3D world of the map to the window.
- * DELETE LATER WHEN TEXTURES ARE WORKING!!
+ * Determines which texture should be drawn based on the cardinal direction
+ * (north/south/east/west).
  */
-void	draw_walls(int x, t_game *game, mlx_image_t *image, mlx_texture_t *texture);
+mlx_texture_t	*determine_texture(t_game *game, mlx_texture_t *texture);
+
+/**
+ * Draws the walls of the 3D world in the window.
+ */
+void	render_walls(int x, t_game *game, mlx_image_t *image, mlx_texture_t *texture);
 
 /**
  * Calls all the necessary functions to cast rays through the map and draw the FOV.

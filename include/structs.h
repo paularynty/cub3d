@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/11 12:44:49 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/12 14:41:07 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ typedef struct s_minimap
 /**
  * A struct for the player information.
  * 
+ * @param angle The player angle based on their cardinal direction (NSEW).
  * @param pos_x The horizontal position of the player in the map.
  * @param pos_y The vertical position of the player in the map.
  * @param dir_x The horizontal direction where the player is looking in the map.
@@ -94,6 +95,7 @@ typedef struct s_minimap
  */
 typedef struct s_player
 {
+	double		angle;
 	double		pos_x;
 	double		pos_y;
 	double		dir_x;
@@ -109,10 +111,6 @@ typedef struct s_player
  * @param floor Holds the color of the floor.
  * @param ceiling Holds the color of the ceiling.
  * @param textures Holds the textures that will be converted to images.
- * @param north Holds the image used for the north part of the map.
- * @param south Holds the image used for the south part of the map.
- * @param east Holds the image used for the east part of the map.
- * @param west Holds the image used for the west part of the map.
  * @param width Holds the width of the map.
  * @param height Holds the height of the map.
  */
@@ -122,10 +120,6 @@ typedef struct s_map
 	t_color			floor;
 	t_color			ceiling;
 	t_textures		textures;
-	mlx_image_t		*north;
-	mlx_image_t		*south;
-	mlx_image_t		*east;
-	mlx_image_t		*west;
 	size_t			width;
 	size_t			height;
 }	t_map;
