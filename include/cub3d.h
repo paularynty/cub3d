@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/10 17:21:12 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/12 12:47:55 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # define TRUE 1
 # define FALSE -1
 
-# define MOVE_SPEED 0.2f
-# define ROTATION_SPEED 0.1f
+# define MOVE_SPEED 0.125f
+# define ROTATION_SPEED 0.015f
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
@@ -229,6 +229,7 @@ typedef struct s_game
 	t_ray		ray;
 	uint32_t	window_w;
 	uint32_t	window_h;
+	double		mouse_x;
 }	t_game;
 
 /******************************************************************************/
@@ -512,7 +513,7 @@ void	game_hook(void *param);
  * 
  * @param[in] width The new width of the window.
  * @param[in] height The new height of the window.
- * @param[in] param An extra parameter to the function. Will contain the
+ * @param[in] param An extra parameter to the function. Will contain
  * a pointer to the `t_game` structure.
  */
 void	resize_window(int32_t width, int32_t height, void *param);
@@ -522,5 +523,15 @@ void	resize_window(int32_t width, int32_t height, void *param);
  * @param[in] *game Game data struct.
 */
 void	cleanup(t_game *game);
+
+/**
+ * A mouse hook used for rotating the player with mouse movement.
+ * 
+ * @param[in] xpos The horizontal position of the mouse.
+ * @param[in] ypos The vertical position of the mouse.
+ * @param[out] param Additional parameter to pass to the function.
+ * Will contain a pointer to the `t_game` structure.
+*/
+void	mouse_hook(double xpos, double ypos, void *param);
 
 #endif

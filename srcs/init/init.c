@@ -46,6 +46,7 @@ static void	set_cursor(t_game *game)
 	cursor = mlx_create_cursor(cursor_texture);
 	mlx_delete_texture(cursor_texture);
 	mlx_set_cursor(game->mlx, cursor);
+	game->mouse_x = game->window_w / 2;
 }
 
 int	init(t_game *game, t_map *map)

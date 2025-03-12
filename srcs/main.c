@@ -39,6 +39,7 @@ int	main(int argc, char **argv)
 	render_world(game);
 	mlx_image_to_window(game->mlx, game->assets.world, 0, 0);
 	mlx_key_hook(game->mlx, &key_hooks, game);
+	mlx_cursor_hook(game->mlx, &mouse_hook, game);
 	mlx_resize_hook(game->mlx, &resize_window, game);
 	mlx_loop(game->mlx);
 	free_map(&game->map);
