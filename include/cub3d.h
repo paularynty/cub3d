@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 12:52:17 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/12 15:35:33 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define TRUE 1
 # define FALSE -1
 
-# define MOVE_SPEED 0.2f
-# define ROTATION_SPEED 0.04f
+# define MOVE_SPEED 0.125f
+# define ROTATION_SPEED 0.015f
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
@@ -254,7 +254,7 @@ int		is_whitespace(int c);
  * @param[in] mlx A pointer to the `mlx_t` structure containing the info about
  * the window.
  */
-void	init_ray_info(int x, t_ray *ray, t_player *player, mlx_t *mlx);
+void	init_ray_info(int x, t_ray *ray, t_player *player, t_game *game);
 
 /**
  * Initializes the `side_dist_x` and `side_dist_y` 
@@ -314,14 +314,34 @@ void	render_world(t_game *game);
  */
 void	free_map(t_map *map);
 int		print_error(char *msg);
-void	key_hooks(mlx_key_data_t data, void *param);
+void	key_hooks(void *param);
 // void	key_hooks(t_game *game);
 // void	game_hook(void *param);
+
+/**
+ * A function to handle window resizing.
+ * 
+ * @param[in] width The new width of the window.
+ * @param[in] height The new height of the window.
+ * @param[in] param An extra parameter to the function. Will contain
+ * a pointer to the `t_game` structure.
+ */
+void	resize_window(int32_t width, int32_t height, void *param);
 
 /**
  * Cleans up resources.
  * @param[in] *game Game data struct.
 */
 void	cleanup(t_game *game);
+
+/**
+ * A mouse hook used for rotating the player with mouse movement.
+ * 
+ * @param[in] xpos The horizontal position of the mouse.
+ * @param[in] ypos The vertical position of the mouse.
+ * @param[out] param Additional parameter to pass to the function.
+ * Will contain a pointer to the `t_game` structure.
+*/
+void	mouse_hook(double xpos, double ypos, void *param);
 
 #endif

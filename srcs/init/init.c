@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
+/*   Updated: 2025/03/12 15:08:43 by mrahmat-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int32_t	validate_file(int argc, char *file)
@@ -38,13 +50,14 @@ static void	set_cursor(t_game *game)
 	cursor = mlx_create_cursor(cursor_texture);
 	mlx_delete_texture(cursor_texture);
 	mlx_set_cursor(game->mlx, cursor);
+	game->mouse_x = game->window_w / 2;
 }
 
 int	init(t_game *game, t_map *map)
 {
 	if (init_mlx(game, game->window_w, game->window_h) == FALSE)
 		return (print_error("Failed to initialize MLX"));
-	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
+	//mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	set_cursor(game);
 	render_floor_ceiling(game);
 	if (init_minimap(game, map) == FALSE)

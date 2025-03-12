@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:55:20 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/12 12:44:41 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/12 15:02:26 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	move_player_minimap(t_game *game, double x, double y)
 	game->player.pos_y = y;
 }
 
-void rotate_player(t_game *game, bool right)
+void	rotate_player(t_game *game, bool right)
 {
     double  rotation_angle;
     double  temp_dir_x;
@@ -38,7 +38,7 @@ void rotate_player(t_game *game, bool right)
     double  sin_angle;
 	
 	if (right)
-    	rotation_angle = ROTATION_SPEED;
+		rotation_angle = ROTATION_SPEED;
 	else
 		rotation_angle = -ROTATION_SPEED;
     temp_plane_x = game->player.plane_x;

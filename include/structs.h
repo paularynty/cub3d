@@ -3,12 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/12 14:41:07 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/12 15:08:29 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
 #include "cub3d.h"
 
@@ -197,4 +200,7 @@ typedef struct s_game
 	t_ray		ray;
 	uint32_t	window_w;
 	uint32_t	window_h;
+	double		mouse_x;
 }	t_game;
+
+#endif

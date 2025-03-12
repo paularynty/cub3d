@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:20:56 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/11 12:50:45 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/12 15:02:40 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ static void	init_ray(t_ray *ray)
     ray->wall_hit_y = 0;
 }
 
-void	init_ray_info(int x, t_ray *ray, t_player *player, mlx_t *mlx)
+void	init_ray_info(int x, t_ray *ray, t_player *player, t_game *game)
 {
 	init_ray(ray);
-	ray->camera_x = 2 * x / (double)mlx->width - 1;
+	ray->camera_x = 2 * x / (double)game->window_w - 1;
 	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
 	ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
 	ray->map_x = (int)player->pos_x;

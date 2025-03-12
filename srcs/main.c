@@ -33,19 +33,13 @@ int	main(int argc, char **argv)
 		free_map(&game->map);
 		return (1);
 	}
-	/* for (size_t i = 0; i < game->map.height; i++)
-		printf("%s\n", game->map.map[i]);
-	printf("Floor: %d,%d,%d,%d\n", game->map.floor.r, game->map.floor.g, \
-	game->map.floor.b, game->map.floor.a);
-	printf("Ceiling: %d,%d,%d,%d\n", game->map.ceiling.r, game->map.ceiling.g, \
-	game->map.ceiling.b, game->map.ceiling.a);
-	printf("HERE map width is %zu\n", game->map.width); */
 	if (init(game, &game->map) == FALSE)
 		return (1);
 	game->assets.world = NULL;
-	render_world(game);
-	mlx_image_to_window(game->mlx, game->assets.world, 0, 0);
-	mlx_key_hook(game->mlx, &key_hooks, game);
+	//render_world(game);
+	//mlx_image_to_window(game->mlx, game->assets.world, 0, 0);
+	mlx_loop_hook(game->mlx, &key_hooks, game);
+	mlx_resize_hook(game->mlx, &resize_window, game);
 	mlx_loop(game->mlx);
 	free_map(&game->map);
 	return (0);
