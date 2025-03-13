@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:14:19 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/28 14:11:14 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/13 21:48:18 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	fill_map(t_map *map)
 	new_map[y] = NULL;
 	split_free(map->map);
 	map->map = new_map;
-	return (1);
+	return (TRUE);
 }
 
 int	get_map_width(t_map *map)
@@ -144,5 +144,5 @@ int	read_map(t_map *map, char *line, int32_t map_file, char *filename)
 	}
 	map->height = y;
 	map->map[y] = NULL;
-	return (1);
+	return (TRUE);
 }

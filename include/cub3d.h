@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/13 15:34:41 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/13 21:56:53 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@
 # define TRUE 1
 # define FALSE -1
 
+# define VERTICAL 0
+# define HORIZONTAL 1
+
 # define MOVE_SPEED 0.03f
-# define ROTATION_SPEED 0.03f
+# define ROTATION_SPEED 2.0f
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
@@ -96,10 +99,7 @@ int		init_minimap(t_game *game, t_map *map);
  * Params to be added.
 */
 void	move_player_minimap(t_game *game, double x, double y);
-// void 	move_player(t_game *game, bool forward);
-// void 	move_player(t_game *game, bool forward, double new_x, double new_y);
-void 	rotate_player(t_game *game, bool right);
-
+void	rotate_player(t_game *game, bool right, double delta_time);
 
 /******************************************************************************/
 /*                                                                            */
@@ -124,7 +124,6 @@ int		read_map(t_map *map, char *line, int32_t fd, char *filename);
 //fills images with indicated color (saved from map parsing) with mlx_put_pixel
 //puts images to window, first half will be ceiling, second half floor
 int		render_floor_ceiling(t_game *game);
-
 
 /******************************************************************************/
 /*                                                                            */
@@ -217,18 +216,6 @@ int		free_gnl(char **line, int fd);
 void	split_free(char **arr);
 
 /**
- * Converts RGBA to int value.
- * 
- * @param[in] r The value od red color.
- * @param[in] g The value of green color.
- * @param[in] b The value of blue color.
- * @param[in] a The value of transparency.
- * 
- * @returns The int value of the RGBA color.
-*/
-int32_t	rgba(int32_t r, int32_t g, int32_t b, int32_t a);
-
-/**
  * Checks if the character given as a parameter is a whitespace character.
  * 
  * @param[in] c The character to check.
@@ -254,7 +241,7 @@ int		is_whitespace(int c);
  * @param[in] mlx A pointer to the `mlx_t` structure containing the info about
  * the window.
  */
-void	init_ray_info(int x, t_ray *ray, t_player *player, t_game *game);
+void	init_ray(int x, t_ray *ray, t_player *player, t_game *game);
 
 /**
  * Initializes the `side_dist_x` and `side_dist_y` 
@@ -282,6 +269,11 @@ void	cast_ray(t_ray *ray, t_game *game);
  */
 void	init_draw(t_ray *ray, t_game *game);
 
+void		fill_color(mlx_image_t *image, int color);
+void		get_pixel_data(mlx_texture_t *texture, \
+		t_color *color, size_t coords);
+uint32_t		get_x_coord(t_game *game, mlx_texture_t *texture);
+
 /**
  * Determines which texture should be drawn based on the cardinal direction
  * (north/south/east/west).
@@ -291,13 +283,14 @@ mlx_texture_t	*determine_texture(t_game *game, mlx_texture_t *texture);
 /**
  * Draws the walls of the 3D world in the window.
  */
-void	render_walls(int x, t_game *game, mlx_image_t *image, mlx_texture_t *texture);
+void	render_walls(int x, t_game *game, mlx_image_t *image, \
+	mlx_texture_t *texture);
 
 /**
- * Calls all the necessary functions to cast rays through the map and draw the FOV.
+ * Calls necessary functions to cast rays through the map and draw the FOV.
  * 
- * @param[out] game A pointer to the game structure, that holds the `t_ray`
- * variable.
+ * @param[out] game Pointer to the game structure holding the `t_ray` ray
+ * data.
  */
 void	render_world(t_game *game);
 
@@ -314,9 +307,7 @@ void	render_world(t_game *game);
  */
 void	free_map(t_map *map);
 int		print_error(char *msg);
-void	key_hooks(void *param);
-// void	key_hooks(t_game *game);
-// void	game_hook(void *param);
+void	game_hook(void *param);
 
 /**
  * A function to handle window resizing.
@@ -339,6 +330,20 @@ void	cleanup(t_game *game);
  * 
  * @param[in] game A pointer to the `t_game`structure.
 */
-void	mouse_hook(t_game *game);
+// void	mouse_hook(t_game *game);
+
+double	get_delta_time(void);
+
+/**
+ * Converts RGBA to int value.
+ * 
+ * @param[in] r The value od red color.
+ * @param[in] g The value of green color.
+ * @param[in] b The value of blue color.
+ * @param[in] a The value of transparency.
+ * 
+ * @returns The int value of the RGBA color.
+*/
+int32_t	rgba(int32_t r, int32_t g, int32_t b, int32_t a);
 
 #endif

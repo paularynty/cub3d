@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/12 15:08:29 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/13 21:54:15 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-#include "cub3d.h"
+# include "cub3d.h"
 
 typedef struct s_assets
 {
@@ -127,9 +127,8 @@ typedef struct s_map
 	size_t			height;
 }	t_map;
 
-
 /**
- * A structure for ray calculations and to hold the length of the ray.
+ * Structure for ray calculations and to hold the length of the ray.
  * 
  * @param dir_x The horizontal direction of the ray.
  * @param dir_y The vertical direction of the ray.
@@ -158,29 +157,29 @@ typedef struct s_map
  */
 typedef struct s_ray
 {
-	double	dir_x;
-	double	dir_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	double	camera_x;
-	double	plane_x;
-	double	plane_y;
-	int		step_x;
-	int		step_y;
-	int		map_x;
-	int		map_y;
-	int		side;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	int		hit;
-	double  wall_dist;  // NEW Distance from player to wall
-    double  wall_hit_x; // NEW Exact x-coordinate where the ray hit the wall
-    double  wall_hit_y; // NEW Exact y-coordinate where the ray hit the wall
+	double		dir_x;
+	double		dir_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		camera_x;
+	double		plane_x;
+	double		plane_y;
+	int			step_x;
+	int			step_y;
+	int			map_x;
+	int			map_y;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	int			hit;
+	double		wall_dist;
+	double		wall_hit_x;
+	uint32_t	texture_x;
+	uint32_t	texture_y;
 }	t_ray;
-
 
 /**
  * The main structure that holds everything needed for the game.
@@ -201,6 +200,7 @@ typedef struct s_game
 	uint32_t	window_w;
 	uint32_t	window_h;
 	double		mouse_x;
+	double		delta_time;
 }	t_game;
 
 #endif

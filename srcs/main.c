@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/13 21:44:37 by prynty            #+#    #+#             */
+/*   Updated: 2025/03/13 21:44:39 by prynty           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	main(int argc, char **argv)
@@ -20,7 +32,7 @@ int	main(int argc, char **argv)
 	}
 	if (init(game, &game->map) == FALSE)
 		return (1);
-	mlx_loop_hook(game->mlx, &key_hooks, game);
+	mlx_loop_hook(game->mlx, &game_hook, game);
 	mlx_resize_hook(game->mlx, &resize_window, game);
 	mlx_loop(game->mlx);
 	free_map(&game->map);

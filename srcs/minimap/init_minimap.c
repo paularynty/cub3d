@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:34:46 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/12 15:14:10 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/13 21:45:24 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ int	init_minimap(t_game *game, t_map *map)
 	game->minimap.player = load_image(game->mlx, IMG_PLAYER);
 	if (!game->minimap.wall)
 		return (FALSE);
-	// printf("HERE map width is %zu\n", game->map.width);
 	set_z_index(game->minimap.wall, 1);
 	set_z_index(game->minimap.floor, 1);
 	if (render_minimap_floor(game, map) == FALSE 

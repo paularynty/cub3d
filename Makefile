@@ -55,6 +55,7 @@ SRCS			= $(SRCDIR)/main.c \
 				$(SRCDIR)/minimap/minimap_utils.c \
 				$(SRCDIR)/minimap/minimap.c \
 				$(SRCDIR)/movement/movement.c \
+				$(SRCDIR)/render/render_utils.c \
 				$(SRCDIR)/render/render.c \
 				$(SRCDIR)/parsing/create_map.c \
 				$(SRCDIR)/parsing/map_validation.c \
@@ -62,6 +63,7 @@ SRCS			= $(SRCDIR)/main.c \
 				$(SRCDIR)/parsing/read_map.c \
 				$(SRCDIR)/raycaster/init_ray.c \
 				$(SRCDIR)/raycaster/raycaster.c \
+				$(SRCDIR)/utils/hooks.c \
 				$(SRCDIR)/utils/utils.c \
 
 OBJS			= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)

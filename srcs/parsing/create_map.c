@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:02:45 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/28 14:31:55 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/13 21:47:29 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	add_texture(mlx_texture_t **texture, char *path)
 
 	start = 0;
 	if (*texture != NULL)
-		return (-1);
+		return (FALSE);
 	while (is_whitespace(path[start]) == 1)
 		start++;
 	end = start;
@@ -33,7 +33,7 @@ static int	add_texture(mlx_texture_t **texture, char *path)
 	free(parsed_path);
 	if (*texture == NULL)
 		return (print_error("Texture loading failed"));
-	return (1);
+	return (TRUE);
 }
 
 static int	add_color(t_color *color, char *line)
@@ -53,7 +53,7 @@ static int	add_color(t_color *color, char *line)
 	color->a = 255;
 	color->color = rgba(color->r, color->g, color->b, color->a);
 	split_free(splitted_line);
-	return (1);
+	return (TRUE);
 }
 
 static int	check_key(t_map *map, char *line)
@@ -94,23 +94,22 @@ int	create_map(t_game *game, int32_t map_file, char *filename)
 
 	line = get_next_line(map_file);
 	if (line == NULL)
-		return (-1);
+		return (FALSE);
 	while (line != NULL)
 	{
 		check = check_line(&game->map, line);
 		if (check == -2)
 		{
 			if (read_map(&game->map, line, map_file, filename) < 0)
-				return (-1);
+				return (FALSE);
 			if (get_map_width(&game->map) < 0)
-				return (-1);
+				return (FALSE);
 			return (final_validation(game));
 		}
-		// printf("%p\n", game->map.textures.north);
 		if (check == -1)
 			return (free_gnl(&line, map_file));
 		free(line);
 		line = get_next_line(map_file);
 	}
-	return (1);
+	return (TRUE);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:20:56 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 15:02:40 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/13 21:44:10 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	init_ray(t_ray *ray)
+static void	init_ray_data(t_ray *ray)
 {
 	ray->camera_x = 0;
 	ray->delta_dist_x = 0;
@@ -28,13 +28,14 @@ static void	init_ray(t_ray *ray)
 	ray->side = 0;
 	ray->hit = FALSE;
 	ray->wall_dist = 0;
-    ray->wall_hit_x = 0;
-    ray->wall_hit_y = 0;
+	ray->wall_hit_x = 0;
+	ray->texture_x = 0;
+	ray->texture_y = 0;
 }
 
-void	init_ray_info(int x, t_ray *ray, t_player *player, t_game *game)
+void	init_ray(int x, t_ray *ray, t_player *player, t_game *game)
 {
-	init_ray(ray);
+	init_ray_data(ray);
 	ray->camera_x = 2 * x / (double)game->window_w - 1;
 	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
 	ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;

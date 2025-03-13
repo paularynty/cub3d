@@ -1,5 +1,13 @@
 ## Development timeline
 
+### 13.3.2025
+
+- POV mouse rotation works.
+- NSEW textures no longer rerender incorrectly when POV rotates.
+- Cleaned up code and made file structure neater, fixed norminette.
+- Rewrote player rotation logic using delta time for time-based vs
+frame-based rotation, for more consistent and smooth rotation.
+
 ### 12.3.2025
 
 - Moved 3D rendering logic to mlx_loop_hook for better FPS/smoother movement.
@@ -7,7 +15,7 @@
 
 ### 11.3.2025
 
-- Textures render successfully so far.
+- Textures render successfully so far (testing with only one texture).
 - Building logic to determine correct texture based on cardinal direction of a given wall.
 
 ### 10.3.2025

@@ -6,11 +6,29 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:46:11 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 17:14:18 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/13 21:06:48 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	handle_wall_collision(t_game *game)
+{
+	game->ray.hit = TRUE;
+	if (game->ray.side == VERTICAL)
+		game->ray.wall_dist = (game->ray.map_x - game->player.pos_x \
+			+ (1 - game->ray.step_x) / 2) / game->ray.dir_x;
+	else
+		game->ray.wall_dist = (game->ray.map_y - game->player.pos_y \
+			+ (1 - game->ray.step_y) / 2) / game->ray.dir_y;
+	if (game->ray.side == VERTICAL)
+		game->ray.wall_hit_x = game->player.pos_y \
+			+ game->ray.wall_dist * game->ray.dir_y;
+	else
+		game->ray.wall_hit_x = game->player.pos_x \
+			+ game->ray.wall_dist * game->ray.dir_x;
+	game->ray.wall_hit_x -= floor(game->ray.wall_hit_x);
+}
 
 void	cast_ray(t_ray *ray, t_game *game)
 {
@@ -18,33 +36,18 @@ void	cast_ray(t_ray *ray, t_game *game)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
+			ray->side = VERTICAL;
 			ray->side_dist_x += ray->delta_dist_x;
 			ray->map_x += ray->step_x;
-			ray->side = 0;
 		}
 		else
 		{
+			ray->side = HORIZONTAL;
 			ray->side_dist_y += ray->delta_dist_y;
 			ray->map_y += ray->step_y;
-			ray->side = 1;
 		}
 		if (game->map.map[ray->map_y][ray->map_x] > '0')
-		{
-			ray->hit = TRUE;
-			if (ray->side == 0)
-				ray->wall_dist = (ray->map_x - game->player.pos_x \
-					+ (1 - ray->step_x) / 2) / ray->dir_x;
-			else
-				ray->wall_dist = (ray->map_y - game->player.pos_y \
-					+ (1 - ray->step_y) / 2) / ray->dir_y;
-			if (ray->side == 0)
-				ray->wall_hit_x = game->player.pos_y \
-					+ ray->wall_dist * ray->dir_y;
-			else
-				ray->wall_hit_x = game->player.pos_x \
-					+ ray->wall_dist * ray->dir_x;
-			ray->wall_hit_x -= floor(ray->wall_hit_x);
-		}
+			handle_wall_collision(game);
 	}
 }
 
@@ -57,31 +60,4 @@ void	init_draw(t_ray *ray, t_game *game)
 	ray->draw_end = ray->line_height / 2 + game->mlx->height / 2;
 	if (ray->draw_end >= game->mlx->height)
 		ray->draw_end = game->mlx->height - 1;
-}
-
-void	render_world(t_game *game)
-{
-	uint32_t		x;
-	mlx_texture_t	*texture;
-
-	texture = NULL;
-	if (game->assets.world != NULL)
-		mlx_delete_image(game->mlx, game->assets.world);
-	game->assets.world = mlx_new_image(game->mlx, \
-		game->window_w, game->window_h);
-	if (!game->assets.world)
-		return ;
-
-	x = 0;
-	while (x < game->assets.world->width)
-	{
-		init_ray_info(x, &game->ray, &game->player, game);
-		init_side_step(&game->ray, &game->player);
-		cast_ray(&game->ray, game);
-		init_draw(&game->ray, game);
-		texture = determine_texture(game, texture);
-		render_walls(x, game, game->assets.world, texture);
-		x++;
-	}
-	mlx_image_to_window(game->mlx, game->assets.world, 0, 0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:17:23 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/27 13:39:04 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/13 21:52:06 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	free_gnl(char **line, int fd)
 		free(gnl);
 		gnl = get_next_line(fd);
 	}
-	return (-1);
+	return (FALSE);
 }
 
 void	split_free(char **arr)
@@ -38,15 +38,10 @@ void	split_free(char **arr)
 	free(arr);
 }
 
-int32_t	rgba(int32_t r, int32_t g, int32_t b, int32_t a)
-{
-	return (r << 24 | g << 16 | b << 8 | a);
-}
-
 int	is_whitespace(int c)
 {
 	if (c == ' ' || c == '\t' || c == '\r' || \
 		c == '\v' || c == '\f' || c == '\n')
-		return (1);
-	return (-1);
+		return (TRUE);
+	return (FALSE);
 }

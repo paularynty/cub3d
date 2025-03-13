@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_game_data.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/13 21:44:49 by prynty            #+#    #+#             */
+/*   Updated: 2025/03/13 21:44:51 by prynty           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 static int	get_window_size(uint32_t *window_width, uint32_t *window_height)
@@ -22,6 +34,7 @@ static void	init_game_variables(t_game *game)
 	game->assets.world = NULL;
 	game->assets.floor = NULL;
 	game->assets.ceiling = NULL;
+	game->delta_time = -1;
 }
 
 t_game	*init_game_data(t_game *game)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player_data.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:40:25 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 15:00:40 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/13 22:10:20 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,12 @@ static void	init_player_direction_we(t_player *player, char dir)
 int	init_player(t_player *player, size_t x, size_t y, char dir)
 {
 	if (player->pos_x != 0 || player->pos_y != 0)
-		return (print_error("Too many players in the map! (Needed 1)"));
+		return (print_error("Too many players in map, need only one (1)"));
 	player->pos_x = x + 0.2;
 	player->pos_y = y + 0.2;
-	init_player_direction_ns(player, dir);
-	init_player_direction_we(player, dir);
-	return (1);
+	if (dir == 'N' || dir == 'S')
+		init_player_direction_ns(player, dir);
+	else if (dir == 'W' || dir == 'E')
+		init_player_direction_we(player, dir);
+	return (TRUE);
 }

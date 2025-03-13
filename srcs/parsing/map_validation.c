@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:52:59 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/02/28 13:47:01 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/13 21:46:35 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ int	validate_space(char *line)
 			if (i == 0 || i == len)
 				return (-1);
 			else if (line[i - 1] == ' ' || line[i + 1] == ' ')
-				return (-1);
+				return (FALSE);
 			else
 				i++;
 		}
 		else
 			i++;
 	}
-	return (1);
+	return (TRUE);
 }
 
 int	check_walls(char *line)
@@ -64,9 +64,9 @@ int	check_walls(char *line)
 		if (line[i] == ' ' || line[i] == '1')
 			i++;
 		else
-			return (-1);
+			return (FALSE);
 	}
-	return (1);
+	return (TRUE);
 }
 
 static int	check_surroundings(char **map, size_t x, size_t y)
@@ -96,7 +96,7 @@ static int	check_surroundings(char **map, size_t x, size_t y)
 		return (print_error("8 if"));
 	if (x != 0 && map[y][x - 1] == ' ' && map[y][x] != '1')
 		return (print_error("9 if")); 
-	return (1);
+	return (TRUE);
 }
 
 int	final_validation(t_game *game)
@@ -115,13 +115,13 @@ int	final_validation(t_game *game)
 			if (map.map[y][x] == '0')
 			{
 				if (check_surroundings(map.map, x, y) < 0)
-					return (-1);
+					return (FALSE);
 			}
 			else if (map.map[y][x] == 'N' || map.map[y][x] == 'S' || \
 				map.map[y][x] == 'E' || map.map[y][x] == 'W')
 			{
-				if (init_player(&game->player, x, y, map.map[y][x]) == -1)
-					return (-1);
+				if (init_player(&game->player, x, y, map.map[y][x]) == FALSE)
+					return (FALSE);
 			}
 			x++;
 		}
@@ -129,5 +129,5 @@ int	final_validation(t_game *game)
 	}
 	if (game->player.pos_x == 0 || game->player.pos_y == 0)
 		return (print_error("No player in map! (Needed 1)"));
-	return (1);
+	return (TRUE);
 }
