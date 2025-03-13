@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 15:35:33 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/13 14:30:00 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,11 +337,8 @@ void	cleanup(t_game *game);
 /**
  * A mouse hook used for rotating the player with mouse movement.
  * 
- * @param[in] xpos The horizontal position of the mouse.
- * @param[in] ypos The vertical position of the mouse.
- * @param[out] param Additional parameter to pass to the function.
- * Will contain a pointer to the `t_game` structure.
+ * @param[in] game A pointer to the `t_game`structure.
 */
-void	mouse_hook(double xpos, double ypos, void *param);
+void	mouse_hook(t_game *game);
 
 #endif
