@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:59:05 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/12 15:14:32 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/13 15:34:54 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ static void	get_pixel_data(mlx_texture_t *texture, t_color *color, \
 
 static uint32_t get_x_coord(t_game *game, mlx_texture_t *texture)
 {
-    uint32_t	texture_x;
+    int32_t	texture_x;
 
     texture_x = (int)(game->ray.wall_hit_x * texture->width);
     if (texture_x < 0)
         texture_x = 0;
-    else if (texture_x >= texture->width)
+    else if ((uint32_t)texture_x >= texture->width)
         texture_x = texture->width - 1;
     return (texture_x);
 }

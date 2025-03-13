@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 17:14:51 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/13 15:35:11 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,22 @@ void	key_hooks(void *param)
 		mlx_close_window(game->mlx);
 	key_move(game, x, y);
 	key_rotate(game);
+	mouse_hook(game);
 	render_world(game);
 }
 
-// void	mouse_hook(t_game *game)
-// {
-// 	int32_t	xpos;
+void	mouse_hook(t_game *game)
+{
+	int32_t	xpos;
+	int32_t	ypos;
 
-// 	mlx_set_mouse_pos(game->mlx, game->window_w / 2, game->window_h / 2);
-// 	render_world(game);
-// }
+	mlx_get_mouse_pos(game->mlx, &xpos, &ypos);
+	if (xpos < game->mouse_x)
+		rotate_player(game, false);
+	else if (xpos > game->mouse_x)
+		rotate_player(game, true);
+	mlx_set_mouse_pos(game->mlx, game->window_w / 2, game->window_h / 2);
+}
 
 void	cleanup(t_game *game)
 {
