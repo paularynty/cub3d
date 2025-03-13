@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 15:35:33 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:16:20 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 # define TRUE 1
 # define FALSE -1
 
-# define MOVE_SPEED 0.125f
-# define ROTATION_SPEED 0.015f
+# define MOVE_SPEED 0.03f
+# define ROTATION_SPEED 0.03f
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"

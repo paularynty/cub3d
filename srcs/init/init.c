@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 15:08:43 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:27:43 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ int	init(t_game *game, t_map *map)
 {
 	if (init_mlx(game, game->window_w, game->window_h) == FALSE)
 		return (print_error("Failed to initialize MLX"));
-	//mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	set_cursor(game);
 	render_floor_ceiling(game);
 	if (init_minimap(game, map) == FALSE)

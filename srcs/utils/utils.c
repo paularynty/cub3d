@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 15:50:21 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/12 17:14:51 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ void	key_hooks(void *param)
 	render_world(game);
 }
 
-void	mouse_hook(t_game *game)
-{
-	int32_t	xpos;
+// void	mouse_hook(t_game *game)
+// {
+// 	int32_t	xpos;
 
-	mlx_set_mouse_pos(game->mlx, game->window_w / 2, game->window_h / 2);
-	render_world(game);
-}
+// 	mlx_set_mouse_pos(game->mlx, game->window_w / 2, game->window_h / 2);
+// 	render_world(game);
+// }
 
 void	cleanup(t_game *game)
 {

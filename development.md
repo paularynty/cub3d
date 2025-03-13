@@ -1,6 +1,12 @@
 ## Development timeline
 
+### 12.3.2025
+
+- Moved 3D rendering logic to mlx_loop_hook for better FPS/smoother movement.
+- Started working on POV rotation with mouse.
+
 ### 11.3.2025
+
 - Textures render successfully so far.
 - Building logic to determine correct texture based on cardinal direction of a given wall.
 
