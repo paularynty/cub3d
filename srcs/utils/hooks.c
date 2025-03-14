@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:06:15 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/13 22:04:32 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/14 12:05:11 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static void	key_move(t_game *game, double x, double y)
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		move_player_minimap(game, x + game->player.dir_x * MOVE_SPEED, \
 			y + game->player.dir_y * MOVE_SPEED);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
 		move_player_minimap(game, x - game->player.dir_x * MOVE_SPEED, \
 			y - game->player.dir_y * MOVE_SPEED);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
 		move_player_minimap(game, x + game->player.dir_y * MOVE_SPEED, \
 			y - game->player.dir_x * MOVE_SPEED);
-	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
 		move_player_minimap(game, x - game->player.dir_y * MOVE_SPEED, \
 			y + game->player.dir_x * MOVE_SPEED);
 }
