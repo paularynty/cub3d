@@ -69,8 +69,6 @@ void	render_world(t_game *game)
 	if (!game->assets.world)
 		return ;
 	x = 0;
-	printf("%f\n", game->ray.dir_x);
-	printf("%f\n", game->ray.dir_y);
 	while (x < game->assets.world->width)
 	{
 		init_ray(x, &game->ray, &game->player, game);

@@ -27,6 +27,7 @@ static int	create_animation(t_game *game)
 				(game->assets.frog_texture)[i]);
 		if (!(game->assets.frog_image)[i])
 			return (print_error("Failed to create frog image"));
+		mlx_resize_image(game->assets.frog_image[i], 100, 100);
 		i++;
 	}
 	return (TRUE);

@@ -19,10 +19,12 @@ static void	display_frog(t_game *game)
 	i = 0;
 	while (i < 4)
 	{
-		if (draw_image(game, game->assets.frog_image[i], 32, 32) == FALSE)
+		if (draw_image(game, game->assets.frog_image[i], game->frog_x, game->frog_y) == FALSE)
 			return ;
+		game->assets.frog_image[i]->enabled = false;
 		i++;
 	}
+	game->assets.frog_image[0]->enabled = true;
 }
 
 int	main(int argc, char **argv)

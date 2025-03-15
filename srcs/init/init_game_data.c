@@ -49,7 +49,7 @@ t_game	*init_game_data(t_game *game)
 	init_game_variables(game);
 	if (get_window_size(&game->window_w, &game->window_h) == FALSE)
 		return (NULL);
-	game->frog_x = (game->window_w / 2) - (game->window_w / 4);
-	game->frog_y = (game->window_h / 2) - (game->window_w / 2);
+	game->frog_x = (game->window_w / 2) + (game->window_w / 3);
+	game->frog_y = (game->window_h / 2) + (game->window_h / 4);
 	return (game);
 }

@@ -11,30 +11,32 @@
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <time.h>
 
-static void	increment_frames(t_game *game)
+static double get_time(void)
 {
-	game->frames++;
-	if (game->frames == INT_MAX - 1)
-	{
-		game->frames = 0;
-	}
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts); // Get precise time
+    return (ts.tv_sec + ts.tv_nsec / 1e9);
 }
 
 static void	animate_frog(t_game *game)
 {
-	int	i;
+	static double last_time = 0;
+    double current_time = get_time();
+    double delta_time = current_time - last_time;
+	double	animation_speed = 0.1;
+	int	total_frames = 4;
 
-	i = 0;
-	while (i < 4)
+	if (delta_time >= animation_speed)
 	{
-		game->assets.frog_image[i]->instances->x = game->frog_x;
-		game->assets.frog_image[i]->instances->y = game->frog_y;
-		i++;
+		game->assets.frog_image[game->frames]->enabled = false;
+		game->frames = (game->frames + 1) % total_frames;
+		game->assets.frog_image[game->frames]->enabled = true;
+		game->assets.frog_image[game->frames]->instances[0].x = game->frog_x;
+        game->assets.frog_image[game->frames]->instances[0].y = game->frog_y;
+		last_time = current_time;
 	}
-	game->assets.frog_image[game->frames / 6]->enabled = false;
-	game->frames = (game->frames + 1) % 33;
-	game->assets.frog_image[game->frames / 6]->enabled = true;
 }
 
 static void	key_move(t_game *game, double x, double y)
@@ -99,7 +101,6 @@ void	game_hook(void *param)
 	key_move(game, x, y);
 	key_rotate(game);
 	mouse_hook(game);
-	increment_frames(game);
 	animate_frog(game);
 	render_world(game);
 }
