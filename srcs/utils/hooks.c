@@ -12,6 +12,31 @@
 
 #include "cub3d.h"
 
+static void	increment_frames(t_game *game)
+{
+	game->frames++;
+	if (game->frames == INT_MAX - 1)
+	{
+		game->frames = 0;
+	}
+}
+
+static void	animate_frog(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		game->assets.frog_image[i]->instances->x = game->frog_x;
+		game->assets.frog_image[i]->instances->y = game->frog_y;
+		i++;
+	}
+	game->assets.frog_image[game->frames / 6]->enabled = false;
+	game->frames = (game->frames + 1) % 33;
+	game->assets.frog_image[game->frames / 6]->enabled = true;
+}
+
 static void	key_move(t_game *game, double x, double y)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
@@ -74,5 +99,7 @@ void	game_hook(void *param)
 	key_move(game, x, y);
 	key_rotate(game);
 	mouse_hook(game);
+	increment_frames(game);
+	animate_frog(game);
 	render_world(game);
 }

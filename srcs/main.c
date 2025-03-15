@@ -12,6 +12,19 @@
 
 #include "cub3d.h"
 
+static void	display_frog(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	while (i < 4)
+	{
+		if (draw_image(game, game->assets.frog_image[i], 32, 32) == FALSE)
+			return ;
+		i++;
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_game		*game;
@@ -32,6 +45,7 @@ int	main(int argc, char **argv)
 	}
 	if (init(game, &game->map) == FALSE)
 		return (1);
+	display_frog(game);
 	mlx_loop_hook(game->mlx, &game_hook, game);
 	mlx_resize_hook(game->mlx, &resize_window, game);
 	mlx_loop(game->mlx);

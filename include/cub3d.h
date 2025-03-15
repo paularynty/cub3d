@@ -28,7 +28,7 @@
 # define VERTICAL 0
 # define HORIZONTAL 1
 
-# define MOVE_SPEED 0.03f
+# define MOVE_SPEED 0.015f
 # define ROTATION_SPEED 2.0f
 
 # define RED "\033[1;91m"
@@ -39,6 +39,10 @@
 # define IMG_FLOOR "textures/minimap/floor.png"
 # define IMG_PLAYER "textures/minimap/player.png"
 # define IMG_CURSOR "textures/cursor.png"
+# define IMG_FROG_1 "textures/frog_1.png"
+# define IMG_FROG_2 "textures/frog_2.png"
+# define IMG_FROG_3 "textures/frog_3.png"
+# define IMG_FROG_4 "textures/frog_4.png"
 
 /******************************************************************************/
 /*                                                                            */
@@ -224,6 +228,8 @@ void	split_free(char **arr);
  * is not.
  */
 int		is_whitespace(int c);
+
+int	draw_image(t_game *game, mlx_image_t *image, uint32_t x, uint32_t y);
 
 /******************************************************************************/
 /*                                                                            */

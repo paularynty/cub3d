@@ -12,7 +12,7 @@
 
 #include "cub3d.h"
 
-static int	draw_image(t_game *game, mlx_image_t *image, size_t x, size_t y)
+int	draw_image(t_game *game, mlx_image_t *image, uint32_t x, uint32_t y)
 {
 	if (mlx_image_to_window(game->mlx, image,
 		x * TILESIZE, y * TILESIZE) == FALSE)
