@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:59:05 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/13 21:43:59 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/14 12:19:53 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	render_world(t_game *game)
 	if (!game->assets.world)
 		return ;
 	x = 0;
+	printf("%f\n", game->ray.dir_x);
+	printf("%f\n", game->ray.dir_y);
 	while (x < game->assets.world->width)
 	{
 		init_ray(x, &game->ray, &game->player, game);
