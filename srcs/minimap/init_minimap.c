@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:34:46 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/15 17:38:06 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 15:18:20 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,23 +98,8 @@ static mlx_image_t	*load_image(mlx_t *mlx, const char *image_path)
 
 int	init_minimap(t_game *game, t_map *map)
 {
-	game->minimap.minimap = mlx_new_image(game->mlx, 200, 200);
-	if (mlx_image_to_window(game->mlx, game->minimap.minimap, 200, 200) == -1)
-	{
-		mlx_terminate(game->mlx);
-		return (FALSE);
-	}
-	game->minimap.floor = load_image(game->mlx, IMG_FLOOR);
-	if (!game->minimap.floor)
-		return (FALSE);
-	game->minimap.wall = load_image(game->mlx, IMG_WALL);
-	if (!game->minimap.wall)
-		return (FALSE);
-	game->minimap.player = load_image(game->mlx, IMG_PLAYER);
-	if (!game->minimap.wall)
-		return (FALSE);
 	set_z_index(game->minimap.wall, 100);
-	set_z_index(game->minimap.floor, 100);
+	set_z_index(game->minimap.floor, 101);
 	if (render_minimap_floor(game, map) == FALSE 
 		|| render_minimap_elements(game, map) == FALSE)
 	{

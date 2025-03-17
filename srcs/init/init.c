@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 14:05:53 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 15:16:18 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,20 @@ int32_t	validate_file(int argc, char *file)
 	if (map_file < 0)
 		return (print_error("Could not find map file"));
 	return (map_file);
+}
+
+static int	load_game_images(t_game *game)
+{
+	game->minimap.floor = load_image(game->mlx, IMG_FLOOR);
+	if (!game->minimap.floor)
+		return (FALSE);
+	game->minimap.wall = load_image(game->mlx, IMG_WALL);
+	if (!game->minimap.wall)
+		return (FALSE);
+	game->minimap.player = load_image(game->mlx, IMG_PLAYER);
+	if (!game->minimap.wall)
+		return (FALSE);
+	return (TRUE);
 }
 
 static int	init_mlx(t_game *game, int width, int height)
@@ -59,6 +73,7 @@ int	init(t_game *game, t_map *map)
 	if (init_mlx(game, game->window_width, game->window_height) == FALSE)
 		return (print_error("Failed to initialize MLX"));
 	set_cursor(game);
+	load_images(game);
 	render_floor_ceiling(game);
 	if (init_minimap(game, map) == FALSE)
 		return (FALSE);

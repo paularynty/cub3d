@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 14:06:18 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 15:18:04 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define HORIZONTAL 1
 
 # define MOVE_SPEED 0.03f
-# define ROTATION_SPEED 2.0f
+# define ROTATION_SPEED 1.0f
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
@@ -347,7 +347,6 @@ double	get_delta_time(void);
 int32_t	rgba(int32_t r, int32_t g, int32_t b, int32_t a);
 
 void	set_z_index(mlx_image_t *img, int z);
-
 void	set_cursor(t_game *game);
 
 #endif
