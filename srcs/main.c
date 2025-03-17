@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:37 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/13 21:44:39 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/15 13:53:42 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	main(int argc, char **argv)
 	game = init_game_data(game);
 	if (!game)
 		return (1);
-	ft_bzero(&game->map, sizeof(t_map));
 	if (create_map(game, map_file, argv[1]) == -1)
 	{
 		free_map(&game->map);
@@ -35,6 +34,6 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(game->mlx, &game_hook, game);
 	mlx_resize_hook(game->mlx, &resize_window, game);
 	mlx_loop(game->mlx);
-	free_map(&game->map);
+	cleanup(game);
 	return (0);
 }

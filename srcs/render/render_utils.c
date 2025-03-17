@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:27:41 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/14 12:11:54 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/15 13:53:08 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@ uint32_t	get_x_coord(t_game *game, mlx_texture_t *texture)
 		texture_x = 0;
 	else if (texture_x >= texture->width)
 		texture_x = texture->width - 1;
-	// else if ((game->ray.side == VERTICAL && game->ray.dir_x > 0)
-	// 	|| (game->ray.side == HORIZONTAL && game->ray.dir_y < 0))
-	// 	texture_x = texture->width - texture_x - 1;
 	return (texture_x);
 }
 

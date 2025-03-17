@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:20:56 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/13 21:44:10 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/15 17:20:13 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	init_ray_data(t_ray *ray)
 void	init_ray(int x, t_ray *ray, t_player *player, t_game *game)
 {
 	init_ray_data(ray);
-	ray->camera_x = 2 * x / (double)game->window_w - 1;
+	ray->camera_x = 2 * x / (double)game->window_width - 1;
 	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
 	ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
 	ray->map_x = (int)player->pos_x;

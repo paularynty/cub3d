@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:49 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/13 21:44:51 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/15 17:26:56 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_game	*init_game_data(t_game *game)
 		return (NULL);
 	}
 	init_game_variables(game);
-	if (get_window_size(&game->window_w, &game->window_h) == FALSE)
+	if (get_window_size(&game->window_width, &game->window_height) == FALSE)
 		return (NULL);
 	return (game);
 }

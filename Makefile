@@ -63,6 +63,7 @@ SRCS			= $(SRCDIR)/main.c \
 				$(SRCDIR)/parsing/read_map.c \
 				$(SRCDIR)/raycaster/init_ray.c \
 				$(SRCDIR)/raycaster/raycaster.c \
+				$(SRCDIR)/utils/cleanup.c \
 				$(SRCDIR)/utils/hooks.c \
 				$(SRCDIR)/utils/utils.c \
 

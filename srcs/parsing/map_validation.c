@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:52:59 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/13 21:46:35 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/15 14:05:45 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,6 @@ int	final_validation(t_game *game)
 		y++;
 	}
 	if (game->player.pos_x == 0 || game->player.pos_y == 0)
-		return (print_error("No player in map! (Needed 1)"));
+		return (print_error("No player in map, need one (1)"));
 	return (TRUE);
 }

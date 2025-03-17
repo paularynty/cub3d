@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 17:27:43 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/15 17:35:52 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ static void	set_cursor(t_game *game)
 	cursor = mlx_create_cursor(cursor_texture);
 	mlx_delete_texture(cursor_texture);
 	mlx_set_cursor(game->mlx, cursor);
-	game->mouse_x = game->window_w / 2;
+	game->mouse_x = game->window_width / 2;
 }
 
 int	init(t_game *game, t_map *map)
 {
-	if (init_mlx(game, game->window_w, game->window_h) == FALSE)
+	if (init_mlx(game, game->window_width, game->window_height) == FALSE)
 		return (print_error("Failed to initialize MLX"));
 	set_cursor(game);
 	render_floor_ceiling(game);

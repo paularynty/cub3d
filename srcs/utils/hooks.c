@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:06:15 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/14 12:05:11 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/15 17:20:24 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,23 +41,25 @@ void	resize_window(int32_t width, int32_t height, void *param)
 	t_game	*game;
 
 	game = param;
-	game->window_h = height;
-	game->window_w = width;
+	game->window_height = height;
+	game->window_width = width;
+	mlx_resize_image(game->assets.floor, game->window_width, game->window_height / 2);
+	mlx_resize_image(game->assets.ceiling, game->window_width, game->window_height / 2);
 	render_world(game);
 }
 
-static void	mouse_hook(t_game *game)
-{
-	int32_t	pos_x;
-	int32_t	pos_y;
+// static void	mouse_hook(t_game *game)
+// {
+// 	int32_t	pos_x;
+// 	int32_t	pos_y;
 
-	mlx_get_mouse_pos(game->mlx, &pos_x, &pos_y);
-	if (pos_x < game->mouse_x)
-		rotate_player(game, true, game->delta_time);
-	else if (pos_x > game->mouse_x)
-		rotate_player(game, false, game->delta_time);
-	mlx_set_mouse_pos(game->mlx, game->window_w / 2, game->window_h / 2);
-}
+// 	mlx_get_mouse_pos(game->mlx, &pos_x, &pos_y);
+// 	if (pos_x < game->mouse_x)
+// 		rotate_player(game, true, game->delta_time);
+// 	else if (pos_x > game->mouse_x)
+// 		rotate_player(game, false, game->delta_time);
+// 	mlx_set_mouse_pos(game->mlx, game->window_width / 2, game->window_height / 2);
+// }
 
 void	game_hook(void *param)
 {
@@ -70,9 +72,12 @@ void	game_hook(void *param)
 	y = game->player.pos_y;
 	game->delta_time = get_delta_time();
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+	{
 		mlx_close_window(game->mlx);
+		return ;
+	}
 	key_move(game, x, y);
 	key_rotate(game);
-	mouse_hook(game);
+	// mouse_hook(game);
 	render_world(game);
 }
