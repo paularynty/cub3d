@@ -36,18 +36,36 @@ NAME			= cub3D
 SRCDIR			= srcs
 OBJDIR			= objs
 
-CUB3D_HEADER	= ./include
+CUB3D_HEADERS	= ./include
 LIBFT_DIR		= ./include/libft
 LIBFT			= ./$(LIBFT_DIR)/libft.a
 MLX_DIR			= ./include/MLX42
 MLX				= $(MLX_DIR)/build/libmlx42.a
-MLX_HEADER 		= $(MLX_DIR)/include
-HEADERS 		= -I $(MLX_HEADER) -I $(LIBFT_DIR) -I $(CUB3D_HEADER)
+MLX_HEADER 		= $(MLX_DIR)/include/MLX42
+HEADERS 		= -I $(MLX_HEADER) -I $(LIBFT_DIR) -I $(CUB3D_HEADERS)
 
 CFLAGS			= -Wall -Wextra -Werror $(HEADERS)
 OSFLAGS			= -ldl -lglfw -pthread -lm
 
-SRCS			= $(SRCDIR)/main.c
+SRCS			= $(SRCDIR)/main.c \
+				$(SRCDIR)/init/init_frog.c \
+				$(SRCDIR)/init/init_game_data.c \
+				$(SRCDIR)/init/init_player_data.c \
+				$(SRCDIR)/init/init.c \
+				$(SRCDIR)/minimap/minimap.c \
+				$(SRCDIR)/movement/movement.c \
+				$(SRCDIR)/render/render_utils.c \
+				$(SRCDIR)/render/render.c \
+				$(SRCDIR)/parsing/create_map.c \
+				$(SRCDIR)/parsing/map_validation.c \
+				$(SRCDIR)/parsing/parsing_utils.c \
+				$(SRCDIR)/parsing/read_map.c \
+				$(SRCDIR)/raycaster/init_ray.c \
+				$(SRCDIR)/raycaster/raycaster.c \
+				$(SRCDIR)/utils/cleanup.c \
+				$(SRCDIR)/utils/hooks.c \
+				$(SRCDIR)/utils/utils.c \
+
 OBJS			= $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 .DEFAULT_GOAL = all
@@ -73,19 +91,17 @@ $(MLX):
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@mkdir -p $(dir $@)
-	@cc $(CFLAGS) $< -o $@
+	@cc -c $(CFLAGS) $< -o $@
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
-	@cp $(LIBFT) .
-	@cc $(CFLAGS) $(SRCS) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT) $(MLX) $(CUB3D_HEADERS)
+	@cc $(CFLAGS) $(OBJS) $(MLX) $(LIBFT) $(OSFLAGS) -o $(NAME)
 	@$(OBJ_READY)
 	@chmod 777 $(NAME)
 	@$(CUB3D_READY)
 
 clean:
 	@$(CLEANING)
-	@rm -rf $(OBJS)
-	@rm -rf objs/
+	@rm -rf $(OBJDIR)
 	@rm -rf $(MLX_DIR)/build
 	@make clean -s -C $(LIBFT_DIR)
 	@$(CLEANED)
@@ -95,7 +111,6 @@ fclean: clean
 	@rm -rf $(NAME)
 	@make fclean -s -C $(LIBFT_DIR)
 	@rm -rf $(LIBFT)
-	@rm -rf $(MLX_DIR)
 	@$(FCLEANED)
 
 re:	fclean all
