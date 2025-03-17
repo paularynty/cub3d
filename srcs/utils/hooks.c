@@ -6,11 +6,30 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:06:15 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 14:08:23 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 15:24:17 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	animate_frog(t_game *game)
+{
+	static double	last_time = 0;
+    double			current_time;
+	double			delta_time;
+    current_time = mlx_get_time();
+    delta_time = current_time - last_time;
+	if (delta_time >= ANIMATION_SPEED)
+	{
+		game->assets.frog_image[game->frames]->enabled = false;
+		game->frames = (game->frames + 1) % 4;
+		game->assets.frog_image[game->frames]->enabled = true;
+		game->assets.frog_image[game->frames]->instances[0].x = game->frog_x;
+        game->assets.frog_image[game->frames]->instances[0].y = game->frog_y;
+        game->assets.frog_image[game->frames]->instances[0].z = 200;
+		last_time = current_time;
+	}
+}
 
 static void	key_move(t_game *game, double x, double y)
 {

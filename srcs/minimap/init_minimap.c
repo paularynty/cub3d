@@ -6,13 +6,13 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:34:46 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 15:18:20 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 15:23:51 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	draw_image(t_game *game, mlx_image_t *image, size_t x, size_t y)
+int	draw_image(t_game *game, mlx_image_t *image, uint32_t x, uint32_t y)
 {
 	if (mlx_image_to_window(game->mlx, image,
 		x * TILESIZE, y * TILESIZE) == FALSE)

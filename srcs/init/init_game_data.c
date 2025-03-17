@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:49 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 13:46:47 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 15:22:45 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	init_game_variables(t_game *game)
 	game->assets.floor = NULL;
 	game->assets.ceiling = NULL;
 	game->delta_time = -1;
+	game->frames = 0;
 }
 
 t_game	*init_game_data(t_game *game)
@@ -48,5 +49,7 @@ t_game	*init_game_data(t_game *game)
 	init_game_variables(game);
 	if (get_window_size(&game->window_width, &game->window_height) == FALSE)
 		return (NULL);
+	game->frog_x = (game->window_width / 2) + (game->window_width / 8);
+	game->frog_y = (game->window_height / 2) + (game->window_height / 6);
 	return (game);
 }

@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 14:00:06 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 15:21:33 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 
 typedef struct s_assets
 {
-	mlx_image_t			*ceiling;
-	mlx_image_t			*floor;
-	mlx_image_t			*world;
-	mlx_image_t			*minimap;
-	mlx_win_cursor_t	*cursor;
+	mlx_image_t		*ceiling;
+	mlx_image_t		*floor;
+	mlx_image_t		*world;
+	mlx_texture_t	*frog_texture[4];
+	mlx_image_t		*frog_image[4];
 }	t_assets;
 
 /**
@@ -204,6 +204,9 @@ typedef struct s_game
 	double		mouse_x;
 	int			mouse_toggle;
 	double		delta_time;
+	uint32_t	frog_x;
+	uint32_t	frog_y;
+	size_t		frames;
 }	t_game;
 
 #endif

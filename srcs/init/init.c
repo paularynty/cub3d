@@ -6,11 +6,31 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 15:16:18 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 15:23:17 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	create_animation(t_game *game)
+{
+	int	i;
+
+	game->assets.frog_texture[0] = mlx_load_png(IMG_FROG_1);
+	game->assets.frog_texture[1] = mlx_load_png(IMG_FROG_2);
+	game->assets.frog_texture[2] = mlx_load_png(IMG_FROG_3);
+	game->assets.frog_texture[3] = mlx_load_png(IMG_FROG_4);
+	i = 0;
+	while (i < 4)
+	{
+		(game->assets.frog_image)[i] = mlx_texture_to_image(game->mlx, \
+				(game->assets.frog_texture)[i]);
+		if (!(game->assets.frog_image)[i])
+			return (print_error("Failed to create frog image"));
+		i++;
+	}
+	return (TRUE);
+}
 
 int32_t	validate_file(int argc, char *file)
 {
@@ -76,6 +96,8 @@ int	init(t_game *game, t_map *map)
 	load_images(game);
 	render_floor_ceiling(game);
 	if (init_minimap(game, map) == FALSE)
+		return (FALSE);
+	if (create_animation(game) == FALSE)
 		return (FALSE);
 	return (TRUE);
 }
