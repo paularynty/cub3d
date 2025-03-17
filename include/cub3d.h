@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/15 17:09:55 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 14:06:18 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -348,5 +348,6 @@ int32_t	rgba(int32_t r, int32_t g, int32_t b, int32_t a);
 
 void	set_z_index(mlx_image_t *img, int z);
 
+void	set_cursor(t_game *game);
 
 #endif

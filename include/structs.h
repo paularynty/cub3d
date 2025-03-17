@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/15 17:20:24 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 14:00:06 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ typedef struct s_game
 	uint32_t	window_width;
 	uint32_t	window_height;
 	double		mouse_x;
+	int			mouse_toggle;
 	double		delta_time;
 }	t_game;
 

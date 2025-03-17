@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:06:15 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/15 17:20:24 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 14:08:23 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,31 @@ void	resize_window(int32_t width, int32_t height, void *param)
 	render_world(game);
 }
 
-// static void	mouse_hook(t_game *game)
-// {
-// 	int32_t	pos_x;
-// 	int32_t	pos_y;
+static void	mouse_hook(t_game *game)
+{
+	int32_t	pos_x;
+	int32_t	pos_y;
 
-// 	mlx_get_mouse_pos(game->mlx, &pos_x, &pos_y);
-// 	if (pos_x < game->mouse_x)
-// 		rotate_player(game, true, game->delta_time);
-// 	else if (pos_x > game->mouse_x)
-// 		rotate_player(game, false, game->delta_time);
-// 	mlx_set_mouse_pos(game->mlx, game->window_width / 2, game->window_height / 2);
-// }
+	if (mlx_is_mouse_down(game->mlx, MLX_MOUSE_BUTTON_LEFT))
+	{
+		game->mouse_toggle = TRUE;
+		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
+	}
+	if (mlx_is_key_down(game->mlx, MLX_KEY_TAB))
+	{
+		game->mouse_toggle = FALSE;
+		mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
+		set_cursor(game);
+	}
+	if (game->mouse_toggle == FALSE)
+		return ;
+	mlx_get_mouse_pos(game->mlx, &pos_x, &pos_y);
+	if (pos_x < game->mouse_x)
+		rotate_player(game, true, game->delta_time);
+	else if (pos_x > game->mouse_x)
+		rotate_player(game, false, game->delta_time);
+	mlx_set_mouse_pos(game->mlx, game->window_width / 2, game->window_height / 2);
+}
 
 void	game_hook(void *param)
 {
@@ -78,6 +91,6 @@ void	game_hook(void *param)
 	}
 	key_move(game, x, y);
 	key_rotate(game);
-	// mouse_hook(game);
+	mouse_hook(game);
 	render_world(game);
 }
