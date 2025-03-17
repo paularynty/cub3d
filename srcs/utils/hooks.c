@@ -6,35 +6,27 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:06:15 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/14 12:05:11 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 13:19:39 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <time.h>
 
-static double get_time(void)
+void	animate_frog(t_game *game)
 {
-    struct timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts); // Get precise time
-    return (ts.tv_sec + ts.tv_nsec / 1e9);
-}
-
-static void	animate_frog(t_game *game)
-{
-	static double last_time = 0;
-    double current_time = get_time();
-    double delta_time = current_time - last_time;
-	double	animation_speed = 0.1;
-	int	total_frames = 4;
-
-	if (delta_time >= animation_speed)
+	static double	last_time = 0;
+    double			current_time;
+	double			delta_time;
+    current_time = mlx_get_time();
+    delta_time = current_time - last_time;
+	if (delta_time >= ANIMATION_SPEED)
 	{
 		game->assets.frog_image[game->frames]->enabled = false;
-		game->frames = (game->frames + 1) % total_frames;
+		game->frames = (game->frames + 1) % 4;
 		game->assets.frog_image[game->frames]->enabled = true;
 		game->assets.frog_image[game->frames]->instances[0].x = game->frog_x;
         game->assets.frog_image[game->frames]->instances[0].y = game->frog_y;
+        game->assets.frog_image[game->frames]->instances[0].z = 200;
 		last_time = current_time;
 	}
 }
@@ -101,6 +93,5 @@ void	game_hook(void *param)
 	key_move(game, x, y);
 	key_rotate(game);
 	mouse_hook(game);
-	animate_frog(game);
 	render_world(game);
 }

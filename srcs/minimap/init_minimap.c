@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 13:34:46 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/13 21:45:24 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 11:33:37 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	render_minimap_floor(t_game *game, t_map *map)
 	return (TRUE);
 }
 
-static void	set_z_index(mlx_image_t *img, int z)
+void	set_z_index(mlx_image_t *img, int z)
 {
 	size_t	i;
 
@@ -125,8 +125,8 @@ int	init_minimap(t_game *game, t_map *map)
 	game->minimap.player = load_image(game->mlx, IMG_PLAYER);
 	if (!game->minimap.wall)
 		return (FALSE);
-	set_z_index(game->minimap.wall, 1);
-	set_z_index(game->minimap.floor, 1);
+	set_z_index(game->minimap.wall, 100);
+	set_z_index(game->minimap.floor, 100);
 	if (render_minimap_floor(game, map) == FALSE 
 		|| render_minimap_elements(game, map) == FALSE)
 	{

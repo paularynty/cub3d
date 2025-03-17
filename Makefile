@@ -45,7 +45,7 @@ MLX_HEADER 		= $(MLX_DIR)/include/MLX42
 HEADERS 		= -I $(MLX_HEADER) -I $(LIBFT_DIR) -I $(CUB3D_HEADERS)
 
 CFLAGS			= -Wall -Wextra -Werror $(HEADERS)
-OSFLAGS			= -L/opt/homebrew/lib -framework Cocoa -framework OpenGL -framework IOKit -lglfw -pthread -lm
+OSFLAGS			= -ldl -lglfw -pthread -lm
 
 SRCS			= $(SRCDIR)/main.c \
 				$(SRCDIR)/init/init_game_data.c \

@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/14 12:18:57 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 13:28:03 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@
 # define VERTICAL 0
 # define HORIZONTAL 1
 
-# define MOVE_SPEED 0.015f
+# define MOVE_SPEED 0.02f
 # define ROTATION_SPEED 2.0f
+# define ANIMATION_SPEED 0.1f
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
@@ -38,7 +39,7 @@
 # define IMG_WALL "textures/minimap/wall.png"
 # define IMG_FLOOR "textures/minimap/floor.png"
 # define IMG_PLAYER "textures/minimap/player.png"
-# define IMG_CURSOR "textures/cursor.png"
+# define IMG_CURSOR "textures/target_b.png"
 # define IMG_FROG_1 "textures/frog_1.png"
 # define IMG_FROG_2 "textures/frog_2.png"
 # define IMG_FROG_3 "textures/frog_3.png"
@@ -351,5 +352,9 @@ double	get_delta_time(void);
  * @returns The int value of the RGBA color.
 */
 int32_t	rgba(int32_t r, int32_t g, int32_t b, int32_t a);
+
+void	set_z_index(mlx_image_t *img, int z);
+void	display_frog(t_game *game);
+void	animate_frog(t_game *game);
 
 #endif

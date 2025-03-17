@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/12 17:27:43 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 13:31:05 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	create_animation(t_game *game)
 				(game->assets.frog_texture)[i]);
 		if (!(game->assets.frog_image)[i])
 			return (print_error("Failed to create frog image"));
-		mlx_resize_image(game->assets.frog_image[i], 100, 100);
+		// mlx_resize_image(game->assets.frog_image[i], game->frog_x, 100);
 		i++;
 	}
 	return (TRUE);
@@ -64,13 +64,14 @@ static int	init_mlx(t_game *game, int width, int height)
 
 static void	set_cursor(t_game *game)
 {
-	void			*cursor;
-	mlx_texture_t	*cursor_texture;
+	// void			*cursor;
+	// mlx_texture_t	*cursor_texture;
 
-	cursor_texture = mlx_load_png(IMG_CURSOR);
-	cursor = mlx_create_cursor(cursor_texture);
-	mlx_delete_texture(cursor_texture);
-	mlx_set_cursor(game->mlx, cursor);
+	// cursor_texture = mlx_load_png(IMG_CURSOR);
+	// cursor = mlx_create_cursor(cursor_texture);
+	// mlx_delete_texture(cursor_texture);
+	// mlx_set_cursor(game->mlx, cursor);
+	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	game->mouse_x = game->window_w / 2;
 }
 
