@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 16:54:51 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 20:07:57 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,21 @@
 # define STRUCTS_H
 
 # include "cub3d.h"
+
+typedef struct s_line
+{
+	int			dx;
+	int			dy;
+	int			sx;
+	int			sy;
+	int			err;
+	int			e2;
+	int			x0;
+	int			x1;
+	int			y0;
+	int			y1;
+	uint32_t	color;
+}	t_line;
 
 typedef struct s_assets
 {
@@ -175,9 +190,9 @@ typedef struct s_ray
 	int			line_height;
 	int			draw_start;
 	int			draw_end;
-	int			hit;
 	double		wall_dist;
 	double		wall_hit_x;
+	int			hit;
 	uint32_t	texture_x;
 	uint32_t	texture_y;
 }	t_ray;

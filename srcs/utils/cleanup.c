@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 15:27:05 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 20:10:42 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,14 @@ static void	mlx_cleanup(t_game *game)
 {
 	mlx_delete_image(game->mlx, game->assets.ceiling);
 	mlx_delete_image(game->mlx, game->assets.floor);
-	mlx_delete_texture(game->map.textures.north);
-	mlx_delete_texture(game->map.textures.south);
-	mlx_delete_texture(game->map.textures.east);
-	mlx_delete_texture(game->map.textures.west);
+	mlx_delete_image(game->mlx, game->assets.world);
+	mlx_delete_image(game->mlx, game->assets.minimap_floor);
+	mlx_delete_image(game->mlx, game->assets.minimap_player);
+	mlx_delete_image(game->mlx, game->assets.minimap_wall);
+	mlx_delete_image(game->mlx, game->assets.frog_image[0]);
+	mlx_delete_image(game->mlx, game->assets.frog_image[1]);
+	mlx_delete_image(game->mlx, game->assets.frog_image[2]);
+	mlx_delete_image(game->mlx, game->assets.frog_image[3]);
 	mlx_terminate(game->mlx);
 }
 

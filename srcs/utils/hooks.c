@@ -6,28 +6,11 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:06:15 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 18:36:04 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 20:12:44 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	animate_frog(t_game *game)
-{
-	static double	accumulated_time = 0;
-	
-	accumulated_time += game->delta_time;
-	if (accumulated_time >= ANIMATION_SPEED)
-	{
-		game->assets.frog_image[game->frames]->enabled = false;
-		game->frames = (game->frames + 1) % 4;
-		game->assets.frog_image[game->frames]->enabled = true;
-		game->assets.frog_image[game->frames]->instances[0].x = game->frog_x;
-        game->assets.frog_image[game->frames]->instances[0].y = game->frog_y;
-		mlx_set_instance_depth(game->assets.frog_image[game->frames]->instances, 250);
-		accumulated_time = 0;
-	}
-}
 
 static void	key_move(t_game *game, double x, double y)
 {
@@ -60,8 +43,11 @@ void	resize_window(int32_t width, int32_t height, void *param)
 	game = param;
 	game->window_height = height;
 	game->window_width = width;
-	mlx_resize_image(game->assets.floor, game->window_width, game->window_height / 2);
-	mlx_resize_image(game->assets.ceiling, game->window_width, game->window_height / 2);
+	// mlx_resize_image(game->assets.floor, game->window_width, game->window_height / 2);
+	// mlx_resize_image(game->assets.ceiling, game->window_width, game->window_height / 2);
+	// render_floor_ceiling(game);
+	// mlx_set_instance_depth(game->assets.floor->instances, 1);
+	// mlx_set_instance_depth(game->assets.ceiling->instances, 2);
 	render_world(game);
 }
 
@@ -88,7 +74,8 @@ static void	mouse_hook(t_game *game)
 		rotate_player(game, true, game->delta_time);
 	else if (pos_x > game->mouse_x)
 		rotate_player(game, false, game->delta_time);
-	mlx_set_mouse_pos(game->mlx, game->window_width / 2, game->window_height / 2);
+	mlx_set_mouse_pos(game->mlx, game->window_width / 2, \
+		game->window_height / 2);
 }
 
 void	game_hook(void *param)
@@ -114,5 +101,5 @@ void	game_hook(void *param)
 	mlx_set_instance_depth(game->assets.world->instances, 10);
 	// mlx_set_instance_depth(game->assets.minimap_floor->instances, 80);
 	mlx_set_instance_depth(game->assets.minimap_player->instances, 220);
-	mlx_set_instance_depth(game->assets.minimap_wall->instances, 200);
+	mlx_set_instance_depth(game->assets.minimap_wall->instances, 250);
 }

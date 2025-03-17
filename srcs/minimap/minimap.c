@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:45:16 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 16:59:17 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 20:01:41 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	draw_image(t_game *game, mlx_image_t *image, uint32_t x, uint32_t y)
 {
 	if (mlx_image_to_window(game->mlx, image,
-		x * TILESIZE, y * TILESIZE) == FALSE)
+			x * TILESIZE, y * TILESIZE) == FALSE)
 		return (print_error("Failed to put image to window"));
 	return (TRUE);
 }

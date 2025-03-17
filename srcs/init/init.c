@@ -6,31 +6,11 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 18:35:43 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 20:11:52 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int	create_animation(t_game *game)
-{
-	int	i;
-
-	game->assets.frog_texture[0] = mlx_load_png(IMG_FROG_1);
-	game->assets.frog_texture[1] = mlx_load_png(IMG_FROG_2);
-	game->assets.frog_texture[2] = mlx_load_png(IMG_FROG_3);
-	game->assets.frog_texture[3] = mlx_load_png(IMG_FROG_4);
-	i = 0;
-	while (i < 4)
-	{
-		(game->assets.frog_image)[i] = mlx_texture_to_image(game->mlx, \
-				(game->assets.frog_texture)[i]);
-		if (!(game->assets.frog_image)[i])
-			return (print_error("Failed to create frog image"));
-		i++;
-	}
-	return (TRUE);
-}
 
 int32_t	validate_file(int argc, char *file)
 {
@@ -58,13 +38,13 @@ static int	load_game_images(t_game *game)
 			game->window_width, game->window_height / 2);
 	game->assets.floor = mlx_new_image(game->mlx, \
 			game->window_width, game->window_height / 2);
-	game->assets.minimap_floor = mlx_new_image(game->mlx, \
-		(game->window_width / 6), (game->window_width / 6));
+	// game->assets.minimap_floor = mlx_new_image(game->mlx, \
+	// 	(game->window_width / 6), (game->window_width / 6));
 	if (!game->assets.floor || !game->assets.ceiling \
 		|| !game->assets.minimap_floor || !game->assets.minimap_wall \
 		|| !game->assets.minimap_player)
 		return (FALSE);
-	fill_color(game->assets.minimap_floor, rgba(0, 0, 0, 255));
+	// fill_color(game->assets.minimap_floor, rgba(0, 0, 0, 255));
 	fill_color(game->assets.ceiling, game->map.ceiling.color);
 	fill_color(game->assets.floor, game->map.floor.color);
 	return (TRUE);
@@ -86,7 +66,7 @@ void	set_cursor(t_game *game)
 int	init(t_game *game, t_map *map)
 {
 	game->mlx = mlx_init(game->window_width, game->window_height, \
-		"The Maze Runners", false);
+		"The Maze Runners", true);
 	if (!game->mlx)
 		return (print_error("Failed to initialize MLX"));
 	set_cursor(game);
@@ -94,7 +74,7 @@ int	init(t_game *game, t_map *map)
 	render_floor_ceiling(game);
 	if (init_minimap(game, map) == FALSE)
 		return (FALSE);
-	if (create_animation(game) == FALSE)
+	if (init_frog_frames(game) == FALSE)
 		return (FALSE);
 	return (TRUE);
 }

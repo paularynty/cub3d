@@ -6,32 +6,25 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:59:05 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 18:44:50 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 20:11:59 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// static	uint8_t	get_color(int32_t color, int bit)
-// {
-// 	return (color >> bit) & 0xFF;
-// }
-
 // static uint32_t    get_shaded_pixel(uint32_t color, double distance)
 // {
-//     uint8_t        r;
-//     uint8_t        g;
-//     uint8_t        b;
-//     double        factor;
+//     int32_t	r;
+//     int32_t	g;
+//     int32_t	b;
+//     double	factor;
 
-//     factor = 1 / (1 + distance * 0.2);
-//     if (factor < 0.2)
-//         factor = 0.2;
-
-//     r = (uint8_t)(get_color(color, 24) * factor);
-//     g = (uint8_t)(get_color(color, 16) * factor);
-//     b = (uint8_t)(get_color(color, 8) * factor);
-
+// 	factor = 1 / (1 + distance * 0.1);
+//     if (factor < 0.1)
+//         factor = 0.1;
+//     r = ((color >> 24) & 0xFF) * factor;
+//     g = ((color >> 16) & 0xFF) * factor;
+//     b = ((color >> 8) & 0xFF) * factor;
 //     return (rgba(r, g, b, 0xFF));
 // }
 

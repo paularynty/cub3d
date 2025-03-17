@@ -6,27 +6,11 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:37 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 16:22:12 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 19:47:24 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	display_frog(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	while (i < 4)
-	{
-		if (draw_image(game, game->assets.frog_image[i], \
-				game->frog_x, game->frog_y) == FALSE)
-			return ;
-		game->assets.frog_image[i]->enabled = false;
-		i++;
-	}
-	game->assets.frog_image[0]->enabled = true;
-}
 
 int	main(int argc, char **argv)
 {

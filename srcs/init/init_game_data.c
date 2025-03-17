@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:49 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 15:22:45 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 20:12:15 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ static void	init_game_variables(t_game *game)
 	game->assets.world = NULL;
 	game->assets.floor = NULL;
 	game->assets.ceiling = NULL;
+	game->assets.minimap_floor = NULL;
+	game->assets.minimap_wall = NULL;
+	game->assets.minimap_player = NULL;
 	game->delta_time = -1;
 	game->frames = 0;
 }
