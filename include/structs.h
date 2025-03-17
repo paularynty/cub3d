@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 15:21:33 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 16:54:51 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ typedef struct s_assets
 {
 	mlx_image_t		*ceiling;
 	mlx_image_t		*floor;
+	mlx_image_t		*minimap_wall;
+	mlx_image_t		*minimap_player;
+	mlx_image_t		*minimap_floor;
 	mlx_image_t		*world;
 	mlx_texture_t	*frog_texture[4];
 	mlx_image_t		*frog_image[4];
@@ -76,10 +79,6 @@ enum	e_direction
 
 typedef struct s_minimap
 {
-	mlx_image_t	*wall;
-	mlx_image_t	*floor;
-	mlx_image_t	*player;
-	mlx_image_t	*minimap;
 	int			minimap_size;
 	int			view_width;
 	int			view_height;

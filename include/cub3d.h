@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 15:20:32 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:43:10 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define VERTICAL 0
 # define HORIZONTAL 1
 
-# define MOVE_SPEED 0.03f
+# define MOVE_SPEED 0.04f
 # define ROTATION_SPEED 1.0f
 # define ANIMATION_SPEED 0.1f
 
@@ -36,14 +36,14 @@
 # define RESET "\033[0;39m"
 # define TILESIZE 32
 
-# define IMG_WALL "textures/minimap/wall.png"
-# define IMG_FLOOR "textures/minimap/floor.png"
-# define IMG_PLAYER "textures/minimap/player.png"
-# define IMG_CURSOR "textures/target_b.png"
-# define IMG_FROG_1 "textures/frog_1.png"
-# define IMG_FROG_2 "textures/frog_2.png"
-# define IMG_FROG_3 "textures/frog_3.png"
-# define IMG_FROG_4 "textures/frog_4.png"
+# define IMG_WALL "assets/minimap/wall.png"
+# define IMG_FLOOR "assets/minimap/floor.png"
+# define IMG_PLAYER "assets/minimap/player.png"
+# define IMG_CURSOR "assets/cursor_target.png"
+# define IMG_FROG_1 "assets/frog/frog_1.png"
+# define IMG_FROG_2 "assets/frog/frog_2.png"
+# define IMG_FROG_3 "assets/frog/frog_3.png"
+# define IMG_FROG_4 "assets/frog/frog_4.png"
 
 /******************************************************************************/
 /*                                                                            */
@@ -231,6 +231,7 @@ void	split_free(char **arr);
 int		is_whitespace(int c);
 
 int	draw_image(t_game *game, mlx_image_t *image, uint32_t x, uint32_t y);
+mlx_image_t	*load_image(mlx_t *mlx, const char *image_path);
 
 /******************************************************************************/
 /*                                                                            */
@@ -356,5 +357,7 @@ int32_t	rgba(int32_t r, int32_t g, int32_t b, int32_t a);
 void	set_z_index(mlx_image_t *img, int z);
 void	display_frog(t_game *game);
 void	animate_frog(t_game *game);
+
+void	set_cursor(t_game *game);
 
 #endif

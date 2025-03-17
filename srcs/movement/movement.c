@@ -6,19 +6,17 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:55:20 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 15:24:00 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:48:24 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	update_movement_minimap_float(t_game *game, double x, double y)
+static void	update_movement(t_game *game, double x, double y)
 {
-	(void)x;
-	(void)y;
 	game->map.map[(int)game->player.pos_y][(int)game->player.pos_x] = '0';
-	game->minimap.player->instances[0].x = x;
-	game->minimap.player->instances[0].y = y;
+	game->assets.minimap_player->instances[0].x = x * TILESIZE;
+	game->assets.minimap_player->instances[0].y = y * TILESIZE;
 }
 
 void	move_player_minimap(t_game *game, double x, double y)
@@ -26,10 +24,9 @@ void	move_player_minimap(t_game *game, double x, double y)
 	if (game->map.map[(int)y][(int)x] == '1')
 		return ;
 	else if (game->map.map[(int)y][(int)x] == '0')
-		update_movement_minimap_float(game, x, y);
+		update_movement(game, x, y);
 	game->player.pos_x = x;
 	game->player.pos_y = y;
-	animate_frog(game);
 }
 
 void	rotate_player(t_game *game, bool right, double delta_time)

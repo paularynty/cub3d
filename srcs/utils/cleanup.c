@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/15 17:17:28 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 15:27:05 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	free_map(t_map *map)
 
 static void	mlx_cleanup(t_game *game)
 {
-	mlx_destroy_cursor(game->assets.cursor);
 	mlx_delete_image(game->mlx, game->assets.ceiling);
 	mlx_delete_image(game->mlx, game->assets.floor);
 	mlx_delete_texture(game->map.textures.north);

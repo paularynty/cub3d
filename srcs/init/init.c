@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 15:23:17 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:35:43 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,26 +52,21 @@ int32_t	validate_file(int argc, char *file)
 
 static int	load_game_images(t_game *game)
 {
-	game->minimap.floor = load_image(game->mlx, IMG_FLOOR);
-	if (!game->minimap.floor)
+	game->assets.minimap_wall = load_image(game->mlx, IMG_WALL);
+	game->assets.minimap_player = load_image(game->mlx, IMG_PLAYER);
+	game->assets.ceiling = mlx_new_image(game->mlx, \
+			game->window_width, game->window_height / 2);
+	game->assets.floor = mlx_new_image(game->mlx, \
+			game->window_width, game->window_height / 2);
+	game->assets.minimap_floor = mlx_new_image(game->mlx, \
+		(game->window_width / 6), (game->window_width / 6));
+	if (!game->assets.floor || !game->assets.ceiling \
+		|| !game->assets.minimap_floor || !game->assets.minimap_wall \
+		|| !game->assets.minimap_player)
 		return (FALSE);
-	game->minimap.wall = load_image(game->mlx, IMG_WALL);
-	if (!game->minimap.wall)
-		return (FALSE);
-	game->minimap.player = load_image(game->mlx, IMG_PLAYER);
-	if (!game->minimap.wall)
-		return (FALSE);
-	return (TRUE);
-}
-
-static int	init_mlx(t_game *game, int width, int height)
-{
-	mlx_t	*mlx;
-
-	mlx = mlx_init(width, height, "CUB3D YEEEEEEEEESSSSSSSSSSSSSsS", true);
-	if (!mlx)
-		return (FALSE);
-	game->mlx = mlx;
+	fill_color(game->assets.minimap_floor, rgba(0, 0, 0, 255));
+	fill_color(game->assets.ceiling, game->map.ceiling.color);
+	fill_color(game->assets.floor, game->map.floor.color);
 	return (TRUE);
 }
 
@@ -90,10 +85,12 @@ void	set_cursor(t_game *game)
 
 int	init(t_game *game, t_map *map)
 {
-	if (init_mlx(game, game->window_width, game->window_height) == FALSE)
+	game->mlx = mlx_init(game->window_width, game->window_height, \
+		"The Maze Runners", false);
+	if (!game->mlx)
 		return (print_error("Failed to initialize MLX"));
 	set_cursor(game);
-	load_images(game);
+	load_game_images(game);
 	render_floor_ceiling(game);
 	if (init_minimap(game, map) == FALSE)
 		return (FALSE);

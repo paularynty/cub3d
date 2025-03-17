@@ -51,8 +51,6 @@ SRCS			= $(SRCDIR)/main.c \
 				$(SRCDIR)/init/init_game_data.c \
 				$(SRCDIR)/init/init.c \
 				$(SRCDIR)/init/init_player_data.c \
-				$(SRCDIR)/minimap/init_minimap.c \
-				$(SRCDIR)/minimap/minimap_utils.c \
 				$(SRCDIR)/minimap/minimap.c \
 				$(SRCDIR)/movement/movement.c \
 				$(SRCDIR)/render/render_utils.c \

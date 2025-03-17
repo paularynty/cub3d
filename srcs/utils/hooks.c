@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:06:15 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 15:24:17 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 18:36:04 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,18 @@
 
 void	animate_frog(t_game *game)
 {
-	static double	last_time = 0;
-    double			current_time;
-	double			delta_time;
-    current_time = mlx_get_time();
-    delta_time = current_time - last_time;
-	if (delta_time >= ANIMATION_SPEED)
+	static double	accumulated_time = 0;
+	
+	accumulated_time += game->delta_time;
+	if (accumulated_time >= ANIMATION_SPEED)
 	{
 		game->assets.frog_image[game->frames]->enabled = false;
 		game->frames = (game->frames + 1) % 4;
 		game->assets.frog_image[game->frames]->enabled = true;
 		game->assets.frog_image[game->frames]->instances[0].x = game->frog_x;
         game->assets.frog_image[game->frames]->instances[0].y = game->frog_y;
-        game->assets.frog_image[game->frames]->instances[0].z = 200;
-		last_time = current_time;
+		mlx_set_instance_depth(game->assets.frog_image[game->frames]->instances, 250);
+		accumulated_time = 0;
 	}
 }
 
@@ -112,4 +110,9 @@ void	game_hook(void *param)
 	key_rotate(game);
 	mouse_hook(game);
 	render_world(game);
+	animate_frog(game);
+	mlx_set_instance_depth(game->assets.world->instances, 10);
+	// mlx_set_instance_depth(game->assets.minimap_floor->instances, 80);
+	mlx_set_instance_depth(game->assets.minimap_player->instances, 220);
+	mlx_set_instance_depth(game->assets.minimap_wall->instances, 200);
 }

@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:27:41 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/15 13:53:08 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/17 16:35:03 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,28 @@ mlx_texture_t	*determine_texture(t_game *game, mlx_texture_t *texture)
 			texture = game->map.textures.north;
 	}
 	return (texture);
+}
+
+mlx_image_t	*load_image(mlx_t *mlx, const char *image_path)
+{
+	mlx_texture_t	*texture;
+	mlx_image_t		*image;
+
+	image = NULL;
+	texture = mlx_load_png(image_path);
+	if (!texture)
+	{
+		print_error("Failed to load texture");
+		return (NULL);
+	}
+	if (texture == NULL)
+		return (NULL);
+	image = mlx_texture_to_image(mlx, texture);
+	if (!image)
+	{
+		print_error("Failed to transform texture to image");
+		return (NULL);
+	}
+	mlx_delete_texture(texture);
+	return (image);
 }
