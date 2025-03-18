@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_frog.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 19:46:13 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 20:07:21 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/18 17:30:41 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ int	init_frog_frames(t_game *game)
 	game->assets.frog_texture[1] = mlx_load_png(IMG_FROG_2);
 	game->assets.frog_texture[2] = mlx_load_png(IMG_FROG_3);
 	game->assets.frog_texture[3] = mlx_load_png(IMG_FROG_4);
+	if (!game->assets.frog_texture[0] || !game->assets.frog_texture[1] \
+		|| !game->assets.frog_texture[2] || !game->assets.frog_texture[3])
+		return (FALSE);
 	i = 0;
 	while (i < 4)
 	{

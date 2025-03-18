@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 20:07:57 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/18 15:03:48 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ typedef struct s_assets
 {
 	mlx_image_t		*ceiling;
 	mlx_image_t		*floor;
-	mlx_image_t		*minimap_wall;
+	mlx_image_t		*minimap;
+	mlx_texture_t	*minimap_wall;
 	mlx_image_t		*minimap_player;
 	mlx_image_t		*minimap_floor;
 	mlx_image_t		*world;

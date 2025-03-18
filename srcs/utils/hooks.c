@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:06:15 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 20:12:44 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/18 15:28:07 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,5 @@ void	game_hook(void *param)
 	mlx_set_instance_depth(game->assets.world->instances, 10);
 	// mlx_set_instance_depth(game->assets.minimap_floor->instances, 80);
 	mlx_set_instance_depth(game->assets.minimap_player->instances, 220);
-	mlx_set_instance_depth(game->assets.minimap_wall->instances, 250);
+	mlx_set_instance_depth(game->assets.minimap->instances, 250);
 }

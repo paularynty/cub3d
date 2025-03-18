@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:59:05 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 20:11:59 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/18 17:01:57 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	render_walls(int x, t_game *game, mlx_image_t *image, \
 	}
 }
 
-int	render_floor_ceiling(t_game *game)
+/* int	render_floor_ceiling(t_game *game)
 {
 	if (mlx_image_to_window(game->mlx, game->assets.ceiling, 0, 0) == FALSE)
 		return (print_error("Failed to put ceiling image to window"));
@@ -65,7 +65,7 @@ int	render_floor_ceiling(t_game *game)
 			0, game->window_height / 2) == FALSE)
 		return (print_error("Failed to put floor image to window"));
 	return (TRUE);
-}
+} */
 
 void	render_world(t_game *game)
 {

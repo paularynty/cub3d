@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:27:41 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 16:35:03 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/18 14:41:38 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	fill_color(mlx_image_t *image, int color)
 		while (x < image->width)
 		{
 			mlx_put_pixel(image, x, y, (uint32_t)color);
-			++x;
+			x++;
 		}
-		++y;
+		y++;
 	}
 }
 

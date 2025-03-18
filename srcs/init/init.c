@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 20:11:52 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/18 15:30:19 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,17 @@ int32_t	validate_file(int argc, char *file)
 
 static int	load_game_images(t_game *game)
 {
-	game->assets.minimap_wall = load_image(game->mlx, IMG_WALL);
+	game->assets.minimap = mlx_new_image(game->mlx, game->window_width / 4, \
+		game->window_height / 4);
+	game->assets.minimap_wall = mlx_load_png(IMG_WALL);
 	game->assets.minimap_player = load_image(game->mlx, IMG_PLAYER);
-	game->assets.ceiling = mlx_new_image(game->mlx, \
-			game->window_width, game->window_height / 2);
-	game->assets.floor = mlx_new_image(game->mlx, \
-			game->window_width, game->window_height / 2);
 	// game->assets.minimap_floor = mlx_new_image(game->mlx, \
 	// 	(game->window_width / 6), (game->window_width / 6));
-	if (!game->assets.floor || !game->assets.ceiling \
-		|| !game->assets.minimap_floor || !game->assets.minimap_wall \
+	if (!game->assets.minimap || !game->assets.minimap_wall \
 		|| !game->assets.minimap_player)
 		return (FALSE);
 	// fill_color(game->assets.minimap_floor, rgba(0, 0, 0, 255));
-	fill_color(game->assets.ceiling, game->map.ceiling.color);
-	fill_color(game->assets.floor, game->map.floor.color);
+	fill_color(game->assets.minimap, rgba(0, 0, 0, 255));
 	return (TRUE);
 }
 
@@ -71,7 +67,7 @@ int	init(t_game *game, t_map *map)
 		return (print_error("Failed to initialize MLX"));
 	set_cursor(game);
 	load_game_images(game);
-	render_floor_ceiling(game);
+	// render_floor_ceiling(game);
 	if (init_minimap(game, map) == FALSE)
 		return (FALSE);
 	if (init_frog_frames(game) == FALSE)
