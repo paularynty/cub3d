@@ -6,7 +6,7 @@
 /*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:52:59 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 11:26:02 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:54:08 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ size_t	validate_map_line(char *line)
 			return (0);
 		}
 	}
+	if (len == 0)
+		print_error("Empty line in map");
 	return (len);
 }
 
@@ -79,26 +81,16 @@ static int	check_surroundings(char **map, size_t x, size_t y)
 	player = "NSEW";
 	if (y != 0 && map[y - 1][x] != '0' && map[y - 1][x] != '1' \
 		&& ft_strchr(player, map[y - 1][x]) == NULL)
-		return (print_error("First if"));
+		return (FALSE);
 	if (map[y + 1] != NULL && map[y + 1][x] != '0' && map[y + 1][x] != '1' \
 		&& ft_strchr(player, map[y + 1][x]) == NULL)
-		return (print_error("Second if"));
+		return (FALSE);
 	if (x != 0 && map[y][x - 1] != '0' && map[y][x - 1] != '1' \
 		&& ft_strchr(player, map[y][x - 1]) == NULL)
-		return (print_error("3 if"));
+		return (FALSE);
 	if (map[y][x + 1] != '0' && map[y][x + 1] != '1' \
 		&& ft_strchr(player, map[y][x + 1]) == NULL)
-		return (print_error("4 if"));
-	if (y == 0 && map[y][x] != ' ' && map[y][x] != '1')
-		return (print_error("5 if"));
-	if (map[y + 1] == NULL && map[y][x] != ' ' && map[y][x] != '1')
-		return (print_error("6 if"));
-	if (x == 0 && map[y][x] != ' ' && map[y][x] != '1')
-		return (print_error("7 if"));
-	if (map[y][x + 1] == '\0' && map[y][x] != '1')
-		return (print_error("8 if"));
-	if (x != 0 && map[y][x - 1] == ' ' && map[y][x] != '1')
-		return (print_error("9 if")); 
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -106,29 +98,25 @@ int	final_validation(t_game *game)
 {
 	size_t	y;
 	size_t	x;
-	t_map	map;
 
-	y = 0;
-	map = game->map;
-	while (y < map.height)
+	y = -1;
+	while (++y < game->map.height)
 	{
-		x = 0;
-		while (map.map[y][x] != '\0')
+		x = -1;
+		while (game->map.map[y][++x] != '\0')
 		{
-			if (map.map[y][x] == '0')
+			if (game->map.map[y][x] == '0')
 			{
-				if (check_surroundings(map.map, x, y) < 0)
+				if (check_surroundings(game->map.map, x, y) < 0)
+					return (print_error("Invalid map"));
+			}
+			else if (game->map.map[y][x] == 'N' || game->map.map[y][x] == 'S' \
+				|| game->map.map[y][x] == 'E' || game->map.map[y][x] == 'W')
+			{
+				if (init_player(&game->player, x, y, game->map.map[y][x]) == -1)
 					return (FALSE);
 			}
-			else if (map.map[y][x] == 'N' || map.map[y][x] == 'S' || \
-				map.map[y][x] == 'E' || map.map[y][x] == 'W')
-			{
-				if (init_player(&game->player, x, y, map.map[y][x]) == FALSE)
-					return (FALSE);
-			}
-			x++;
 		}
-		y++;
 	}
 	if (game->player.pos_x == 0 || game->player.pos_y == 0)
 		return (print_error("No player in map, need one (1)"));

@@ -6,7 +6,7 @@
 /*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:14:19 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 11:37:39 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:49:38 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ static int	line_checker(char *line, size_t size, size_t y)
 int	read_map(t_map *map, char *line, int32_t map_file, char *filename)
 {
 	size_t	size;
-	size_t	len;
 	size_t	y;
 
 	size = get_map_size(&line, &map_file, filename);
@@ -97,12 +96,11 @@ int	read_map(t_map *map, char *line, int32_t map_file, char *filename)
 	while (line != NULL && y < size)
 	{
 		map->map[y] = NULL;
-		len = validate_map_line(line);
-		if (len == 0)
+		if (validate_map_line(line) == 0)
 			return (free_gnl(&line, map_file));
 		if (line_checker(line, size, y) == -1)
 			return (free_gnl(&line, map_file));
-		map->map[y] = ft_substr(line, 0, len);
+		map->map[y] = ft_substr(line, 0, ft_strlen_nl(line));
 		if (map->map[y] == NULL)
 			return (print_error("Failed to allocate memory"));
 		free(line);
