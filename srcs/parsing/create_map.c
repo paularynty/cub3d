@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:02:45 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 13:07:41 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/28 17:58:01 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,14 @@ static int	check_line(t_map *map, char *line)
 	return (check_key(map, &line[line_i]));
 }
 
-int	create_map(t_game *game, int32_t map_file, char *filename)
+int	create_map(t_game *game, char *filename)
 {
 	char	*line;
 	int		check;
 
-	line = get_next_line(map_file);
+	if (validate_file(game, filename) == FALSE)
+		return (FALSE);
+	line = get_next_line(game->map.map_fd);
 	if (line == NULL)
 		return (FALSE);
 	while (line != NULL)
@@ -100,16 +102,16 @@ int	create_map(t_game *game, int32_t map_file, char *filename)
 		check = check_line(&game->map, line);
 		if (check == -2)
 		{
-			if (read_map(&game->map, line, map_file, filename) < 0)
+			if (read_map(&game->map, line, game->map.map_fd, filename) < 0)
 				return (FALSE);
 			if (get_map_width(&game->map) < 0)
 				return (FALSE);
 			return (final_validation(game));
 		}
 		if (check == FALSE)
-			return (free_gnl(&line, map_file));
+			return (free_gnl(&line, game->map.map_fd));
 		free(line);
-		line = get_next_line(map_file);
+		line = get_next_line(game->map.map_fd);
 	}
 	return (TRUE);
 }

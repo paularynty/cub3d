@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:27:41 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/28 10:37:11 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 16:02:28 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,56 +41,19 @@ void	get_pixel_data(mlx_texture_t *texture, t_color *color, size_t coords)
 	color->color = rgba(color->r, color->g, color->b, color->a);
 }
 
-uint32_t get_x_coord(t_game *game, mlx_texture_t *texture)
+uint32_t	get_x_coord(t_game *game, mlx_texture_t *texture)
 {
-    uint32_t texture_x;
+	uint32_t	texture_x;
 
-    texture_x = (uint32_t)(game->ray.wall_hit_x * texture->width);
-
-    // Fix mirroring issue for east and south walls
-    if ((game->ray.side == VERTICAL && game->ray.step_x > 0) ||  // East-facing wall
-        (game->ray.side == HORIZONTAL && game->ray.step_y < 0))  // South-facing wall
-    {
-        texture_x = texture->width - texture_x - 1;
-    }
-
-    if (texture_x < 0)
-        texture_x = 0;
-    else if (texture_x >= texture->width)
-        texture_x = texture->width - 1;
-
-    return texture_x;
-}
-
-// uint32_t	get_x_coord(t_game *game, mlx_texture_t *texture)
-// {
-// 	uint32_t	texture_x;
-
-// 	texture_x = game->ray.wall_hit_x * texture->width;
-// 	if (texture_x < 0)
-// 		texture_x = 0;
-// 	else if (texture_x >= texture->width)
-// 		texture_x = texture->width - 1;
-// 	return (texture_x);
-// }
-
-mlx_texture_t	*determine_texture(t_game *game, mlx_texture_t *texture)
-{
-	if (game->ray.side == VERTICAL)
-	{
-		if (game->ray.step_x < 0)
-			texture = game->map.textures.west;
-		else
-			texture = game->map.textures.east;
-	}
-	else
-	{
-		if (game->ray.step_y < 0)
-			texture = game->map.textures.south;
-		else
-			texture = game->map.textures.north;
-	}
-	return (texture);
+	texture_x = (uint32_t)(game->ray.wall_hit_x * texture->width);
+	if ((game->ray.side == VERTICAL && game->ray.step_x > 0)
+		|| (game->ray.side == HORIZONTAL && game->ray.step_y < 0))
+		texture_x = texture->width - texture_x - 1;
+	if (texture_x < 0)
+		texture_x = 0;
+	else if (texture_x >= texture->width)
+		texture_x = texture->width - 1;
+	return (texture_x);
 }
 
 mlx_image_t	*load_image(mlx_t *mlx, const char *image_path)

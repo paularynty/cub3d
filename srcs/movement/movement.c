@@ -6,13 +6,13 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:55:20 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/28 10:30:47 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 15:53:34 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	move_player_minimap(t_game *game, double x, double y)
+void	move_player(t_game *game, double x, double y)
 {
 	if (game->map.map[(int)y][(int)x] == '1')
 		return ;

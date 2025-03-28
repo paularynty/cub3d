@@ -6,28 +6,25 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 10:29:54 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 18:00:57 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int32_t	validate_file(int argc, char *file)
+int	validate_file(t_game *game, char *file)
 {
-	int32_t	map_file;
 	size_t	path_len;
 
-	if (argc != 2)
-		return (print_error("Usage: ./cub3D [path_to_map].cub"));
 	if (!file[0])
 		return (print_error("Empty path"));
 	path_len = ft_strlen(file);
 	if (path_len < 4 || ft_strncmp(&file[path_len - 4], ".cub", 4))
-		return (print_error("Invalid file format\nSupported file format: .cub"));
-	map_file = open(file, O_RDONLY);
-	if (map_file < 0)
-		return (print_error("Could not find map file"));
-	return (map_file);
+		return (print_error("Supported file format: .cub"));
+	game->map.map_fd = open(file, O_RDONLY);
+	if (game->map.map_fd < 0)
+		return (print_error("Map file does not exist"));
+	return (TRUE);
 }
 
 void	set_cursor(t_game *game)

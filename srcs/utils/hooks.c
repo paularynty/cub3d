@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:06:15 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/28 10:28:55 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 17:52:29 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,24 @@
 static void	key_move(t_game *game, double x, double y)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
-		move_player_minimap(game, x + game->player.dir_x * MOVE_SPEED, \
+		move_player(game, x + game->player.dir_x * MOVE_SPEED, \
 			y + game->player.dir_y * MOVE_SPEED);
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_S))
-		move_player_minimap(game, x - game->player.dir_x * MOVE_SPEED, \
+		move_player(game, x - game->player.dir_x * MOVE_SPEED, \
 			y - game->player.dir_y * MOVE_SPEED);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
-		move_player_minimap(game, x + game->player.dir_y * MOVE_SPEED, \
-			y - game->player.dir_x * MOVE_SPEED);
 	else if (mlx_is_key_down(game->mlx, MLX_KEY_A))
-		move_player_minimap(game, x - game->player.dir_y * MOVE_SPEED, \
+		move_player(game, x + game->player.dir_y * MOVE_SPEED, \
+			y - game->player.dir_x * MOVE_SPEED);
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+		move_player(game, x - game->player.dir_y * MOVE_SPEED, \
 			y + game->player.dir_x * MOVE_SPEED);
 }
 
 static void	key_rotate(t_game *game)
 {
-	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		rotate_player(game, true, game->delta_time);
-	else if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+	else if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
 		rotate_player(game, false, game->delta_time);
 }
 
@@ -65,9 +65,9 @@ static void	mouse_hook(t_game *game)
 	if (game->mouse_toggle == FALSE)
 		return ;
 	mlx_get_mouse_pos(game->mlx, &pos_x, &pos_y);
-	if (pos_x < game->mouse_x)
+	if (pos_x > game->mouse_x)
 		rotate_player(game, true, game->delta_time);
-	else if (pos_x > game->mouse_x)
+	else if (pos_x < game->mouse_x)
 		rotate_player(game, false, game->delta_time);
 	mlx_set_mouse_pos(game->mlx, game->window_width / 2, \
 		game->window_height / 2);

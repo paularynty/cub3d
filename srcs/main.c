@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:37 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/28 12:03:06 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/28 16:30:25 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 int	main(int argc, char **argv)
 {
 	t_game		*game;
-	int32_t		map_file;
 
-	map_file = validate_file(argc, argv[1]);
-	if (map_file == FALSE)
-		return (1);
+	if (argc != 2)
+		return (print_error("Usage: ./cub3D [path_to_map].cub"));
 	game = (t_game *){0};
 	game = init_game_data(game);
 	if (!game)
 		return (1);
-	if (create_map(game, map_file, argv[1]) == -1)
+	if (create_map(game, argv[1]) == -1)
 	{
 		cleanup(game);
 		return (1);

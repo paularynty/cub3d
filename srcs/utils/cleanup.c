@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 12:08:25 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/28 16:38:02 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,6 @@ static void	mlx_cleanup(t_game *game)
 		mlx_delete_image(game->mlx, game->assets.floor);
 	if (game->assets.world)
 		mlx_delete_image(game->mlx, game->assets.world);
-	if (game->assets.minimap_floor)
-		mlx_delete_image(game->mlx, game->assets.minimap_floor);
-	if (game->assets.minimap_player)
-		mlx_delete_image(game->mlx, game->assets.minimap_player);
-	if (game->assets.minimap_wall)
-		mlx_delete_image(game->mlx, game->assets.minimap_wall);
-	if (game->assets.frog_image[0])
-		mlx_delete_image(game->mlx, game->assets.frog_image[0]);
-	if (game->assets.frog_image[1])
-		mlx_delete_image(game->mlx, game->assets.frog_image[1]);
-	if (game->assets.frog_image[2])
-		mlx_delete_image(game->mlx, game->assets.frog_image[2]);
-	if (game->assets.frog_image[3])
-		mlx_delete_image(game->mlx, game->assets.frog_image[3]);
 	if (game->mlx)
 		mlx_terminate(game->mlx);
 }
@@ -64,6 +50,8 @@ static void	mlx_cleanup(t_game *game)
 void	cleanup(t_game *game)
 {
 	free_map(&game->map);
+	if (game->map.map_fd > 2)
+		close(game->map.map_fd);
 	mlx_cleanup(game);
 	free(game);
 }

@@ -6,57 +6,33 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:46:11 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 10:42:44 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 17:50:52 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void handle_wall_collision(t_game *game, t_ray *ray)
+static void	handle_wall_collision(t_game *game, t_ray *ray)
 {
-    ray->hit = TRUE;
-    if (ray->side == VERTICAL)
-        ray->wall_dist = (ray->map_x - game->player.pos_x + (1 - ray->step_x) / 2) / ray->dir_x;
-    else
-        ray->wall_dist = (ray->map_y - game->player.pos_y + (1 - ray->step_y) / 2) / ray->dir_y;
-
-    if (ray->side == VERTICAL)
-        ray->wall_hit_x = game->player.pos_y + ray->wall_dist * ray->dir_y;
-    else
-        ray->wall_hit_x = game->player.pos_x + ray->wall_dist * ray->dir_x;
-
-    ray->wall_hit_x -= floor(ray->wall_hit_x);
-
-    // Ensure wall_hit_x is correctly aligned for textures
-    if ((ray->side == VERTICAL && ray->step_x < 0) ||  // West wall
-        (ray->side == HORIZONTAL && ray->step_y > 0))  // South wall
-    {
-        ray->wall_hit_x = 1.0 - ray->wall_hit_x;  // Flip wall_hit_x
-    }
-	else if ((ray->side == VERTICAL && ray->step_x > 0) ||
-        (ray->side == HORIZONTAL && ray->step_y < 0))
-    {
-        ray->wall_hit_x = 1.0 - ray->wall_hit_x;  // Flip wall_hit_x
-    }
+	ray->hit = TRUE;
+	if (ray->side == VERTICAL)
+		ray->wall_dist = (ray->map_x - game->player.pos_x \
+			+ (1 - ray->step_x) / 2) / ray->dir_x;
+	else
+		ray->wall_dist = (ray->map_y - game->player.pos_y \
+			+ (1 - ray->step_y) / 2) / ray->dir_y;
+	if (ray->side == VERTICAL)
+		ray->wall_hit_x = game->player.pos_y + ray->wall_dist * ray->dir_y;
+	else
+		ray->wall_hit_x = game->player.pos_x + ray->wall_dist * ray->dir_x;
+	ray->wall_hit_x -= floor(ray->wall_hit_x);
+	if ((ray->side == VERTICAL && ray->step_x < 0)
+		|| (ray->side == HORIZONTAL && ray->step_y > 0))
+		ray->wall_hit_x = 1.0 - ray->wall_hit_x;
+	else if ((ray->side == VERTICAL && ray->step_x > 0)
+		|| (ray->side == HORIZONTAL && ray->step_y < 0))
+		ray->wall_hit_x = 1.0 - ray->wall_hit_x;
 }
-
-// static void	handle_wall_collision(t_game *game, t_ray *ray)
-// {
-// 	ray->hit = TRUE;
-// 	if (ray->side == VERTICAL)
-// 		ray->wall_dist = (ray->map_x - game->player.pos_x \
-// 			+ (1 - ray->step_x) / 2) / ray->dir_x;
-// 	else
-// 		ray->wall_dist = (ray->map_y - game->player.pos_y \
-// 			+ (1 - ray->step_y) / 2) / ray->dir_y;
-// 	if (ray->side == VERTICAL)
-// 		ray->wall_hit_x = game->player.pos_y \
-// 			+ ray->wall_dist * ray->dir_y;
-// 	else
-// 		ray->wall_hit_x = game->player.pos_x \
-// 			+ ray->wall_dist * ray->dir_x;
-// 	ray->wall_hit_x -= floor(ray->wall_hit_x);
-// }
 
 void	cast_ray(t_ray *ray, t_game *game)
 {

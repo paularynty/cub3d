@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 20:07:57 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 16:26:54 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ typedef struct s_map
 	t_textures		textures;
 	size_t			width;
 	size_t			height;
+	int				map_fd;
 }	t_map;
 
 /**
@@ -218,8 +219,6 @@ typedef struct s_game
 	double		mouse_x;
 	int			mouse_toggle;
 	double		delta_time;
-	uint32_t	frog_x;
-	uint32_t	frog_y;
 	size_t		frames;
 }	t_game;
 

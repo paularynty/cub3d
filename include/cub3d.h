@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
+/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 12:22:36 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/28 17:57:39 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include "libft.h"
-# include <stdio.h> //delete this later
 # include <stdbool.h>
 # include <math.h>
 # include <MLX42.h>
@@ -36,14 +35,7 @@
 # define RESET "\033[0;39m"
 # define TILESIZE 32
 
-# define IMG_WALL "assets/minimap/wall.png"
-# define IMG_FLOOR "assets/minimap/floor.png"
-# define IMG_PLAYER "assets/minimap/player.png"
 # define IMG_CURSOR "assets/cursor_target.png"
-# define IMG_FROG_1 "assets/frog/frog_1.png"
-# define IMG_FROG_2 "assets/frog/frog_2.png"
-# define IMG_FROG_3 "assets/frog/frog_3.png"
-# define IMG_FROG_4 "assets/frog/frog_4.png"
 
 /******************************************************************************/
 /*                                                                            */
@@ -58,7 +50,10 @@
  * @param[in] file A pointer to the file path.
  * @returns file descriptor of the file.
 */
-int32_t	validate_file(int argc, char *file);
+// int32_t	validate_file(int argc, char *file, int32_t map_fd);
+// int32_t	validate_file(int argc, char *file);
+// int	validate_file(char *file);
+int	validate_file(t_game *game, char *file);
 
 /******************************************************************************/
 /*                                                                            */
@@ -76,7 +71,7 @@ int32_t	validate_file(int argc, char *file);
  * 
  * @returns 1 if the initialization was successful, -1 in case of an error.
  */
-int		init_player(t_player *player, size_t x, size_t y, char dir);
+int	init_player(t_player *player, size_t x, size_t y, char dir);
 
 /******************************************************************************/
 /*                                                                            */
@@ -84,9 +79,8 @@ int		init_player(t_player *player, size_t x, size_t y, char dir);
 /*                                                                            */
 /******************************************************************************/
 
-t_game	*init_game_data(t_game *game);
-// int		init(t_game *game, t_map *map);
-int		init(t_game *game);
+t_game		*init_game_data(t_game *game);
+int	init(t_game *game);
 
 /******************************************************************************/
 /*                                                                            */
@@ -98,20 +92,14 @@ int		init(t_game *game);
  * Initializes minimap data and draws the minimap on the game screen.
  * Params to be added.
 */
-int		init_minimap(t_game *game, t_map *map);
+int	init_minimap(t_game *game, t_map *map);
 
 /**
  * Handles player movement in the minimap.
  * Params to be added.
 */
-void	move_player_minimap(t_game *game, double x, double y);
+void	move_player(t_game *game, double x, double y);
 void	rotate_player(t_game *game, bool right, double delta_time);
-
-/******************************************************************************/
-/*                                                                            */
-/*                                MINIMAP_UTILS.C                             */
-/*                                                                            */
-/******************************************************************************/
 
 /******************************************************************************/
 /*                                                                            */
@@ -202,7 +190,8 @@ size_t	validate_map_line(char *line);
  * 
  * @returns -1 in case of an error, 1 in case of success. 
  */
-int		create_map(t_game *game, int32_t map_file, char *filename);
+int		create_map(t_game *game, char *filename);
+// int		create_map(t_game *game, int32_t map_file, char *filename);
 
 /**
  * Copies the original map content in the given array
@@ -241,9 +230,7 @@ void	split_free(char **arr);
  * is not.
  */
 int		is_whitespace(int c);
-
-int	draw_image(t_game *game, mlx_image_t *image, uint32_t x, uint32_t y);
-mlx_image_t	*load_image(mlx_t *mlx, const char *image_path);
+int		draw_image(t_game *game, mlx_image_t *image, uint32_t x, uint32_t y);
 
 /******************************************************************************/
 /*                                                                            */
@@ -288,23 +275,17 @@ void	cast_ray(t_ray *ray, t_game *game);
  * @param[in] game A pointer to the `t_game` structure.
  */
 void	init_draw(t_ray *ray, t_game *game);
+void	fill_color(mlx_image_t *image, int color);
+void	get_pixel_data(mlx_texture_t *texture, t_color *color, size_t coords);
 
-void		fill_color(mlx_image_t *image, int color);
-void		get_pixel_data(mlx_texture_t *texture, \
-		t_color *color, size_t coords);
-uint32_t		get_x_coord(t_game *game, mlx_texture_t *texture);
-
-/**
- * Determines which texture should be drawn based on the cardinal direction
- * (north/south/east/west).
- */
-mlx_texture_t	*determine_texture(t_game *game, mlx_texture_t *texture);
+uint32_t	get_x_coord(t_game *game, mlx_texture_t *texture);
+mlx_image_t	*load_image(mlx_t *mlx, const char *image_path);
 
 /**
  * Draws the walls of the 3D world in the window.
  */
 void	render_walls(int x, t_game *game, mlx_image_t *image, \
-	mlx_texture_t *texture);
+				mlx_texture_t *texture);
 
 /**
  * Calls necessary functions to cast rays through the map and draw the FOV.

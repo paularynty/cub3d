@@ -6,11 +6,30 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:59:05 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/28 10:30:33 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 16:02:41 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static mlx_texture_t	*determine_texture(t_game *game, mlx_texture_t *texture)
+{
+	if (game->ray.side == VERTICAL)
+	{
+		if (game->ray.step_x < 0)
+			texture = game->map.textures.west;
+		else
+			texture = game->map.textures.east;
+	}
+	else
+	{
+		if (game->ray.step_y < 0)
+			texture = game->map.textures.south;
+		else
+			texture = game->map.textures.north;
+	}
+	return (texture);
+}
 
 void	render_walls(int x, t_game *game, mlx_image_t *image, \
 	mlx_texture_t *texture)
