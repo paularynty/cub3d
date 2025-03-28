@@ -6,7 +6,7 @@
 /*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:52:59 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 12:54:08 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/28 13:06:34 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	validate_space(char *line)
 		if (line[i] == '0')
 		{
 			if (i == 0 || i == len)
-				return (-1);
+				return (FALSE);
 			else if (line[i - 1] == ' ' || line[i + 1] == ' ')
 				return (FALSE);
 			else

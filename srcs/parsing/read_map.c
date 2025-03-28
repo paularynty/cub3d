@@ -6,7 +6,7 @@
 /*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:14:19 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 12:49:38 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/28 13:04:29 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	fill_map(t_map *map)
 			split_free(new_map);
 			return (print_error("Failed to allocate memory"));
 		}
-		if (copy_map_content(map, new_map, y) == -1)
+		if (copy_map_content(map, new_map, y) == FALSE)
 			split_free(new_map);
 		y++;
 	}
@@ -53,7 +53,7 @@ static size_t	get_map_size(char **line, int32_t *map_file, char *filename)
 	}
 	close(*map_file);
 	*map_file = open(filename, O_RDONLY);
-	if (*map_file == -1)
+	if (*map_file == FALSE)
 		return (0);
 	while (1)
 	{
@@ -72,12 +72,12 @@ static int	line_checker(char *line, size_t size, size_t y)
 {
 	if (y == 0 || y == size - 1)
 	{
-		if (check_walls(line) == -1)
+		if (check_walls(line) == FALSE)
 			return (print_error("The map has to be surrounded by walls"));
 	}
 	else
 	{
-		if (validate_space(line) == -1)
+		if (validate_space(line) == FALSE)
 			return (print_error("The map has to be surrounded by walls"));
 	}
 	return (1);
@@ -98,7 +98,7 @@ int	read_map(t_map *map, char *line, int32_t map_file, char *filename)
 		map->map[y] = NULL;
 		if (validate_map_line(line) == 0)
 			return (free_gnl(&line, map_file));
-		if (line_checker(line, size, y) == -1)
+		if (line_checker(line, size, y) == FALSE)
 			return (free_gnl(&line, map_file));
 		map->map[y] = ft_substr(line, 0, ft_strlen_nl(line));
 		if (map->map[y] == NULL)

@@ -6,7 +6,7 @@
 /*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:02:45 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 11:57:36 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/28 13:07:41 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	check_line(t_map *map, char *line)
 
 	line_i = 0;
 	if (ft_strcmp(line, "\n") == 0)
-		return (1);
+		return (TRUE);
 	while (is_whitespace(line[line_i]) == 1)
 		line_i++;
 	return (check_key(map, &line[line_i]));
@@ -106,7 +106,7 @@ int	create_map(t_game *game, int32_t map_file, char *filename)
 				return (FALSE);
 			return (final_validation(game));
 		}
-		if (check == -1)
+		if (check == FALSE)
 			return (free_gnl(&line, map_file));
 		free(line);
 		line = get_next_line(map_file);
