@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_game_data.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:49 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 20:12:15 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 12:59:13 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,30 @@ static int	get_window_size(uint32_t *window_width, uint32_t *window_height)
 	return (TRUE);
 }
 
+static void	init_player_data(t_player *player)
+{
+	player->angle = 0;
+	player->dir_x = 0;
+	player->dir_y = 0;
+	player->plane_x = 0;
+	player->plane_y = 0;
+	player->pos_x = 0;
+	player->pos_y = 0;
+}
+
+static void	init_map(t_map *map)
+{
+	map->map = NULL;
+	map->textures.east = NULL;
+	map->textures.west = NULL;
+	map->textures.north = NULL;
+	map->textures.south = NULL;
+	map->height = 0;
+	map->width = 0;
+	map->ceiling = (t_color){0};
+	map->floor = (t_color){0};
+}
+
 static void	init_game_variables(t_game *game)
 {
 	game->mlx = NULL;
@@ -37,8 +61,14 @@ static void	init_game_variables(t_game *game)
 	game->assets.minimap_floor = NULL;
 	game->assets.minimap_wall = NULL;
 	game->assets.minimap_player = NULL;
+	game->assets.frog_image[0] = NULL;
+	game->assets.frog_image[1] = NULL;
+	game->assets.frog_image[2] = NULL;
+	game->assets.frog_image[3] = NULL;
 	game->delta_time = -1;
 	game->frames = 0;
+	init_player_data(&game->player);
+	init_map(&game->map);
 }
 
 t_game	*init_game_data(t_game *game)
