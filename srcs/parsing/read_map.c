@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:14:19 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/13 21:48:18 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 10:42:18 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,34 +115,28 @@ int	read_map(t_map *map, char *line, int32_t map_file, char *filename)
 	{
 		len = validate_map_line(line);
 		if (len == 0)
-			return (print_error("Invalid character in map\n"));
+			return (print_error("Invalid character in map"));
 		if (y == 0 || y == size - 1)
 		{
-			if (check_walls(line) == 1)
-			{
-				map->map[y] = ft_substr(line, 0, len);
-				if (map->map[y] == NULL)
-					return (print_error("Failed to allocate memory"));
-			}
-			else
+			if (check_walls(line) == -1)
 				return (print_error("The map has to be surrounded by walls"));
+			map->map[y] = ft_substr(line, 0, len);
+			if (map->map[y] == NULL)
+				return (print_error("Failed to allocate memory"));
 		}
 		else
 		{
-			if (validate_space(line) == 1)
-			{
-				map->map[y] = ft_substr(line, 0, len);
-				if (map->map[y] == NULL)
-					return (print_error("Failed to allocate memory"));
-			}
-			else
+			if (validate_space(line) == -1)
 				return (print_error("The map has to be surrounded by walls"));
+			map->map[y] = ft_substr(line, 0, len);
+			if (map->map[y] == NULL)
+				return (print_error("Failed to allocate memory"));
 		}
 		free(line);
 		line = get_next_line(map_file);
 		y++;
+		map->map[y] = NULL;
 	}
 	map->height = y;
-	map->map[y] = NULL;
 	return (TRUE);
 }

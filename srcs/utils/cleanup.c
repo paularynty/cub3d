@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:16:34 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 20:10:42 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 10:37:11 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int	print_error(char *msg)
 void	free_map(t_map *map)
 {
 	if (map->map)
-	{
 		split_free(map->map);
-		map->map = NULL;
-	}
 }
 
 static void	mlx_cleanup(t_game *game)

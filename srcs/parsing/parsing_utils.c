@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:17:23 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/13 21:52:06 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 10:36:58 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	split_free(char **arr)
 		i++;
 	}
 	free(arr);
+	arr = NULL;
 }
 
 int	is_whitespace(int c)
