@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:37 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 19:47:24 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 12:03:06 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (create_map(game, map_file, argv[1]) == -1)
 	{
-		free_map(&game->map);
+		cleanup(game);
 		return (1);
 	}
 	if (init(game, &game->map) == FALSE)

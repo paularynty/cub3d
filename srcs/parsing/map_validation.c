@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:52:59 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/15 14:05:45 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 11:26:02 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ size_t	validate_map_line(char *line)
 			line[len] == 'S' || line[len] == 'W')
 			len++;
 		else
+		{
+			print_error("Invalid character in map");
 			return (0);
+		}
 	}
 	return (len);
 }

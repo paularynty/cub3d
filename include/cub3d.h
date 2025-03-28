@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 19:47:43 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 12:22:36 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,17 @@ size_t	validate_map_line(char *line);
  * @returns -1 in case of an error, 1 in case of success. 
  */
 int		create_map(t_game *game, int32_t map_file, char *filename);
+
+/**
+ * Copies the original map content in the given array
+ * 
+ * @param[in] map The `t_map` structure containing the original map data.
+ * @param[out] new_map The array to copy the original content to.
+ * @param[in] y The index of the map array to copy from/to.
+ * 
+ * @returns -1 in case of an error, 1 in case of success.
+ */
+int		copy_map_content(t_map *map, char **new_map, size_t y);
 
 /**
  * Frees the static buffer in `get_next_line()`.
