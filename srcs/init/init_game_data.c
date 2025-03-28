@@ -6,7 +6,7 @@
 /*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:49 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/28 12:16:46 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:59:13 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	get_window_size(uint32_t *window_width, uint32_t *window_height)
 	return (TRUE);
 }
 
-static void	init_player_data(t_player * player)
+static void	init_player_data(t_player *player)
 {
 	player->angle = 0;
 	player->dir_x = 0;
