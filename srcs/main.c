@@ -29,9 +29,8 @@ int	main(int argc, char **argv)
 		cleanup(game);
 		return (1);
 	}
-	if (init(game, &game->map) == FALSE)
+	if (init(game) == FALSE)
 		return (1);
-	display_frog(game);
 	mlx_loop_hook(game->mlx, &game_hook, game);
 	mlx_resize_hook(game->mlx, &resize_window, game);
 	mlx_loop(game->mlx);

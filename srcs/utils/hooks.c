@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:06:15 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 20:12:44 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 10:28:55 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,6 @@ void	resize_window(int32_t width, int32_t height, void *param)
 	game = param;
 	game->window_height = height;
 	game->window_width = width;
-	// mlx_resize_image(game->assets.floor, game->window_width, game->window_height / 2);
-	// mlx_resize_image(game->assets.ceiling, game->window_width, game->window_height / 2);
-	// render_floor_ceiling(game);
-	// mlx_set_instance_depth(game->assets.floor->instances, 1);
-	// mlx_set_instance_depth(game->assets.ceiling->instances, 2);
 	render_world(game);
 }
 
@@ -97,9 +92,4 @@ void	game_hook(void *param)
 	key_rotate(game);
 	mouse_hook(game);
 	render_world(game);
-	animate_frog(game);
-	mlx_set_instance_depth(game->assets.world->instances, 10);
-	// mlx_set_instance_depth(game->assets.minimap_floor->instances, 80);
-	mlx_set_instance_depth(game->assets.minimap_player->instances, 220);
-	mlx_set_instance_depth(game->assets.minimap_wall->instances, 250);
 }
