@@ -6,27 +6,11 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:59:05 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 20:11:59 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 10:30:33 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-// static uint32_t    get_shaded_pixel(uint32_t color, double distance)
-// {
-//     int32_t	r;
-//     int32_t	g;
-//     int32_t	b;
-//     double	factor;
-
-// 	factor = 1 / (1 + distance * 0.1);
-//     if (factor < 0.1)
-//         factor = 0.1;
-//     r = ((color >> 24) & 0xFF) * factor;
-//     g = ((color >> 16) & 0xFF) * factor;
-//     b = ((color >> 8) & 0xFF) * factor;
-//     return (rgba(r, g, b, 0xFF));
-// }
 
 void	render_walls(int x, t_game *game, mlx_image_t *image, \
 	mlx_texture_t *texture)
@@ -50,7 +34,6 @@ void	render_walls(int x, t_game *game, mlx_image_t *image, \
 			game->ray.texture_y = texture->height - 1;
 		get_pixel_data(texture, &color, \
 			((texture->width * game->ray.texture_y + game->ray.texture_x) * 4));
-		// color.color = get_shaded_pixel(color.color, game->ray.wall_dist);
 		mlx_put_pixel(image, x, y, color.color);
 		texture_pos += step;
 		y++;
@@ -59,6 +42,14 @@ void	render_walls(int x, t_game *game, mlx_image_t *image, \
 
 int	render_floor_ceiling(t_game *game)
 {
+	game->assets.ceiling = mlx_new_image(game->mlx, \
+			game->window_width, game->window_height / 2);
+	game->assets.floor = mlx_new_image(game->mlx, \
+			game->window_width, game->window_height / 2);
+	if (!game->assets.floor || !game->assets.ceiling)
+		return (FALSE);
+	fill_color(game->assets.ceiling, game->map.ceiling.color);
+	fill_color(game->assets.floor, game->map.floor.color);
 	if (mlx_image_to_window(game->mlx, game->assets.ceiling, 0, 0) == FALSE)
 		return (print_error("Failed to put ceiling image to window"));
 	if (mlx_image_to_window(game->mlx, game->assets.floor,
@@ -91,5 +82,4 @@ void	render_world(t_game *game)
 		x++;
 	}
 	mlx_image_to_window(game->mlx, game->assets.world, 0, 0);
-	// mlx_image_to_window(game->mlx, game->assets.minimap_floor, 0, 0);
 }

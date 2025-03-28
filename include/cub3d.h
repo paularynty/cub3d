@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 19:47:43 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/28 10:31:31 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,8 @@ int		init_player(t_player *player, size_t x, size_t y, char dir);
 /******************************************************************************/
 
 t_game	*init_game_data(t_game *game);
-int		init(t_game *game, t_map *map);
+// int		init(t_game *game, t_map *map);
+int		init(t_game *game);
 
 /******************************************************************************/
 /*                                                                            */
@@ -355,11 +356,6 @@ double	get_delta_time(void);
 int32_t	rgba(int32_t r, int32_t g, int32_t b, int32_t a);
 
 void	set_z_index(mlx_image_t *img, int z);
-
-//init_frog.c
-void	display_frog(t_game *game);
-void	animate_frog(t_game *game);
-int		init_frog_frames(t_game *game);
 
 void	set_cursor(t_game *game);
 
