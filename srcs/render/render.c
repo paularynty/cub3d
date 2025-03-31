@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:59:05 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 11:44:28 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 20:41:38 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,5 @@ void	render_world(t_game *game)
 	}
 	set_z_index(game->assets.world, -100);
 	mlx_image_to_window(game->mlx, game->assets.world, 0, 0);
+	mlx_set_instance_depth(game->assets.world->instances, 100);
 }

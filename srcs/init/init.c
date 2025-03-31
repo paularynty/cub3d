@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 13:31:05 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 20:41:30 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,7 @@ int	init(t_game *game, t_map *map)
 	if (init_mlx(game, game->window_w, game->window_h) == FALSE)
 		return (print_error("Failed to initialize MLX"));
 	set_cursor(game);
-	render_floor_ceiling(game);
-	if (init_minimap(game, map) == FALSE)
-		return (FALSE);
-	if (create_animation(game) == FALSE)
+	if (init_frog_frames(game) == FALSE)
 		return (FALSE);
 	return (TRUE);
 }

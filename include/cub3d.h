@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/17 13:28:03 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 20:40:57 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,32 @@
 # include <MLX42.h>
 # include "structs.h"
 
+#include <stdio.h> //DELETE
+
 # define TRUE 1
 # define FALSE -1
 
 # define VERTICAL 0
 # define HORIZONTAL 1
 
-# define MOVE_SPEED 0.02f
-# define ROTATION_SPEED 2.0f
-# define ANIMATION_SPEED 0.1f
+# define MOVE_SPEED 0.04f
+# define ROTATION_SPEED 1.0f
+# define ANIMATION_SPEED 0.3f
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
 # define TILESIZE 32
 
-# define IMG_WALL "textures/minimap/wall.png"
-# define IMG_FLOOR "textures/minimap/floor.png"
-# define IMG_PLAYER "textures/minimap/player.png"
-# define IMG_CURSOR "textures/target_b.png"
-# define IMG_FROG_1 "textures/frog_1.png"
-# define IMG_FROG_2 "textures/frog_2.png"
-# define IMG_FROG_3 "textures/frog_3.png"
-# define IMG_FROG_4 "textures/frog_4.png"
+# define IMG_CURSOR "assets/cursor_target.png"
+# define IMG_FROG_1 "assets/frog/frog_1.png"
+# define IMG_FROG_2 "assets/frog/frog_2.png"
+# define IMG_FROG_3 "assets/frog/frog_3.png"
+# define IMG_FROG_4 "assets/frog/frog_4.png"
+
+//init_frog.c
+void	display_frog(t_game *game);
+void	animate_frog(t_game *game);
+int		init_frog_frames(t_game *game);
 
 /******************************************************************************/
 /*                                                                            */

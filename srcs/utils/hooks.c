@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:06:15 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/17 13:19:39 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 20:41:57 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ void	game_hook(void *param)
 	game->delta_time = get_delta_time();
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game->mlx);
+		return ;
+	}
+	// if (mlx_is_key_down(game->mlx, MLX_KEY_G))
+	animate_frog(game);
 	key_move(game, x, y);
 	key_rotate(game);
 	mouse_hook(game);
