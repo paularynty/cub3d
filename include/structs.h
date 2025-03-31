@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/31 16:44:25 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 17:05:59 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,6 @@
 # define STRUCTS_H
 
 # include "cub3d.h"
-
-typedef struct s_line
-{
-	int			dx;
-	int			dy;
-	int			sx;
-	int			sy;
-	int			err;
-	int			e2;
-	int			x0;
-	int			x1;
-	int			y0;
-	int			y1;
-	uint32_t	color;
-}	t_line;
 
 typedef struct s_assets
 {
@@ -87,24 +72,15 @@ enum	e_direction
 	WEST,
 };
 
-typedef struct s_minimap
-{
-	int			minimap_size;
-	int			view_width;
-	int			view_height;
-	int			x0;
-	int			y0;
-}	t_minimap;
-
 /**
  * A struct for the player information.
  * 
  * @param angle The player angle based on their cardinal direction (NSEW).
- * @param pos_x The horizontal position of the player in the map.
+ * @param pos_x Horizontal position of the player in the map.
  * @param pos_y The vertical position of the player in the map.
- * @param dir_x The horizontal direction where the player is looking in the map.
+ * @param dir_x Horizontal direction where the player is looking in the map.
  * @param dir_y The vertical direction where the player is looking in the map.
- * @param plane_x The horizontal plane to determine the FOV.
+ * @param plane_x Horizontal plane to determine the FOV.
  * @param plane_y The vertical plane to determine the FOV.
  */
 typedef struct s_player
@@ -126,7 +102,8 @@ typedef struct s_player
  * @param ceiling Holds the color of the ceiling.
  * @param textures Holds the textures that will be converted to images.
  * @param width Holds the width of the map.
- * @param height Holds the height of the map.
+ * @param height Holds Height of the map.
+ * @param map_fd File descriptor of the map file.
  */
 typedef struct s_map
 {
@@ -142,31 +119,37 @@ typedef struct s_map
 /**
  * Structure for ray calculations and to hold the length of the ray.
  * 
- * @param dir_x The horizontal direction of the ray.
- * @param dir_y The vertical direction of the ray.
- * @param delta_dist_x The horizontal distance the ray travels from one
- * horizontal coordinate to the next.
- * @param delta_dist_y The vertical distance the ray travels from one
- * vertical coordinate to the next.
- * @param side_dist_x The horizontal distance from the players position
- * to the next horizontal coordinate.
- * @param side_dist_y The vertical distance from the players position
- * to the next vertical coordinate.
- * @param camera_x The horizontal coordinate in camera space.
- * @param plane_x The horizontal plane in camera space.
- * @param plane_y The vertical plane in camera space.
- * @param step_x Holds the value to horizontally increment the ray length
- * in the map.
- * @param step_y Holds the value to vertically increment the ray length
- * in the map.
- * @param map_x The horizontal index for the map.
- * @param map_y The vertical index for the map.
- * @param side A flag to see if the ray hit a horizontal or a vertical
- * side of a wall.
- * @param line_height The height of the line to be drawn.
- * @param draw_start The pixel coordinate from where to start drawing.
- * @param draw_end The pixel coordinate where to stop drawing.
+ * @param dir_x Horizontal direction of the ray.
+ * @param dir_y Vertical direction of the ray.
+ * @param delta_dist_x Horizontal distance the ray travels from \ 
+ * 			one horizontal coordinate to the next.
+ * @param delta_dist_y Vertical distance the ray travels from \ 
+ * 			one vertical coordinate to the next.
+ * @param side_dist_x Horizontal distance from the player's position \
+ * 			to the next horizontal coordinate.
+ * @param side_dist_y Vertical distance from the player's position \
+ * 			to the next vertical coordinate.
+ * @param camera_x Horizontal coordinate in camera space.
+ * @param plane_x Horizontal plane in camera space.
+ * @param plane_y Vertical plane in camera space.
+ * @param step_x Holds the value to horizontally increment \
+ * 			the ray length in the map.
+ * @param step_y Holds the value to vertically increment \
+ * 			the ray length in the map.
+ * @param map_x Horizontal index for the map.
+ * @param map_y Vertical index for the map.
+ * @param side Flag indicating whether the ray hit horizontal/vertical \
+ * 			side of a wall.
+ * @param line_height Height of the line to be drawn.
+ * @param draw_start Pixel coordinate from where to start drawing.
+ * @param draw_end Pixel coordinate where to stop drawing.
+ * @param wall_dist Perpendicular distance from player to wall, hit by the ray.
+ * @param wall_hit_x X-coordinate where the ray hit the wall (for textures).
+ * @param hit TRUE/FALSE flag indicating whether the ray has hit a wall.
+ * @param texture_x X-coordinate of the texture to be applied to the wall.
+ * @param texture_y Y-coordinate of the texture to be applied to the wall.
  */
+
 typedef struct s_ray
 {
 	double		dir_x;
@@ -194,18 +177,26 @@ typedef struct s_ray
 }	t_ray;
 
 /**
- * The main structure that holds everything needed for the game.
+ * The main structure holding everything needed for the game.
  * 
- * @param mlx A pointer to the MLX structure.
- * @param minimap A variable for the minimap feature.
- * @param map A variable that holds the map information.
- * @param player A variable that holds the player information.
+ * @param mlx Pointer to the MLX structure for managing graphics.
+ * @param assets Pointer to game assets structure.
+ * @param map Pointer to structure containing map information.
+ * @param player Pointer to structure containing player information.
+ * @param ray Pointer to structure containing raycasting data for rendering.
+ * @param window_width Width of the game window.
+ * @param window_height Height of the game window.
+ * @param mouse_x The current x-coordinate of the mouse, \
+ 				* used for camera rotation with mouse.
+ * @param mouse_toggle TRUE/FALSE flag indicating whether mouse is toggled.
+ * @param delta_time Time difference between frames for smoother rendering.
+ * @param frames Counter tracking the number of rendered frames.
  */
+
 typedef struct s_game
 {
 	mlx_t		*mlx;
 	t_assets	assets;
-	t_minimap	minimap;
 	t_map		map;
 	t_player	player;
 	t_ray		ray;
