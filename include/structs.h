@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/31 17:05:59 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 20:53:08 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,8 @@ typedef struct s_game
 	int			mouse_toggle;
 	double		delta_time;
 	size_t		frames;
+	int			frog_x;
+	int			frog_y;
 }	t_game;
 
 #endif

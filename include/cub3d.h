@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/31 16:33:48 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 21:03:07 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,26 @@
 
 # define MOVE_SPEED 0.04f
 # define ROTATION_SPEED 1.0f
-# define ANIMATION_SPEED 0.1f
+# define ANIMATION_SPEED 0.3f
 
 # define RED "\033[1;91m"
 # define RESET "\033[0;39m"
-# define TILESIZE 32
 
 # define IMG_CURSOR "assets/cursor_target.png"
+# define IMG_FROG_1 "assets/frog/frog_1.png"
+# define IMG_FROG_2 "assets/frog/frog_2.png"
+# define IMG_FROG_3 "assets/frog/frog_3.png"
+# define IMG_FROG_4 "assets/frog/frog_4.png"
+
+/******************************************************************************/
+/*                                                                            */
+/*                              init/init_frog.c                              */
+/*                                                                            */
+/******************************************************************************/
+
+int		display_frog(t_game *game);
+void	animate_frog(t_game *game);
+int		init_frog_frames(t_game *game);
 
 /******************************************************************************/
 /*                                                                            */

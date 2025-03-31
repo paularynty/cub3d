@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/31 16:33:14 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 20:54:11 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ int	init(t_game *game)
 	if (!game->mlx)
 		return (print_error("Failed to initialize MLX"));
 	set_cursor(game);
+	if (init_frog_frames(game) == FALSE)
+		return (FALSE);
 	return (TRUE);
 }

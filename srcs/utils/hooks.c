@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 17:06:15 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/31 14:06:53 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 21:05:26 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,6 @@ void	game_hook(void *param)
 	key_rotate(game);
 	mouse_hook(game);
 	render_world(game);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_G))
+		animate_frog(game);
 }
