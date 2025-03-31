@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 17:57:39 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 16:33:48 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,40 @@
 
 /******************************************************************************/
 /*                                                                            */
-/*                                   INIT.C                                   */
+/*                            init/init_game_data.c                           */
+/*                                                                            */
+/******************************************************************************/
+
+/**
+ * Allocates memory for the game structure and initializes game data.
+ * 
+ * @param[out] game A pointer to the game structure to be initialized.
+ * 
+ * @returns Pointer to the initialized game structure, or NULL in case of error.
+ */
+t_game	*init_game_data(t_game *game);
+
+/******************************************************************************/
+/*                                                                            */
+/*                          init/init_player_data.c                           */
+/*                                                                            */
+/******************************************************************************/
+
+/**
+ * Initializes the player structure with the starting position of the player.
+ * 
+ * @param[out] player Pointer to the player structure.
+ * @param[in] x The horizontal coordinate of the player.
+ * @param[in] y The vertical coordinate of the player.
+ * @param[in] dir The direction where the player is looking at.
+ * 
+ * @returns 1 upon successful initialization, -1 in case of error.
+ */
+int		init_player(t_player *player, size_t x, size_t y, char dir);
+
+/******************************************************************************/
+/*                                                                            */
+/*                                init/init.c                                 */
 /*                                                                            */
 /******************************************************************************/
 
@@ -47,83 +80,77 @@
  * Checks that the file given to the program as an argument is a valid and 
  * existing file with the .cub file extension.
  * 
- * @param[in] file A pointer to the file path.
+ * @param[in] game Pointer to the game struct.
+ * @param[in] file Pointer to the file path.
  * @returns file descriptor of the file.
 */
-// int32_t	validate_file(int argc, char *file, int32_t map_fd);
-// int32_t	validate_file(int argc, char *file);
-// int	validate_file(char *file);
-int	validate_file(t_game *game, char *file);
-
-/******************************************************************************/
-/*                                                                            */
-/*                             INIT_PLAYER_DATA.C                             */
-/*                                                                            */
-/******************************************************************************/
+int		validate_file(t_game *game, char *file);
 
 /**
- * Initializes the player structure with the starting position of the player.
+ * Loads and sets a custom cursor for the game.
  * 
- * @param[out] player A pointer to the player structure.
- * @param[in] x The horizontal coordinate of the player.
- * @param[in] y The vertical coordinate of the player.
- * @param[in] dir The direction where the player is looking at.
- * 
- * @returns 1 if the initialization was successful, -1 in case of an error.
+ * @param[out] game Pointer to the game structure.
  */
-int	init_player(t_player *player, size_t x, size_t y, char dir);
+void	set_cursor(t_game *game);
+
+/**
+ * Initializes the game engine and sets up initial game elements.
+ * 
+ * @param[out] game Pointer to the game structure.
+ * 
+ * @returns 1 upon successful initialization, -1 in case of an error.
+ */
+int		init(t_game *game);
 
 /******************************************************************************/
 /*                                                                            */
-/*                                 INIT_GAME.C                                */
-/*                                                                            */
-/******************************************************************************/
-
-t_game		*init_game_data(t_game *game);
-int	init(t_game *game);
-
-/******************************************************************************/
-/*                                                                            */
-/*                                  MINIMAP.C                                 */
+/*                            parsing/create_map.c                            */
 /*                                                                            */
 /******************************************************************************/
 
 /**
- * Initializes minimap data and draws the minimap on the game screen.
- * Params to be added.
-*/
-int	init_minimap(t_game *game, t_map *map);
+ * Parses the map file and stores the map values needed for the game.
+ * 
+ * @param[out] map The `t_map` structure pointer to store the values in.
+ * @param[in] map_file The map file descriptor.
+ * @param[in] filename The path to the map file.
+ * 
+ * @returns 1 upon success, -1 upon error. 
+ */
+int		create_map(t_game *game, char *filename);
+
+/******************************************************************************/
+/*                                                                            */
+/*                         parsing/map_validation.c                           */
+/*                                                                            */
+/******************************************************************************/
+
+/**
+ * Validates the characters in the map.
+ * 
+ * @param[in] line Line from the map file.
+ * 
+ * @returns Length of the line.
+ */
+size_t	validate_map_line(char *line);
 
 /**
- * Handles player movement in the minimap.
- * Params to be added.
-*/
-void	move_player(t_game *game, double x, double y);
-void	rotate_player(t_game *game, bool right, double delta_time);
+ * Validates that the middle part of the map is surrounded by walls
+ * 
+ * @param[in] line Line from the map file.
+ * 
+ * @returns 1 if the line is correct, -1 in case of an error.
+ */
+int		validate_space(char *line);
 
-/******************************************************************************/
-/*                                                                            */
-/*                                 READ_MAP.C                                 */
-/*                                                                            */
-/******************************************************************************/
-int		read_map(t_map *map, char *line, int32_t fd, char *filename);
-
-/******************************************************************************/
-/*                                                                            */
-/*                                 RENDER.C                                   */
-/*                                                                            */
-/******************************************************************************/
-
-//initializes floor and ceiling images in 3D
-//fills images with indicated color (saved from map parsing) with mlx_put_pixel
-//puts images to window, first half will be ceiling, second half floor
-int		render_floor_ceiling(t_game *game);
-
-/******************************************************************************/
-/*                                                                            */
-/*                                   PARSING                                  */
-/*                                                                            */
-/******************************************************************************/
+/**
+ * Checks that the line has only walls.
+ * 
+ * @param[in] line Line from the map file.
+ * 
+ * @returns 1 if the line has only walls, -1 in case of an error.
+ */
+int		check_walls(char *line);
 
 /**
  * Validates the map to ensure that everything was correctly formatted.
@@ -135,74 +162,11 @@ int		render_floor_ceiling(t_game *game);
  */
 int		final_validation(t_game *game);
 
-/**
- * Iterates through the map and assigns the width of the map to `map->width`.
- * 
- * @param[out] map A pointer to the map structure.
- * 
- * @returns 1 if the function `fill_map` succeeds, -1 in case of an error.
- */
-int		get_map_width(t_map *map);
-
-/**
- * Converts the map to a rectangle by adding spaces around the outer part
- * of the map.
- * 
- * @param[out] map A pointer to the map structure that holds the map.
- * 
- * @returns 1 if the conversion was successful, -1 in case of an error.
- */
-int		fill_map(t_map *map);
-
-/**
- * Validates that the middle part of the map is surrounded by walls
- * 
- * @param[in] line The line from the map file.
- * 
- * @returns 1 if the line is correct, -1 in case of an error.
- */
-int		validate_space(char *line);
-
-/**
- * Checks that the line has only walls.
- * 
- * @param[in] line The line from the map file.
- * 
- * @returns 1 if the line has only walls, -1 in case of an error.
- */
-int		check_walls(char *line);
-
-/**
- * Validates the characters in the map.
- * 
- * @param[in] line The line from the map file.
- * 
- * @returns The length of the line.
- */
-size_t	validate_map_line(char *line);
-
-/**
- * Parses the map file and stores the map values needed for the game.
- * 
- * @param[out] map The `t_map` structure pointer to store the values in.
- * @param[in] map_file The map file descriptor.
- * @param[in] filename The path to the map file.
- * 
- * @returns -1 in case of an error, 1 in case of success. 
- */
-int		create_map(t_game *game, char *filename);
-// int		create_map(t_game *game, int32_t map_file, char *filename);
-
-/**
- * Copies the original map content in the given array
- * 
- * @param[in] map The `t_map` structure containing the original map data.
- * @param[out] new_map The array to copy the original content to.
- * @param[in] y The index of the map array to copy from/to.
- * 
- * @returns -1 in case of an error, 1 in case of success.
- */
-int		copy_map_content(t_map *map, char **new_map, size_t y);
+/******************************************************************************/
+/*                                                                            */
+/*                          parsing/parsing_utils.c                           */
+/*                                                                            */
+/******************************************************************************/
 
 /**
  * Frees the static buffer in `get_next_line()`.
@@ -222,7 +186,7 @@ int		free_gnl(char **line, int fd);
 void	split_free(char **arr);
 
 /**
- * Checks if the character given as a parameter is a whitespace character.
+ * Checks if the character given as Parameter is a whitespace character.
  * 
  * @param[in] c The character to check.
  * 
@@ -230,62 +194,136 @@ void	split_free(char **arr);
  * is not.
  */
 int		is_whitespace(int c);
-int		draw_image(t_game *game, mlx_image_t *image, uint32_t x, uint32_t y);
+
+/**
+ * Copies the original map content in the given array
+ * 
+ * @param[in] map The `t_map` structure containing the original map data.
+ * @param[out] new_map The array to copy the original content to.
+ * @param[in] y The index of the map array to copy from/to.
+ * 
+ * @returns -1 in case of an error, 1 in case of success.
+ */
+int		copy_map_content(t_map *map, char **new_map, size_t y);
+
+/**
+ * Iterates through the map and assigns the width of the map to `map->width`.
+ * 
+ * @param[out] map Pointer to the map structure.
+ * 
+ * @returns 1 if `fill_map()` succeeds, -1 in case of an error.
+ */
+int		get_map_width(t_map *map);
 
 /******************************************************************************/
 /*                                                                            */
-/*                                 RAYCASTER                                  */
+/*                             parsing/fill_map.c                             */
 /*                                                                            */
 /******************************************************************************/
 
 /**
- * Initializes the variables found in the `t_ray` structure.
+ * Converts the map to a rectangle by adding spaces around the outer part
+ * of the map.
  * 
- * @param[in] x The horizontal coordinate on the window.
- * @param[out] ray A pointer to the `t_ray` structure.
- * @param[in] player A pointer to the `t_player` structure containing the player
- * location and direction info.
- * @param[in] mlx A pointer to the `mlx_t` structure containing the info about
- * the window.
+ * @param[out] map Pointer to the map structure that holds the map.
+ * 
+ * @returns 1 if the conversion was successful, -1 in case of an error.
  */
-void	init_ray(int x, t_ray *ray, t_player *player, t_game *game);
+int		fill_map(t_map *map);
+
+/**
+ * Reads a map from a file and stores it in the map structure.
+ * 
+ * @param[out] map Pointer to the map structure where the map will be stored.
+ * @param[in] line Pointer to a line buffer used for reading the map.
+ * @param[in] map_file The file descriptor of the map file.
+ * @param[in] filename The name of the file being read.
+ * 
+ * @returns 1 if the map was successfully read, -1 in case of an error.
+ */
+int		read_map(t_map *map, char *line, int32_t fd, char *filename);
+
+/******************************************************************************/
+/*                                                                            */
+/*                            raycaster/init_ray.c                            */
+/*                                                                            */
+/******************************************************************************/
 
 /**
  * Initializes the `side_dist_x` and `side_dist_y` 
  * and also the `step_x` and `step_y` variables found in structure `t_ray`.
  * 
- * @param[out] ray A pointer to the `t_ray` structure.
- * @param[in] player A pointer to the `t_player` structure.
+ * @param[out] ray Pointer to the `t_ray` structure.
+ * @param[in] player Pointer to the `t_player` structure.
  */
 void	init_side_step(t_ray *ray, t_player *player);
 
 /**
+ * Initializes the variables found in the `t_ray` structure.
+ * 
+ * @param[in] x The horizontal coordinate on the window.
+ * @param[out] ray Pointer to the `t_ray` structure.
+ * @param[in] player Pointer to the `t_player` structure containing the player
+ * location and direction info.
+ * @param[in] mlx Pointer to the `mlx_t` structure containing the info about
+ * the window.
+ */
+void	init_ray(int x, t_ray *ray, t_player *player, t_game *game);
+
+/******************************************************************************/
+/*                                                                            */
+/*                            raycaster/raycaster.c                           */
+/*                                                                            */
+/******************************************************************************/
+
+/**
  * Casts a ray using the DDA algorithm until it hits a wall.
  * 
- * @param[out] ray A pointer to the `t_ray` structure.that holds the
+ * @param[out] ray Pointer to the `t_ray` structure.that holds the
  * information about the ray to be casted.
- * @param[in] game A pointer to the `t_game` the map.
+ * @param[in] game Pointer to the `t_game` the map.
  */
 void	cast_ray(t_ray *ray, t_game *game);
 
 /**
  * Initializes the variables needed for the wall drawing.
  * 
- * @param[out] ray A pointer to the `t_ray` structure.
- * @param[in] game A pointer to the `t_game` structure.
+ * @param[out] ray Pointer to the `t_ray` structure.
+ * @param[in] game Pointer to the `t_game` structure.
  */
 void	init_draw(t_ray *ray, t_game *game);
-void	fill_color(mlx_image_t *image, int color);
-void	get_pixel_data(mlx_texture_t *texture, t_color *color, size_t coords);
 
-uint32_t	get_x_coord(t_game *game, mlx_texture_t *texture);
-mlx_image_t	*load_image(mlx_t *mlx, const char *image_path);
+/******************************************************************************/
+/*                                                                            */
+/*                            render/movement.c                               */
+/*                                                                            */
+/******************************************************************************/
 
 /**
- * Draws the walls of the 3D world in the window.
+ * Moves the player to a new position if it is not a wall.
+ * 
+ * @param[out] game Pointer to the game structure.
+ * @param[in] x The new x-coordinate of the player.
+ * @param[in] y The new y-coordinate of the player.
  */
-void	render_walls(int x, t_game *game, mlx_image_t *image, \
-				mlx_texture_t *texture);
+void	move_player(t_game *game, double x, double y);
+
+/**
+ * Rotates the player's direction.
+ * 
+ * @param[out] game Pointer to the game structure.
+ * @param[in] right Boolean indicating direction of rotation \
+ * 					(true for right, false for left).
+ * @param[in] delta_time Time difference since the last frame \
+ * 					to ensure smooth rotation.
+ */
+void	rotate_player(t_game *game, bool right, double delta_time);
+
+/******************************************************************************/
+/*                                                                            */
+/*                             render/render.c                                */
+/*                                                                            */
+/******************************************************************************/
 
 /**
  * Calls necessary functions to cast rays through the map and draw the FOV.
@@ -295,11 +333,56 @@ void	render_walls(int x, t_game *game, mlx_image_t *image, \
  */
 void	render_world(t_game *game);
 
+/**
+ * Renders textured walls to the screen by mapping texture pixels onto the wall.
+ * 
+ * @param[in] x The x-coordinate for rendering the wall.
+ * @param[in] game Pointer to the game structure.
+ * @param[out] image Pointer to the image where the walls will be drawn.
+ * @param[in] texture Pointer to the texture to be applied to the walls.
+ */
+void	render_walls(int x, t_game *game, mlx_image_t *image, \
+				mlx_texture_t *texture);
+
 /******************************************************************************/
 /*                                                                            */
-/*                                   UTILS.C                                  */
+/*                          render/render_utils.c                             */
 /*                                                                            */
 /******************************************************************************/
+
+/**
+ * Fills an image with a specified color.
+ * 
+ * @param[out] image Pointer to the image to be filled.
+ * @param[in] color The color to fill the image with.
+ */
+// void	fill_color(mlx_image_t *image, int color);
+void	fill_color(mlx_image_t *image, int color, uint32_t width, \
+	uint32_t height);
+
+/**
+ * Extracts pixel color data from a texture at the given coordinates.
+ * 
+ * @param[in] texture Pointer to the texture to extract data from.
+ * @param[out] color Pointer to the color structure to store the pixel data.
+ * @param[in] coords The position in the texture's pixel array.
+ */
+void	get_pixel_data(mlx_texture_t *texture, t_color *color, size_t coords);
+
+/******************************************************************************/
+/*                                                                            */
+/*                              utils/cleanup.c                               */
+/*                                                                            */
+/******************************************************************************/
+
+/**
+ * Prints error to the standard error in the terminal. Function returns -1
+ * by default, indicating failure at the function call site.
+ * 
+ * @param[in] msg Pointer to the character array containing the error message.
+ * @returns -1, indicating an error.
+ */
+int		print_error(char *msg);
 
 /**
  * Frees the allocated memory in the map structure.
@@ -307,18 +390,6 @@ void	render_world(t_game *game);
  * @param[out] map the map structure.
  */
 void	free_map(t_map *map);
-int		print_error(char *msg);
-void	game_hook(void *param);
-
-/**
- * A function to handle window resizing.
- * 
- * @param[in] width The new width of the window.
- * @param[in] height The new height of the window.
- * @param[in] param An extra parameter to the function. Will contain
- * a pointer to the `t_game` structure.
- */
-void	resize_window(int32_t width, int32_t height, void *param);
 
 /**
  * Cleans up resources.
@@ -326,14 +397,34 @@ void	resize_window(int32_t width, int32_t height, void *param);
 */
 void	cleanup(t_game *game);
 
-/**
- * A mouse hook used for rotating the player with mouse movement.
- * 
- * @param[in] game A pointer to the `t_game`structure.
-*/
-// void	mouse_hook(t_game *game);
+/******************************************************************************/
+/*                                                                            */
+/*                              utils/hooks.c                                 */
+/*                                                                            */
+/******************************************************************************/
 
-double	get_delta_time(void);
+/**
+ * Handles the game loop, updating the game state and rendering the world.
+ * 
+ * @param[in] param Pointer to the game structure.
+ */
+void	game_hook(void *param);
+
+/**
+ * A function to handle window resizing.
+ * 
+ * @param[in] width The new width of the window.
+ * @param[in] height The new height of the window.
+ * @param[in] param An extrParameter to the function. Will contain
+ * Pointer to the `t_game` structure.
+ */
+void	resize_window(int32_t width, int32_t height, void *param);
+
+/******************************************************************************/
+/*                                                                            */
+/*                              utils/utils.c                                 */
+/*                                                                            */
+/******************************************************************************/
 
 /**
  * Converts RGBA to int value.
@@ -347,8 +438,11 @@ double	get_delta_time(void);
 */
 int32_t	rgba(int32_t r, int32_t g, int32_t b, int32_t a);
 
-void	set_z_index(mlx_image_t *img, int z);
-
-void	set_cursor(t_game *game);
+/**
+ * Calculates time difference between current and previous frame.
+ * 
+ * @returns The delta time in seconds.
+ */
+double	get_delta_time(void);
 
 #endif

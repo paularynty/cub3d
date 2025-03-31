@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/28 16:26:54 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 16:44:25 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,6 @@ typedef struct s_line
 
 typedef struct s_assets
 {
-	mlx_image_t		*ceiling;
-	mlx_image_t		*floor;
-	mlx_image_t		*minimap_wall;
-	mlx_image_t		*minimap_player;
-	mlx_image_t		*minimap_floor;
 	mlx_image_t		*world;
 	mlx_texture_t	*frog_texture[4];
 	mlx_image_t		*frog_image[4];

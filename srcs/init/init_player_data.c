@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:40:25 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/14 12:18:04 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 14:44:55 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static void	init_player_direction_ns(t_player *player, char dir)
 	if (dir == 'N')
 	{
 		player->dir_x = 0;
-		player->dir_y = 1;
+		player->dir_y = -1;
 		player->plane_x = 0.66;
 		player->plane_y = 0;
 	}
 	else if (dir == 'S')
 	{
 		player->dir_x = 0;
-		player->dir_y = -1;
+		player->dir_y = 1;
 		player->plane_x = -0.66;
 		player->plane_y = 0;
 	}

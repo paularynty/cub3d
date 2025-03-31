@@ -6,11 +6,26 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 13:59:05 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/28 16:02:41 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 16:33:05 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static uint32_t	get_x_coord(t_game *game, mlx_texture_t *texture)
+{
+	int32_t	texture_x;
+
+	texture_x = game->ray.wall_hit_x * texture->width;
+	if ((game->ray.side == VERTICAL && game->ray.step_x > 0)
+		|| (game->ray.side == HORIZONTAL && game->ray.step_y < 0))
+		texture_x = texture->width - texture_x - 1;
+	if (texture_x < 0)
+		texture_x = 0;
+	else if ((uint32_t)texture_x >= texture->width)
+		texture_x = texture->width - 1;
+	return ((uint32_t)texture_x);
+}
 
 static mlx_texture_t	*determine_texture(t_game *game, mlx_texture_t *texture)
 {
@@ -23,7 +38,7 @@ static mlx_texture_t	*determine_texture(t_game *game, mlx_texture_t *texture)
 	}
 	else
 	{
-		if (game->ray.step_y < 0)
+		if (game->ray.step_y > 0)
 			texture = game->map.textures.south;
 		else
 			texture = game->map.textures.north;
@@ -59,22 +74,12 @@ void	render_walls(int x, t_game *game, mlx_image_t *image, \
 	}
 }
 
-int	render_floor_ceiling(t_game *game)
+static void	render_floor_ceiling(t_game *game)
 {
-	game->assets.ceiling = mlx_new_image(game->mlx, \
-			game->window_width, game->window_height / 2);
-	game->assets.floor = mlx_new_image(game->mlx, \
-			game->window_width, game->window_height / 2);
-	if (!game->assets.floor || !game->assets.ceiling)
-		return (FALSE);
-	fill_color(game->assets.ceiling, game->map.ceiling.color);
-	fill_color(game->assets.floor, game->map.floor.color);
-	if (mlx_image_to_window(game->mlx, game->assets.ceiling, 0, 0) == FALSE)
-		return (print_error("Failed to put ceiling image to window"));
-	if (mlx_image_to_window(game->mlx, game->assets.floor,
-			0, game->window_height / 2) == FALSE)
-		return (print_error("Failed to put floor image to window"));
-	return (TRUE);
+	fill_color(game->assets.world, game->map.floor.color, \
+		game->window_width, game->window_height);
+	fill_color(game->assets.world, game->map.ceiling.color, \
+		game->window_width, game->window_height / 2);
 }
 
 void	render_world(t_game *game)
@@ -90,6 +95,7 @@ void	render_world(t_game *game)
 	if (!game->assets.world)
 		return ;
 	x = 0;
+	render_floor_ceiling(game);
 	while (x < game->assets.world->width)
 	{
 		init_ray(x, &game->ray, &game->player, game);

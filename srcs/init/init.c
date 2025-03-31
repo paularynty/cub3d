@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:08:42 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 18:00:57 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 16:33:14 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ void	set_cursor(t_game *game)
 int	init(t_game *game)
 {
 	game->mlx = mlx_init(game->window_width, game->window_height, \
-		"The Maze Runners", false);
+		"The Maze Runners", true);
 	if (!game->mlx)
 		return (print_error("Failed to initialize MLX"));
 	set_cursor(game);
-	render_floor_ceiling(game);
 	return (TRUE);
 }

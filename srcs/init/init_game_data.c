@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:49 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/28 16:29:16 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 16:49:45 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,6 @@ static void	init_game_variables(t_game *game)
 {
 	game->mlx = NULL;
 	game->assets.world = NULL;
-	game->assets.floor = NULL;
-	game->assets.ceiling = NULL;
-	game->assets.minimap_floor = NULL;
-	game->assets.minimap_wall = NULL;
-	game->assets.minimap_player = NULL;
 	game->assets.frog_image[0] = NULL;
 	game->assets.frog_image[1] = NULL;
 	game->assets.frog_image[2] = NULL;

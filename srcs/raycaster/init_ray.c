@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:20:56 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/15 17:20:13 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 13:18:06 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,6 @@ static void	init_ray_data(t_ray *ray)
 	ray->texture_y = 0;
 }
 
-void	init_ray(int x, t_ray *ray, t_player *player, t_game *game)
-{
-	init_ray_data(ray);
-	ray->camera_x = 2 * x / (double)game->window_width - 1;
-	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
-	ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
-	ray->map_x = (int)player->pos_x;
-	ray->map_y = (int)player->pos_y;
-	ray->delta_dist_x = fabs(1 / ray->dir_x);
-	ray->delta_dist_y = fabs(1 / ray->dir_y);
-}
-
 void	init_side_step(t_ray *ray, t_player *player)
 {
 	if (ray->dir_x < 0)
@@ -69,4 +57,16 @@ void	init_side_step(t_ray *ray, t_player *player)
 		ray->side_dist_y = (ray->map_y + 1.0 - player->pos_y) \
 			* ray->delta_dist_y;
 	}
+}
+
+void	init_ray(int x, t_ray *ray, t_player *player, t_game *game)
+{
+	init_ray_data(ray);
+	ray->camera_x = 2 * x / (double)game->window_width - 1;
+	ray->dir_x = player->dir_x + player->plane_x * ray->camera_x;
+	ray->dir_y = player->dir_y + player->plane_y * ray->camera_x;
+	ray->map_x = (int)player->pos_x;
+	ray->map_y = (int)player->pos_y;
+	ray->delta_dist_x = fabs(1 / ray->dir_x);
+	ray->delta_dist_y = fabs(1 / ray->dir_y);
 }
