@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 19:47:32 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/31 17:05:59 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 21:12:32 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,14 @@
 
 # include "cub3d.h"
 
+/**
+ * A struct to store game assets.
+ * 
+ * @param world Pointer to the 3D world image, redrawn upon each render.
+ */
 typedef struct s_assets
 {
 	mlx_image_t		*world;
-	mlx_texture_t	*frog_texture[4];
-	mlx_image_t		*frog_image[4];
 }	t_assets;
 
 /**

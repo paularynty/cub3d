@@ -6,7 +6,7 @@
 /*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:49 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/31 16:49:45 by prynty           ###   ########.fr       */
+/*   Updated: 2025/03/31 21:10:56 by prynty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,6 @@ static void	init_game_variables(t_game *game)
 {
 	game->mlx = NULL;
 	game->assets.world = NULL;
-	game->assets.frog_image[0] = NULL;
-	game->assets.frog_image[1] = NULL;
-	game->assets.frog_image[2] = NULL;
-	game->assets.frog_image[3] = NULL;
 	game->delta_time = -1;
 	game->frames = 0;
 	init_player_data(&game->player);
