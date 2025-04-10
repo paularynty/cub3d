@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 13:46:11 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 17:50:52 by prynty           ###   ########.fr       */
+/*   Updated: 2025/04/10 17:20:55 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,12 @@ void	cast_ray(t_ray *ray, t_game *game)
 			ray->side_dist_y += ray->delta_dist_y;
 			ray->map_y += ray->step_y;
 		}
-		if (game->map.map[ray->map_y][ray->map_x] > '0')
+		if (ray->map_y < 0)
+			ray->map_y = 0;
+		if (ray->map_x < 0)
+			ray->map_x = 0;
+		if (game->map.map[ray->map_y][ray->map_x] > '0' \
+			|| game->map.map[ray->map_y][ray->map_x] == ' ')
 			handle_wall_collision(game, ray);
 	}
 }

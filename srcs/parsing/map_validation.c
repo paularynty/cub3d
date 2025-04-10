@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:52:59 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 13:06:34 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:50:03 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	validate_space(char *line)
 	len = ft_strlen_nl(line);
 	while (line[i] != '\n' && line[i] != '\0')
 	{
-		if (line[i] == '0')
+		if (line[i] == '0' || line[i] == 'S' || line[i] == 'N' \
+			|| line[i] == 'W' || line[i] == 'E')
 		{
 			if (i == 0 || i == len)
 				return (FALSE);
@@ -105,12 +106,12 @@ int	final_validation(t_game *game)
 		x = -1;
 		while (game->map.map[y][++x] != '\0')
 		{
-			if (game->map.map[y][x] == '0')
+			if (ft_strchr("0NSEW", game->map.map[y][x]) != NULL)
 			{
 				if (check_surroundings(game->map.map, x, y) < 0)
 					return (print_error("Invalid map"));
 			}
-			else if (game->map.map[y][x] == 'N' || game->map.map[y][x] == 'S' \
+			if (game->map.map[y][x] == 'N' || game->map.map[y][x] == 'S' \
 				|| game->map.map[y][x] == 'E' || game->map.map[y][x] == 'W')
 			{
 				if (init_player(&game->player, x, y, game->map.map[y][x]) == -1)

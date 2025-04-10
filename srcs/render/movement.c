@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 09:55:20 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/28 15:53:34 by prynty           ###   ########.fr       */
+/*   Updated: 2025/04/10 17:20:43 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	move_player(t_game *game, double x, double y)
 {
-	if (game->map.map[(int)y][(int)x] == '1')
+	if (game->map.map[(int)y][(int)x] == '1' \
+		|| game->map.map[(int)y][(int)x] == ' ')
 		return ;
 	else if (game->map.map[(int)y][(int)x] == '0')
 		game->map.map[(int)game->player.pos_y][(int)game->player.pos_x] = '0';

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrahmat- < mrahmat-@student.hive.fi >      +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:17:23 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 11:21:33 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:12:20 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,32 @@ int	free_gnl(char **line, int fd)
 	return (FALSE);
 }
 
-void	split_free(char **arr)
-{
-	size_t	i;
-
-	i = 0;
-	while (arr[i] != NULL)
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-	arr = NULL;
-}
-
 int	is_whitespace(int c)
 {
 	if (c == ' ' || c == '\t' || c == '\r' || \
 		c == '\v' || c == '\f' || c == '\n')
 		return (TRUE);
 	return (FALSE);
+}
+
+int	is_valid_color(char *str)
+{
+	size_t	i;
+	int		result;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (ft_isdigit(str[i]) == 0 && is_whitespace(str[i]) == FALSE)
+			return (FALSE);
+		result = ft_atoi(str);
+		if (result > 255 || result < 0)
+			return (FALSE);
+		i++;
+	}
+	if (i == 0 || (i == 1 && str[0] == '\n'))
+		return (FALSE);
+	return (TRUE);
 }
 
 int	copy_map_content(t_map *map, char **new_map, size_t y)

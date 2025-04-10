@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:37 by prynty            #+#    #+#             */
-/*   Updated: 2025/03/31 13:10:08 by prynty           ###   ########.fr       */
+/*   Updated: 2025/04/10 16:00:30 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	check_data(t_game *game)
+{
+	if (game->map.ceiling.color == 0)
+		return (print_error("No ceiling color specified in map file"));
+	if (game->map.floor.color == 0)
+		return (print_error("No floor color specified in map file"));
+	if (game->map.textures.east == NULL)
+		return (print_error("No texture for east wall specified in map file"));
+	if (game->map.textures.west == NULL)
+		return (print_error("No texture for west wall specified in map file"));
+	if (game->map.textures.north == NULL)
+		return (print_error("No texture for north wall specified in map file"));
+	if (game->map.textures.south == NULL)
+		return (print_error("No texture for south wall specified in map file"));
+	return (1);
+}
 
 int	main(int argc, char **argv)
 {
@@ -23,6 +40,11 @@ int	main(int argc, char **argv)
 	if (!game)
 		return (1);
 	if (create_map(game, argv[1]) == FALSE || init(game) == FALSE)
+	{
+		cleanup(game);
+		return (1);
+	}
+	if (check_data(game) < 0)
 	{
 		cleanup(game);
 		return (1);

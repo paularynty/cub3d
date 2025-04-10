@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:02:45 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 17:58:01 by prynty           ###   ########.fr       */
+/*   Updated: 2025/04/10 17:27:09 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,28 @@ static int	add_color(t_color *color, char *line)
 {
 	size_t	start;
 	char	**splitted_line;
+	int		i;
 
+	if (color->color != 0)
+		return (FALSE);
 	start = 0;
 	while (is_whitespace(line[start]) == 1)
 		start++;
 	splitted_line = ft_split(&line[start], ',');
 	if (splitted_line == NULL || splitted_line[0] == NULL)
 		return (print_error("Failed to allocate memory"));
+	i = 0;
+	while (splitted_line[i] != NULL)
+		if (is_valid_color(splitted_line[i++]) == FALSE)
+			return (split_free(splitted_line, 1, "Invalid RGB value"));
+	if (i != 3)
+		return (split_free(splitted_line, 1, "Invalid RGB value"));
 	color->r = ft_atoi(splitted_line[0]);
 	color->g = ft_atoi(splitted_line[1]);
 	color->b = ft_atoi(splitted_line[2]);
 	color->a = 255;
 	color->color = rgba(color->r, color->g, color->b, color->a);
-	split_free(splitted_line);
+	split_free(splitted_line, 0, NULL);
 	return (TRUE);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/31 16:33:48 by prynty           ###   ########.fr       */
+/*   Updated: 2025/04/10 17:25:39 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,10 +180,15 @@ int		free_gnl(char **line, int fd);
 
 /**
  * Frees a NULL terminated array of character strings.
+ * Prints `err_msg` to STDERR if `err` flag is true.
  * 
  * @param[out] arr The array to free.
+ * @param[in] err An error flag.
+ * @param[in] err_msg Error message to print.
+ * 
+ * @returns -1
 */
-void	split_free(char **arr);
+int		split_free(char **arr, int err, char* err_msg);
 
 /**
  * Checks if the character given as Parameter is a whitespace character.
@@ -214,6 +219,15 @@ int		copy_map_content(t_map *map, char **new_map, size_t y);
  * @returns 1 if `fill_map()` succeeds, -1 in case of an error.
  */
 int		get_map_width(t_map *map);
+
+/**
+ * Checks the string containing RGB values.
+ * 
+ * @param[in] str The string to check.
+ * 
+ * @returns 1 if the string is valid, -1 if not.
+ */
+int		is_valid_color(char *str);
 
 /******************************************************************************/
 /*                                                                            */

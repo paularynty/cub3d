@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prynty <prynty@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:14:19 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/03/28 16:22:32 by prynty           ###   ########.fr       */
+/*   Updated: 2025/04/10 17:28:07 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,13 @@ int	fill_map(t_map *map)
 	{
 		new_map[y] = malloc((map->width + 1) * sizeof(char));
 		if (new_map[y] == NULL)
-		{
-			split_free(new_map);
-			return (print_error("Failed to allocate memory"));
-		}
+			return (split_free(new_map, 1, "Failed to allocate memory"));
 		if (copy_map_content(map, new_map, y) == FALSE)
-			split_free(new_map);
+			split_free(new_map, 0, NULL);
 		y++;
 	}
 	new_map[y] = NULL;
-	split_free(map->map);
+	split_free(map->map, 0, NULL);
 	map->map = new_map;
 	return (TRUE);
 }
