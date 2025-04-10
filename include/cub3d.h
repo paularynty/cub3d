@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 11:27:57 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/04/10 17:25:39 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/04/10 18:36:13 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,18 +177,6 @@ int		final_validation(t_game *game);
  * @returns -1 To indicate that there has been an error in the program. 
 */
 int		free_gnl(char **line, int fd);
-
-/**
- * Frees a NULL terminated array of character strings.
- * Prints `err_msg` to STDERR if `err` flag is true.
- * 
- * @param[out] arr The array to free.
- * @param[in] err An error flag.
- * @param[in] err_msg Error message to print.
- * 
- * @returns -1
-*/
-int		split_free(char **arr, int err, char* err_msg);
 
 /**
  * Checks if the character given as Parameter is a whitespace character.
@@ -388,6 +376,18 @@ void	get_pixel_data(mlx_texture_t *texture, t_color *color, size_t coords);
 /*                              utils/cleanup.c                               */
 /*                                                                            */
 /******************************************************************************/
+
+/**
+ * Frees a NULL terminated array of character strings.
+ * Prints `err_msg` to STDERR if `err` flag is true.
+ * 
+ * @param[out] arr The array to free.
+ * @param[in] err An error flag.
+ * @param[in] err_msg Error message to print.
+ * 
+ * @returns -1
+*/
+int		split_free(char **arr, int err, char *err_msg);
 
 /**
  * Prints error to the standard error in the terminal. Function returns -1

@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 21:44:37 by prynty            #+#    #+#             */
-/*   Updated: 2025/04/10 16:00:30 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/04/10 18:18:58 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static int	check_data(t_game *game)
 {
+	if (game->map.map == NULL)
+		return (print_error("No map in map file"));
 	if (game->map.ceiling.color == 0)
 		return (print_error("No ceiling color specified in map file"));
 	if (game->map.floor.color == 0)

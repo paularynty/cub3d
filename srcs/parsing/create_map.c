@@ -6,7 +6,7 @@
 /*   By: mrahmat- <mrahmat-@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 14:02:45 by mrahmat-          #+#    #+#             */
-/*   Updated: 2025/04/10 17:27:09 by mrahmat-         ###   ########.fr       */
+/*   Updated: 2025/04/10 18:46:46 by mrahmat-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	add_texture(mlx_texture_t **texture, char *path)
 
 	start = 0;
 	if (*texture != NULL)
-		return (FALSE);
+		return (print_error("Multiple textures, expected one per NO/SO/EA/WE"));
 	while (is_whitespace(path[start]) == 1)
 		start++;
 	end = start;
@@ -43,7 +43,7 @@ static int	add_color(t_color *color, char *line)
 	int		i;
 
 	if (color->color != 0)
-		return (FALSE);
+		return (print_error("Multiple color values, expected one per F/C"));
 	start = 0;
 	while (is_whitespace(line[start]) == 1)
 		start++;
@@ -105,7 +105,7 @@ int	create_map(t_game *game, char *filename)
 		return (FALSE);
 	line = get_next_line(game->map.map_fd);
 	if (line == NULL)
-		return (FALSE);
+		return (print_error("Empty or misconfigured file"));
 	while (line != NULL)
 	{
 		check = check_line(&game->map, line);
